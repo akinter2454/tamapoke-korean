@@ -1,0 +1,31 @@
+TamaPoke v3.110.3 Reintegrated 검증
+
+PASS  정상 v3.110.1 FullSource의 기존 파일 삭제 0개
+PASS  v3.110.1에 있던 data/digimon/types.json 보존
+PASS  18타입 habitat 원본 전체 보존
+PASS  sunset/bug.png 및 manifest와 일치하는 sunset/rock.png 보존
+PASS  validation/info_sprites/ 전체 보존
+PASS  firmware_ready/ v3.110.1 사전 빌드 자료 보존
+PASS  root/firmware_source TamaPoke.ino 바이트 동일
+PASS  tools/generate_digimon_types.py --check
+PASS  tools/verify_local_includes.py
+PASS  tools/test_info_sprites.py (ASan/UBSan 포함)
+PASS  tools/verify_save_compatibility.py
+PASS  tools/verify_battle_ui_v31020.py 14/14
+PASS  tools/verify_battlehub_training_ui_v31082.py 15/15
+PASS  tools/verify_training_assets_v31084.py 42/42
+PASS  tools/verify_runtime_stability.py
+PASS  tools/verify_habitat_times.py
+PASS  ui_extra_sprites.h 재생성 결과 동일
+PASS  .github/workflows/main.yml YAML parse
+PASS  workflow에 tools/test_info_sprites.py 유지
+PASS  workflow compile step에 --clean + --build-path 적용
+PASS  object-file format 오류 감지 시 clean compile 1회 재시도
+
+변경 범위(v3.110.1 대비):
+- 기존 파일 삭제: 0
+- 신규 파일: 10
+- 변경 파일: 5
+
+주의: 현재 실행 환경에는 arduino-cli/ESP32 core가 없어 ESP32-S3 전체 펌웨어 컴파일 자체는 로컬에서 실행하지 못했습니다.
+`firmware_ready/`의 바이너리는 v3.110.1 기존본이며, v3.110.3 바이너리는 GitHub Actions에서 새로 생성해야 합니다.

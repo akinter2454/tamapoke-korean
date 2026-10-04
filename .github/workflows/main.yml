@@ -429,15 +429,43 @@ jobs:
       - name: Compile current TamaPoke firmware
         run: |
           set -euxo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/build"
+          rm -rf "$GITHUB_WORKSPACE/build"
+          mkdir -p "$GITHUB_WORKSPACE/build/output"
           FQBN='esp32:esp32:esp32s3:CDCOnBoot=cdc,FlashSize=16M,PSRAM=opi,PartitionScheme=app3M_fat9M_16MB'
+          BUILD_PATH="$GITHUB_WORKSPACE/build/work"
+          OUTPUT_DIR="$GITHUB_WORKSPACE/build/output"
           COMPILE_LOG="$GITHUB_WORKSPACE/build/compile.log"
-          if ! arduino-cli compile --fqbn "$FQBN" --output-dir "$GITHUB_WORKSPACE/build" "$GITHUB_WORKSPACE/_sketch/TamaPoke" 2>&1 | tee "$COMPILE_LOG"; then
-            echo '===== REAL COMPILER ERRORS =====' >&2
-            grep -n -C 4 -E '(^|[[:space:]])(fatal )?error:' "$COMPILE_LOG" >&2 || true
-            echo '===== END COMPILER ERRORS =====' >&2
-            exit 1
+
+          compile_once() {
+            rm -rf "$BUILD_PATH"
+            mkdir -p "$BUILD_PATH" "$OUTPUT_DIR"
+            arduino-cli compile --clean --build-path "$BUILD_PATH" --fqbn "$FQBN" \
+              --output-dir "$OUTPUT_DIR" "$GITHUB_WORKSPACE/_sketch/TamaPoke"
+          }
+
+          set +e
+          compile_once 2>&1 | tee "$COMPILE_LOG"
+          RC=${PIPESTATUS[0]}
+          set -e
+
+          if [ "$RC" -ne 0 ] && grep -Eq 'file format not recognized|TamaPoke\.ino\.cpp\.o.*not recognized' "$COMPILE_LOG"; then
+            echo '::warning::Corrupt/unrecognized object detected; retrying one clean compile.'
+            rm -rf "$BUILD_PATH"
+            set +e
+            compile_once 2>&1 | tee -a "$COMPILE_LOG"
+            RC=${PIPESTATUS[0]}
+            set -e
           fi
+
+          if [ "$RC" -ne 0 ]; then
+            echo '===== REAL COMPILER/LINKER ERRORS =====' >&2
+            grep -n -C 4 -E '(^|[[:space:]])(fatal )?error:|file format not recognized|undefined reference|multiple definition' "$COMPILE_LOG" >&2 || true
+            echo '===== END COMPILER/LINKER ERRORS =====' >&2
+            exit "$RC"
+          fi
+
+          # Keep downstream binary collection paths unchanged.
+          cp "$OUTPUT_DIR"/TamaPoke.ino*.bin "$GITHUB_WORKSPACE/build/"
 
       - name: Collect four flash binaries
         run: |

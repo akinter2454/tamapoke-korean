@@ -47,6 +47,7 @@
 #include "personality.h"
 #include "ui_sprites.h"
 #include "ui_info_sprites.h"
+#include "ui_extra_sprites.h"
 #include "ui_info_layout.h"
 #include "digi_thumbnail.h"
 #include "habitat_assets.h"
@@ -55,7 +56,7 @@
 
 // Version del firmware. Subir este numero en cada release (y manifest.json para
 // el instalador web). Se muestra en la pantalla de ajustes y por serie al arrancar.
-#define FW_VERSION "3.110.1"
+#define FW_VERSION "3.110.3"
 // Round 466x466 panel center. These geometry constants must be declared before
 // the text fitting helpers below; GitHub Actions compiles in strict C++ order.
 #define CX 233
@@ -205,6 +206,25 @@ static void drawInfoSprite(const UiInfoSprite *spr,int x,int y) {
       if(idx)canvasFillRectFast(x+col,y+row,run,1,pgm_read_word(spr->palette+idx));
       col+=run;
     }
+  }
+}
+static void drawMissionActionIcon(uint8_t kind, int x, int y) {
+  switch (kind) {
+    case MIS_FEED: drawInfoSprite(&UI_INFO_HUNGRY,x,y); break;
+    case MIS_PLAY: drawInfoSprite(&UI_EXTRA_GAMEPAD,x,y); break;
+    case MIS_TRAIN: drawInfoSprite(&UI_INFO_TRAIN,x,y); break;
+    case MIS_CLEAN: drawInfoSprite(&UI_INFO_BATH,x,y); break;
+    case MIS_BATTLE: drawInfoSprite(&UI_INFO_TYPE_FIGHTING,x+3,y+3); break;
+    case MIS_CARE: drawInfoSprite(&UI_EXTRA_PETTING,x,y); break;
+  }
+}
+static void drawTowerBuffIcon(uint8_t id, int x, int y) {
+  switch (id) {
+    case TBUFF_POWER: drawInfoSprite(&UI_INFO_TYPE_FIGHTING,x+3,y+3); break;
+    case TBUFF_GUARD: drawUiSprite4bpp(&TRAIN_SHIELD_IDLE,x,y,1); break;
+    case TBUFF_SPEED: drawUiSprite4bpp(&TRAIN_BOLT_A,x,y,1); break;
+    case TBUFF_HP: drawUiSprite4bpp(&TRAIN_HEART_IDLE,x,y,1); break;
+    case TBUFF_BALANCE: drawUiSprite4bpp(&EVENT_STAR,x,y,1); break;
   }
 }
 static void drawInfoTypePair(uint8_t t1,uint8_t t2,int cx,int y);
@@ -3945,15 +3965,15 @@ void drawScene(uint8_t type, uint32_t now, bool night, bool fullHeight) {
 
 
 static void drawWeatherIcon(uint8_t w, int x, int y, uint16_t col) {
-  // Tiny procedural icons: no SD asset, no allocation, safe on every boot.
+  // Reuse the five existing weather motifs in one compact pixel-art slot.
   switch (w) {
     case WEATHER_CLEAR:
-      gfx->fillCircle(x + 7, y + 7, 4, col);
+      gfx->fillRect(x+4,y+4,7,7,col);
       gfx->drawLine(x + 7, y, x + 7, y + 2, col); gfx->drawLine(x + 7, y + 12, x + 7, y + 14, col);
       gfx->drawLine(x, y + 7, x + 2, y + 7, col); gfx->drawLine(x + 12, y + 7, x + 14, y + 7, col);
       break;
     case WEATHER_RAIN:
-      gfx->fillCircle(x + 5, y + 6, 4, col); gfx->fillCircle(x + 10, y + 6, 5, col);
+      gfx->fillRect(x+2,y+3,7,7,col); gfx->fillRect(x+7,y+1,7,9,col);
       gfx->fillRect(x + 3, y + 6, 11, 4, col);
       gfx->drawLine(x + 5, y + 11, x + 3, y + 14, col); gfx->drawLine(x + 11, y + 11, x + 9, y + 14, col);
       break;
@@ -3963,10 +3983,10 @@ static void drawWeatherIcon(uint8_t w, int x, int y, uint16_t col) {
       break;
     case WEATHER_SAND:
       gfx->drawLine(x, y + 4, x + 11, y + 4, col); gfx->drawLine(x + 3, y + 8, x + 14, y + 8, col);
-      gfx->drawLine(x, y + 12, x + 9, y + 12, col); gfx->fillCircle(x + 13, y + 12, 1, col);
+      gfx->drawLine(x, y + 12, x + 9, y + 12, col); gfx->fillRect(x+12,y+11,2,2,col);
       break;
     case WEATHER_STORM:
-      gfx->fillCircle(x + 5, y + 5, 4, col); gfx->fillCircle(x + 10, y + 5, 5, col); gfx->fillRect(x + 3, y + 5, 11, 4, col);
+      gfx->fillRect(x+2,y+2,7,6,col); gfx->fillRect(x+7,y,7,8,col); gfx->fillRect(x + 3, y + 5, 11, 4, col);
       gfx->fillTriangle(x + 8, y + 8, x + 4, y + 14, x + 8, y + 13, C565(0xff,0xe4,0x62));
       gfx->fillTriangle(x + 8, y + 11, x + 12, y + 10, x + 7, y + 16, C565(0xff,0xe4,0x62));
       break;
@@ -3977,6 +3997,13 @@ static void drawWeatherIcon(uint8_t w, int x, int y, uint16_t col) {
   }
 }
 
+static void drawWeatherText(uint8_t weather, const char *text, int cx, int y, uint16_t col) {
+  const int textWidth=uiTextWidth(text,1);
+  const int x=cx-(textWidth+24)/2;
+  drawWeatherIcon(weather,x,y-3,col);
+  gfx->setTextColor(col); uiSetTextSize(1); uiSetCursor(x+24,y); gfx->print(text);
+}
+
 static void drawWeatherBadge() {
   uint8_t w = extras.weatherId(pet);
   if (w == WEATHER_FOG || w >= WEATHER_COUNT) w = WEATHER_CLEAR;
@@ -3984,9 +4011,9 @@ static void drawWeatherBadge() {
   uint16_t col = w==WEATHER_RAIN ? C565(0x5f,0x9d,0xca) : w==WEATHER_SNOW ? C565(0xa8,0xcf,0xea)
                  : w==WEATHER_SAND ? C565(0xc5,0x9e,0x4d) : w==WEATHER_STORM ? C565(0x78,0x6e,0xae)
                  : C565(0xe8,0xb9,0x3f);
-  int ww = uiTextWidth(nm, 1) + 42;
+  int ww = uiTextWidth(nm, 1) + 38;
   if (ww < 64) ww = 64;
-  const int x = 22, y = 14;
+  const int x = 126, y = 27;
   uint16_t bg = gNight ? lerp565(UI_BG_NIGHT, col, 3, 16) : lerp565(UI_WHITE, col, 2, 16);
   gfx->fillRoundRect(x, y, ww, 26, 9, bg);
   gfx->drawRoundRect(x, y, ww, 26, 9, col);
@@ -6844,9 +6871,10 @@ void renderBattle() {
   gfx->fillRect(54, 254, 358, 2, BTL_HUD_MUTED);
   btlDrawTopTag();
   if (btlBoss && btlBossPhase2) {
-    const char *ph="2페이즈"; int pw=uiTextWidth(ph,1)+26;
+    const char *ph="2페이즈"; int pw=uiTextWidth(ph,1)+52;
     gfx->fillRoundRect(CX-pw/2,55,pw,22,7,UI_BAR_BAD); gfx->drawRoundRect(CX-pw/2,55,pw,22,7,UI_WHITE);
-    gfx->setTextColor(UI_WHITE);uiSetTextSize(1);uiSetCursor(CX-pw/2+12,61);gfx->print(ph);
+    drawUiSprite4bpp(&ITEM_CROWN,CX-pw/2+3,54,1);
+    gfx->setTextColor(UI_WHITE);uiSetTextSize(1);uiSetCursor(CX-pw/2+32,61);gfx->print(ph);
   }
 
   // Trigger a short Shiny entrance burst whenever the active combatant changes.
@@ -8927,15 +8955,16 @@ void renderBag() {
       const int rx = bagRowBaseX();
       gfx->fillRoundRect(rx, y, BAG_ROW_W, BAG_ROW_H, 11, have ? UI_WHITE : UI_BG_DAY);
       gfx->drawRoundRect(rx, y, BAG_ROW_W, BAG_ROW_H, 11, have ? col : UI_TRACK);
-      drawInfoSprite(UI_INFO_TYPES[t],rx+10,y+15);
+      drawInfoSprite(&UI_EXTRA_TM_DISC,rx+8,y+10);
+      drawInfoSprite(UI_INFO_TYPES[t],rx+26,y+27);
       char nm[64]; snprintf(nm, sizeof(nm), "%s 기술머신", localizedTypeName(t));
       gfx->setTextColor(have ? UI_INK : UI_TRACK);
-      uiDrawLeftFit(nm, bagRowTextX()+24, y + 6, BAG_ROW_W - 110, 2, 1);
+      uiDrawLeftFit(nm, bagRowTextX()+32, y + 6, BAG_ROW_W - 118, 2, 1);
       uint8_t mv = extras.bestTmMove(pet, t);
       char tmEffect[80];
       if (mv) snprintf(tmEffect, sizeof(tmEffect), "가르칠 기술: %s", localizedMoveName(mv));
       else snprintf(tmEffect, sizeof(tmEffect), "현재 배울 수 있는 기술 없음");
-      uiDrawLeftFit(tmEffect, bagRowTextX()+24, y + 28, BAG_ROW_W - 110, 2, 1);
+      uiDrawLeftFit(tmEffect, bagRowTextX()+32, y + 28, BAG_ROW_W - 118, 2, 1);
       char cnt[8]; snprintf(cnt, sizeof(cnt), "x%u", extras.tmCount(t));
       uiSetTextSize(2); uiSetCursor(bagRowQtyX(cnt), y + 13); gfx->print(cnt);
     }
@@ -9042,9 +9071,10 @@ void renderMissions() {
     gfx->fillRoundRect(68, y, 330, 76, 13, col);
     gfx->drawRoundRect(68, y, 330, 76, 13, UI_INK);
     gfx->setTextColor(claimed ? UI_WHITE : UI_INK);
-    uiDrawLeftFit(extras.missionNameKo(extras.missionKind(i)), 86, y + 9, 240, 2, 1);
+    drawMissionActionIcon(extras.missionKind(i),82,y+8);
+    uiDrawLeftFit(extras.missionNameKo(extras.missionKind(i)), 114, y + 9, 206, 2, 1);
     char pg[20]; snprintf(pg, sizeof(pg), "%u/%u", extras.missionProgress(i), extras.missionGoal(i));
-    uiSetCursor(370 - uiTextWidth(pg, 2), y + 9); gfx->print(pg);
+    uiSetTextSize(2); uiSetCursor(382 - uiTextWidth(pg, 2), y + 9); gfx->print(pg);
     char rw[72]; extraRewardLabel(rw, sizeof(rw), extras.missionRewardKind(i), extras.missionRewardId(i, pet), 1);
     char rewardLine[96];
     if (claimed) snprintf(rewardLine, sizeof(rewardLine), "보상 받음");
@@ -9554,11 +9584,14 @@ void adventureTap(int16_t x, int16_t y) {
 void renderExplore() {
   extras.updateExploration(pet);
   uiGamePageBase("타입 탐험", nullptr, C565(0x58,0x9f,0x72));
+  drawUiSprite4bpp(&EVENT_MAP,110,48,1);
   if (extras.explorationReady()) {
     const char *tn = localizedTypeName(extras.explorationType());
     char ttl[48]; snprintf(ttl, sizeof(ttl), "%s 탐험 완료!", tn);
     gfx->setTextColor(typeColor(extras.explorationType())); uiSetTextSize(3);
     uiSetCursor(CX-uiTextHalfWidth(ttl,3), 118); gfx->print(ttl);
+    drawUiSprite4bpp(&EVENT_CHEST,CX-28,163,1);
+    drawUiSprite4bpp(&EVENT_STAR,CX+4,163,1);
     char rw[80]; extraRewardLabel(rw, sizeof(rw), extras.explorationRewardKind(), extras.explorationRewardId(), extras.explorationRewardCount());
     gfx->setTextColor(UI_INK); uiSetTextSize(2); uiSetCursor(CX-uiTextHalfWidth(rw,2), 206); gfx->print(rw);
     gfx->fillRoundRect(104, 274, 258, 66, 16, UI_BAR_OK); gfx->setTextColor(UI_WHITE); uiSetTextSize(3);
@@ -9567,16 +9600,18 @@ void renderExplore() {
     uint8_t t = extras.explorationType();
     char line[64]; snprintf(line, sizeof(line), "%s 지역 탐험 중", localizedTypeName(t));
     gfx->setTextColor(typeColor(t)); uiSetTextSize(3); uiSetCursor(CX-uiTextHalfWidth(line,3), 126); gfx->print(line);
+    drawUiSprite4bpp(&EVENT_MAP,CX-28,171,1);
+    drawInfoSprite(UI_INFO_TYPES[t],CX+7,174);
     char rem[48]; snprintf(rem, sizeof(rem), "남은 시간 약 %u분", extras.explorationMinutesLeft(pet));
     gfx->setTextColor(UI_INK); uiSetTextSize(3); uiSetCursor(CX-uiTextHalfWidth(rem,3), 210); gfx->print(rem);
     char ew[48];snprintf(ew,sizeof(ew),"출발 날씨: %s",extras.weatherNameKo(extras.explorationWeather()));
-    gfx->setTextColor(UI_BAR_OK);uiSetTextSize(1);uiSetCursor(CX-uiTextHalfWidth(ew,1),248);gfx->print(ew);
+    drawWeatherText(extras.explorationWeather(),ew,CX,248,UI_BAR_OK);
     gfx->setTextColor(UI_INK); uiSetTextSize(1);
     uiSetCursor(CX-uiTextHalfWidth("다른 화면을 사용해도 탐험은 계속됩니다",1), 270); gfx->print("다른 화면을 사용해도 탐험은 계속됩니다");
   } else {
     gfx->setTextColor(UI_INK); uiSetTextSize(1);
-    char wx[72]; uint8_t cw=extras.weatherId(pet); snprintf(wx,sizeof(wx),"날씨 %s · 유리한 타입은 탐험 -3분 / 보상↑",extras.weatherNameKo(cw));
-    uiSetCursor(CX-uiTextHalfWidth(wx,1), 76); gfx->print(wx);
+    char wx[72]; uint8_t cw=extras.weatherId(pet); snprintf(wx,sizeof(wx),"날씨 %s · 유리 타입: 시간↓ 보상↑",extras.weatherNameKo(cw));
+    drawWeatherText(cw,wx,CX,76,UI_INK);
     int first = explorePage * 6;
     for (int i = 0; i < 6; i++) {
       int t = first + i; if (t >= TYPE_COUNT) break;
@@ -9612,12 +9647,13 @@ void renderBoss() {
   uint8_t t=extras.bossType(pet);
   uint8_t available=localRosterAvailable();
   uiGamePageBase("3마리 타입 보스", nullptr, typeColor(t));
+  drawInfoSprite(&UI_INFO_HUB_BOSS,110,48);
   gfx->fillRoundRect(72,96,322,92,18,lerp565(typeColor(t),UI_WHITE,6,8)); gfx->drawRoundRect(72,96,322,92,18,typeColor(t));
   if(t<TYPE_COUNT)drawInfoSprite(UI_INFO_TYPES[t],CX-9,91);
   char bn[48]; snprintf(bn,sizeof(bn),"오늘의 보스: %s",localizedTypeName(t)); gfx->setTextColor(typeColor(t)); uiDrawCenteredFit(bn,CX,118,300,3,1);
   gfx->setTextColor(UI_INK); const char* done=extras.bossDefeated(t)?"오늘 타입은 격파 기록 있음":"첫 격파는 타입 기술머신 확정"; uiDrawCenteredFit(done,CX,154,300,1,1);
   char bp[96];snprintf(bp,sizeof(bp),"HP 50%%↓ 2페이즈: %s",bossPhaseEffectKo(t));gfx->setTextColor(UI_BAR_BAD);uiDrawCenteredFit(bp,CX,174,300,1,1);
-  char bw[48];snprintf(bw,sizeof(bw),"현재 날씨: %s",extras.weatherNameKo(extras.weatherId(pet)));gfx->setTextColor(UI_INK);uiDrawCenteredFit(bw,CX,192,300,1,1);
+  char bw[48];snprintf(bw,sizeof(bw),"현재 날씨: %s",extras.weatherNameKo(extras.weatherId(pet)));drawWeatherText(extras.weatherId(pet),bw,CX,194,UI_INK);
   gfx->fillRoundRect(72,214,322,62,12,UI_WHITE);gfx->drawRoundRect(72,214,322,62,12,UI_INK);
   char pool[64];snprintf(pool,sizeof(pool),"육성·파티·박스에서 선택 가능: %u마리",available);gfx->setTextColor(UI_INK);uiDrawCenteredFit(pool,CX,226,300,2,1);
   gfx->setTextColor(UI_INK);uiSetTextSize(1);uiSetCursor(CX-uiTextHalfWidth("도전을 누른 뒤 출전할 3마리를 고르세요",1),254);gfx->print("도전을 누른 뒤 출전할 3마리를 고르세요");
@@ -9683,9 +9719,10 @@ void renderTower() {
       uint8_t id=extras.towerBuffChoice(i); int y=198+i*58;
       gfx->fillRoundRect(76,y,314,50,13,lerp565(typeColor((id*3)%TYPE_COUNT),UI_WHITE,7,8));
       gfx->drawRoundRect(76,y,314,50,13,UI_INK);
-      gfx->setTextColor(UI_INK);uiSetTextSize(2);uiSetCursor(92,y+6);gfx->print(extras.towerBuffNameKo(id));
+      drawTowerBuffIcon(id,88,y+12);
+      gfx->setTextColor(UI_INK);uiDrawLeftFit(extras.towerBuffNameKo(id),122,y+6,250,2,1);
       char ef[64];snprintf(ef,sizeof(ef),"%s  Lv.%u",extras.towerBuffEffectKo(id),extras.towerBuffLevel(id));
-      gfx->setTextColor(UI_INK);uiSetTextSize(1);uiSetCursor(92,y+29);gfx->print(ef);
+      gfx->setTextColor(UI_INK);uiSetTextSize(1);uiSetCursor(122,y+29);gfx->print(ef);
     }
   } else {
     gfx->setTextColor(UI_INK); uiSetTextSize(1);
@@ -9694,7 +9731,8 @@ void renderTower() {
     for(uint8_t i=0;i<TBUFF_COUNT;i++){
       int x=72+i*65; char b[12];snprintf(b,sizeof(b),"%s%u",K[i],extras.towerBuffLevel(i));
       gfx->fillRoundRect(x,190,56,34,9,UI_WHITE);gfx->drawRoundRect(x,190,56,34,9,UI_TRACK);
-      gfx->setTextColor(UI_INK);uiSetTextSize(1);uiSetCursor(x+10,201);gfx->print(b);
+      drawTowerBuffIcon(i,x+3,195);
+      gfx->setTextColor(UI_INK);uiDrawLeftFit(b,x+29,201,25,1,1);
     }
     gfx->fillRoundRect(96, 266, 274, 68, 16, UI_BAR_BAD);
     gfx->drawRoundRect(96, 266, 274, 68, 16, UI_INK);
@@ -9834,10 +9872,11 @@ void renderRival() {
   uint8_t stage=extras.rivalStage(pet); uint8_t ready=bossReadyCount(); uint16_t wait=extras.rivalMinutesLeft(pet);
   uiGamePageBase("라이벌 트레이너", nullptr, C565(0x65,0x7c,0xc5));
   gfx->fillRoundRect(72,84,322,86,18,C565(0xe8,0xee,0xff));gfx->drawRoundRect(72,84,322,86,18,C565(0x65,0x7c,0xc5));
-  gfx->setTextColor(C565(0x45,0x5e,0xb0));uiSetTextSize(3);uiSetCursor(92,98);gfx->print(extras.rivalNameKo());
+  drawInfoSprite(&UI_INFO_HUB_RIVAL,86,97);
+  gfx->setTextColor(C565(0x45,0x5e,0xb0));uiDrawLeftFit(extras.rivalNameKo(),128,98,246,3,1);
   char rec[72];snprintf(rec,sizeof(rec),"내 기록 %u승 %u패 · 성장 단계 %u",extras.rivalWins(),extras.rivalLosses(),stage+1);
   gfx->setTextColor(UI_INK);uiSetTextSize(1);uiSetCursor(92,142);gfx->print(rec);
-  char wl[48];snprintf(wl,sizeof(wl),"날씨: %s",extras.weatherNameKo(extras.weatherId(pet)));gfx->setTextColor(UI_INK);uiSetCursor(314-uiTextWidth(wl,1),158);gfx->print(wl);
+  char wl[48];snprintf(wl,sizeof(wl),"날씨: %s",extras.weatherNameKo(extras.weatherId(pet)));drawWeatherText(extras.weatherId(pet),wl,CX,158,UI_INK);
 
   if (extras.rivalHasSpecial() && !wait) {
     uint8_t sp=extras.rivalSpecial();
