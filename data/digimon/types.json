@@ -1,0 +1,4004 @@
+{
+  "schema": 1,
+  "policy": "explicit_per_species; v3.96.2 keeps all IDs 0-457 stable, replaces sprite-unavailable DMUL roster entries at IDs 360/393/410, and preserves DMUL 16-22 routes/special evolutions",
+  "entries": [
+    {
+      "index": 0,
+      "name": "Botamon",
+      "version": 1,
+      "stage": 0,
+      "type1": "FIRE",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 1,
+      "name": "Koromon",
+      "version": 1,
+      "stage": 1,
+      "type1": "FIRE",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 2,
+      "name": "Agumon",
+      "version": 1,
+      "stage": 2,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-family"
+    },
+    {
+      "index": 3,
+      "name": "Betamon",
+      "version": 1,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 4,
+      "name": "Greymon",
+      "version": 1,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 5,
+      "name": "Tyranomon",
+      "version": 1,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 6,
+      "name": "Devimon",
+      "version": 1,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 7,
+      "name": "Meramon",
+      "version": 1,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 8,
+      "name": "Airdramon",
+      "version": 1,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 9,
+      "name": "Seadramon",
+      "version": 1,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 10,
+      "name": "Numemon",
+      "version": 1,
+      "stage": 3,
+      "type1": "POISON",
+      "type2": "WATER",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 11,
+      "name": "MetalGreymon_Virus",
+      "version": 1,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 12,
+      "name": "Mamemon",
+      "version": 1,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 13,
+      "name": "Monzaemon",
+      "version": 1,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 14,
+      "name": "BlitzGreymon",
+      "version": 1,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 15,
+      "name": "BanchoMamemon",
+      "version": 1,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 16,
+      "name": "ShinMonzaemon",
+      "version": 1,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 17,
+      "name": "Punimon",
+      "version": 2,
+      "stage": 0,
+      "type1": "ICE",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 18,
+      "name": "Tsunomon",
+      "version": 2,
+      "stage": 1,
+      "type1": "ICE",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 19,
+      "name": "Gabumon",
+      "version": 2,
+      "stage": 2,
+      "type1": "ICE",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 20,
+      "name": "Elecmon",
+      "version": 2,
+      "stage": 2,
+      "type1": "ELECTRIC",
+      "type2": "NORMAL",
+      "basis": "explicit-family"
+    },
+    {
+      "index": 21,
+      "name": "Kabuterimon",
+      "version": 2,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 22,
+      "name": "Garurumon",
+      "version": 2,
+      "stage": 3,
+      "type1": "ICE",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 23,
+      "name": "Angemon",
+      "version": 2,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 24,
+      "name": "Yukidarumon",
+      "version": 2,
+      "stage": 3,
+      "type1": "ICE",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 25,
+      "name": "Birdramon",
+      "version": 2,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "FLYING",
+      "basis": "legacy-theme"
+    },
+    {
+      "index": 26,
+      "name": "Whamon",
+      "version": 2,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 27,
+      "name": "Vegimon",
+      "version": 2,
+      "stage": 3,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 28,
+      "name": "SkullGreymon",
+      "version": 2,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 29,
+      "name": "MetalMamemon",
+      "version": 2,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 30,
+      "name": "Vademon",
+      "version": 2,
+      "stage": 4,
+      "type1": "PSYCHIC",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 31,
+      "name": "SkullMammon",
+      "version": 2,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "GROUND",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 32,
+      "name": "CresGarurumon",
+      "version": 2,
+      "stage": 5,
+      "type1": "ICE",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 33,
+      "name": "Ebemon",
+      "version": 2,
+      "stage": 5,
+      "type1": "PSYCHIC",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 34,
+      "name": "Poyomon",
+      "version": 3,
+      "stage": 0,
+      "type1": "WATER",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 35,
+      "name": "Tokomon",
+      "version": 3,
+      "stage": 1,
+      "type1": "FAIRY",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 36,
+      "name": "Patamon",
+      "version": 3,
+      "stage": 2,
+      "type1": "FLYING",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 37,
+      "name": "Kunemon",
+      "version": 3,
+      "stage": 2,
+      "type1": "BUG",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 38,
+      "name": "Unimon",
+      "version": 3,
+      "stage": 3,
+      "type1": "FLYING",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 39,
+      "name": "Centalmon",
+      "version": 3,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "GROUND",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 40,
+      "name": "Ogremon",
+      "version": 3,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 41,
+      "name": "Bakemon",
+      "version": 3,
+      "stage": 3,
+      "type1": "GHOST",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 42,
+      "name": "Shellmon",
+      "version": 3,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ROCK",
+      "basis": "explicit-family"
+    },
+    {
+      "index": 43,
+      "name": "Drimogemon",
+      "version": 3,
+      "stage": 3,
+      "type1": "GROUND",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 44,
+      "name": "Scumon",
+      "version": 3,
+      "stage": 3,
+      "type1": "POISON",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 45,
+      "name": "Andromon",
+      "version": 3,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 46,
+      "name": "Giromon",
+      "version": 3,
+      "stage": 4,
+      "type1": "ELECTRIC",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 47,
+      "name": "Etemon",
+      "version": 3,
+      "stage": 4,
+      "type1": "NORMAL",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 48,
+      "name": "Chimairamon",
+      "version": 3,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 49,
+      "name": "HiAndromon",
+      "version": 3,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 50,
+      "name": "Gokumon",
+      "version": 3,
+      "stage": 5,
+      "type1": "ROCK",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 51,
+      "name": "BanchoLeomon",
+      "version": 3,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 52,
+      "name": "Yuramon",
+      "version": 4,
+      "stage": 0,
+      "type1": "GRASS",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 53,
+      "name": "Tanemon",
+      "version": 4,
+      "stage": 1,
+      "type1": "GRASS",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 54,
+      "name": "Piyomon",
+      "version": 4,
+      "stage": 2,
+      "type1": "FLYING",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 55,
+      "name": "Palmon",
+      "version": 4,
+      "stage": 2,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 56,
+      "name": "Monochromon",
+      "version": 4,
+      "stage": 3,
+      "type1": "GROUND",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 57,
+      "name": "Cockatrimon",
+      "version": 4,
+      "stage": 3,
+      "type1": "FLYING",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 58,
+      "name": "Leomon",
+      "version": 4,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 59,
+      "name": "Kuwagamon",
+      "version": 4,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 60,
+      "name": "Coelamon",
+      "version": 4,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 61,
+      "name": "Mojyamon",
+      "version": 4,
+      "stage": 3,
+      "type1": "ICE",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 62,
+      "name": "Nanimon",
+      "version": 4,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 63,
+      "name": "Megadramon",
+      "version": 4,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 64,
+      "name": "Piccolomon",
+      "version": 4,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "PSYCHIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 65,
+      "name": "Digitamamon",
+      "version": 4,
+      "stage": 4,
+      "type1": "PSYCHIC",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 66,
+      "name": "Darkdramon",
+      "version": 4,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 67,
+      "name": "BloomLordmon",
+      "version": 4,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 68,
+      "name": "Gankoomon",
+      "version": 4,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 69,
+      "name": "Zurumon",
+      "version": 5,
+      "stage": 0,
+      "type1": "DARK",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 70,
+      "name": "Pagumon",
+      "version": 5,
+      "stage": 1,
+      "type1": "DARK",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 71,
+      "name": "Gazimon",
+      "version": 5,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 72,
+      "name": "Gizamon",
+      "version": 5,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 73,
+      "name": "DarkTyranomon",
+      "version": 5,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 74,
+      "name": "Cyclomon",
+      "version": 5,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 75,
+      "name": "Devidramon",
+      "version": 5,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 76,
+      "name": "Tuskmon",
+      "version": 5,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 77,
+      "name": "Flymon",
+      "version": 5,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 78,
+      "name": "Deltamon",
+      "version": 5,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 79,
+      "name": "Raremon",
+      "version": 5,
+      "stage": 3,
+      "type1": "POISON",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 80,
+      "name": "MetalTyranomon",
+      "version": 5,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 81,
+      "name": "Nanomon",
+      "version": 5,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "PSYCHIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 82,
+      "name": "ExTyranomon",
+      "version": 5,
+      "stage": 4,
+      "type1": "NORMAL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 83,
+      "name": "Mugendramon",
+      "version": 5,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 84,
+      "name": "Raidenmon",
+      "version": 5,
+      "stage": 5,
+      "type1": "ELECTRIC",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 85,
+      "name": "Gaioumon",
+      "version": 5,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 86,
+      "name": "Omnimon Alter-S",
+      "version": 0,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 87,
+      "name": "Chaosmon",
+      "version": 0,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 88,
+      "name": "Millenniummon",
+      "version": 0,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 89,
+      "name": "Chaosdramon",
+      "version": 0,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 90,
+      "name": "Bubbmon",
+      "version": 11,
+      "stage": 0,
+      "type1": "FAIRY",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 91,
+      "name": "Mochimon",
+      "version": 11,
+      "stage": 1,
+      "type1": "GRASS",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 92,
+      "name": "Angoramon",
+      "version": 11,
+      "stage": 2,
+      "type1": "NORMAL",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 93,
+      "name": "Tentomon",
+      "version": 11,
+      "stage": 2,
+      "type1": "BUG",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 94,
+      "name": "Gottsumon",
+      "version": 11,
+      "stage": 2,
+      "type1": "GROUND",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 95,
+      "name": "Otamamon",
+      "version": 11,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 96,
+      "name": "SymbareAngoramon",
+      "version": 11,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 97,
+      "name": "Kabuterimon",
+      "version": 11,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 98,
+      "name": "Tortamon",
+      "version": 11,
+      "stage": 3,
+      "type1": "GROUND",
+      "type2": "WATER",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 99,
+      "name": "Tailmon",
+      "version": 11,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 100,
+      "name": "Monochromon",
+      "version": 11,
+      "stage": 3,
+      "type1": "GROUND",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 101,
+      "name": "Starmon",
+      "version": 11,
+      "stage": 3,
+      "type1": "ROCK",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 102,
+      "name": "Gekomon",
+      "version": 11,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 103,
+      "name": "Kuwagamon",
+      "version": 11,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 104,
+      "name": "Lamortmon",
+      "version": 11,
+      "stage": 4,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 105,
+      "name": "AtlurKabuterimonBlue",
+      "version": 11,
+      "stage": 4,
+      "type1": "BUG",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 106,
+      "name": "Jyagamon",
+      "version": 11,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "GROUND",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 107,
+      "name": "Angewomon",
+      "version": 11,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 108,
+      "name": "Triceramon",
+      "version": 11,
+      "stage": 4,
+      "type1": "GROUND",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 109,
+      "name": "Piccolomon",
+      "version": 11,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "PSYCHIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 110,
+      "name": "TonosamaGekomon",
+      "version": 11,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 111,
+      "name": "Okuwamon",
+      "version": 11,
+      "stage": 4,
+      "type1": "BUG",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 112,
+      "name": "Diarbbitmon",
+      "version": 11,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 113,
+      "name": "HerakleKabuterimon",
+      "version": 11,
+      "stage": 5,
+      "type1": "BUG",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 114,
+      "name": "Blastmon",
+      "version": 11,
+      "stage": 5,
+      "type1": "ROCK",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 115,
+      "name": "Holydramon",
+      "version": 11,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 116,
+      "name": "SaberLeomon",
+      "version": 11,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 117,
+      "name": "ElDoradimon",
+      "version": 11,
+      "stage": 5,
+      "type1": "GROUND",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 118,
+      "name": "MetalEtemon",
+      "version": 11,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 119,
+      "name": "GranKuwagamon",
+      "version": 11,
+      "stage": 5,
+      "type1": "BUG",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 120,
+      "name": "Mastemon",
+      "version": 11,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 121,
+      "name": "Tlalocmon",
+      "version": 11,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "GROUND",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 122,
+      "name": "Pitchmon",
+      "version": 12,
+      "stage": 0,
+      "type1": "WATER",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 123,
+      "name": "Pukamon",
+      "version": 12,
+      "stage": 1,
+      "type1": "WATER",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 124,
+      "name": "Gomamon",
+      "version": 12,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 125,
+      "name": "Jellymon",
+      "version": 12,
+      "stage": 2,
+      "type1": "ELECTRIC",
+      "type2": "WATER",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 126,
+      "name": "Ganimon",
+      "version": 12,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 127,
+      "name": "Shakomon",
+      "version": 12,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 128,
+      "name": "Rukamon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 129,
+      "name": "Ikkakumon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-family"
+    },
+    {
+      "index": 130,
+      "name": "TeslaJellymon",
+      "version": 12,
+      "stage": 3,
+      "type1": "ELECTRIC",
+      "type2": "WATER",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 131,
+      "name": "Seadramon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 132,
+      "name": "Coelamon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 133,
+      "name": "Ebidramon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 134,
+      "name": "Octmon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 135,
+      "name": "Gesomon",
+      "version": 12,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 136,
+      "name": "WhamonPerfect",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 137,
+      "name": "Zudomon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 138,
+      "name": "Thetismon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 139,
+      "name": "MegaSeadramon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 140,
+      "name": "Anomalocarimon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "BUG",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 141,
+      "name": "Hangyomon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 142,
+      "name": "Dagomon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 143,
+      "name": "MarinDevimon",
+      "version": 12,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 144,
+      "name": "MarinAngemon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 145,
+      "name": "Amphimon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 146,
+      "name": "Plesiomon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 147,
+      "name": "JumboGamemon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "ROCK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 148,
+      "name": "MetalSeadramon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 149,
+      "name": "Cthyllamon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 150,
+      "name": "Pukumon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 151,
+      "name": "Vikemon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 152,
+      "name": "Aegisdramon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 153,
+      "name": "Mitamamon",
+      "version": 12,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 154,
+      "name": "Mokumon",
+      "version": 13,
+      "stage": 0,
+      "type1": "GHOST",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 155,
+      "name": "PetitMeramon",
+      "version": 13,
+      "stage": 1,
+      "type1": "FIRE",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 156,
+      "name": "Bakumon",
+      "version": 13,
+      "stage": 2,
+      "type1": "PSYCHIC",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 157,
+      "name": "Candmon",
+      "version": 13,
+      "stage": 2,
+      "type1": "GHOST",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 158,
+      "name": "Loogamon",
+      "version": 13,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 159,
+      "name": "PicoDevimon",
+      "version": 13,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 160,
+      "name": "Hanumon",
+      "version": 13,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 161,
+      "name": "Garurumon",
+      "version": 13,
+      "stage": 3,
+      "type1": "ICE",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 162,
+      "name": "Meramon",
+      "version": 13,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 163,
+      "name": "Wizarmon",
+      "version": 13,
+      "stage": 3,
+      "type1": "PSYCHIC",
+      "type2": "GHOST",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 164,
+      "name": "Devimon",
+      "version": 13,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 165,
+      "name": "Bakemon",
+      "version": 13,
+      "stage": 3,
+      "type1": "GHOST",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 166,
+      "name": "Dokugumon",
+      "version": 13,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 167,
+      "name": "Loogarmon",
+      "version": 13,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 168,
+      "name": "Mammon",
+      "version": 13,
+      "stage": 4,
+      "type1": "GROUND",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 169,
+      "name": "WereGarurumon",
+      "version": 13,
+      "stage": 4,
+      "type1": "ICE",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 170,
+      "name": "DeathMeramon",
+      "version": 13,
+      "stage": 4,
+      "type1": "FIRE",
+      "type2": "GHOST",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 171,
+      "name": "Pumpmon",
+      "version": 13,
+      "stage": 4,
+      "type1": "GHOST",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 172,
+      "name": "Soloogarmon",
+      "version": 13,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 173,
+      "name": "Vamdemon",
+      "version": 13,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "GHOST",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 174,
+      "name": "Fantomon",
+      "version": 13,
+      "stage": 4,
+      "type1": "GHOST",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 175,
+      "name": "LadyDevimon",
+      "version": 13,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 176,
+      "name": "SkullMammon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "GROUND",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 177,
+      "name": "Anubimon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "GHOST",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 178,
+      "name": "Boltmon",
+      "version": 13,
+      "stage": 5,
+      "type1": "ELECTRIC",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 179,
+      "name": "NoblePumpmon",
+      "version": 13,
+      "stage": 5,
+      "type1": "GHOST",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 180,
+      "name": "Fenriloogamon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 181,
+      "name": "Callismon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 182,
+      "name": "Piemon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "PSYCHIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 183,
+      "name": "Demon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 184,
+      "name": "Mastemon",
+      "version": 13,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 185,
+      "name": "Voltobautamon",
+      "version": 13,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "PSYCHIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 186,
+      "name": "Nyokimon",
+      "version": 14,
+      "stage": 0,
+      "type1": "GRASS",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 187,
+      "name": "Pyocomon",
+      "version": 14,
+      "stage": 1,
+      "type1": "FLYING",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 188,
+      "name": "Piyomon",
+      "version": 14,
+      "stage": 2,
+      "type1": "FLYING",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 189,
+      "name": "Pteromon",
+      "version": 14,
+      "stage": 2,
+      "type1": "FLYING",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 190,
+      "name": "Palmon",
+      "version": 14,
+      "stage": 2,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 191,
+      "name": "Floramon",
+      "version": 14,
+      "stage": 2,
+      "type1": "GRASS",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 192,
+      "name": "Mushmon",
+      "version": 14,
+      "stage": 2,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 193,
+      "name": "Vdramon",
+      "version": 14,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 194,
+      "name": "Birdramon",
+      "version": 14,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "FLYING",
+      "basis": "legacy-theme"
+    },
+    {
+      "index": 195,
+      "name": "Galemon",
+      "version": 14,
+      "stage": 3,
+      "type1": "FLYING",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 196,
+      "name": "Togemon",
+      "version": 14,
+      "stage": 3,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "legacy-theme"
+    },
+    {
+      "index": 197,
+      "name": "Kiwimon",
+      "version": 14,
+      "stage": 3,
+      "type1": "FLYING",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 198,
+      "name": "RedVegimon",
+      "version": 14,
+      "stage": 3,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 199,
+      "name": "Woodmon",
+      "version": 14,
+      "stage": 3,
+      "type1": "GRASS",
+      "type2": "GHOST",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 200,
+      "name": "AeroVdramon",
+      "version": 14,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 201,
+      "name": "Garudamon",
+      "version": 14,
+      "stage": 4,
+      "type1": "FIRE",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 202,
+      "name": "GrandGalemon",
+      "version": 14,
+      "stage": 4,
+      "type1": "FLYING",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 203,
+      "name": "Lilimon",
+      "version": 14,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 204,
+      "name": "Blossomon",
+      "version": 14,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 205,
+      "name": "Delumon",
+      "version": 14,
+      "stage": 4,
+      "type1": "FLYING",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 206,
+      "name": "Jyureimon",
+      "version": 14,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "GHOST",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 207,
+      "name": "Gerbemon",
+      "version": 14,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 208,
+      "name": "UlforceVdramon",
+      "version": 14,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 209,
+      "name": "Hououmon",
+      "version": 14,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 210,
+      "name": "Zephagamon",
+      "version": 14,
+      "stage": 5,
+      "type1": "FLYING",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 211,
+      "name": "Griffomon",
+      "version": 14,
+      "stage": 5,
+      "type1": "FLYING",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 212,
+      "name": "Rosemon",
+      "version": 14,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 213,
+      "name": "Rafflesimon",
+      "version": 14,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 214,
+      "name": "Hydramon",
+      "version": 14,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 215,
+      "name": "Pinochimon",
+      "version": 14,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 216,
+      "name": "Mitamamon",
+      "version": 14,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 217,
+      "name": "Cernumon",
+      "version": 14,
+      "stage": 5,
+      "type1": "FLYING",
+      "type2": "GRASS",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 218,
+      "name": "Choromon",
+      "version": 15,
+      "stage": 0,
+      "type1": "STEEL",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 219,
+      "name": "Caprimon",
+      "version": 15,
+      "stage": 1,
+      "type1": "STEEL",
+      "type2": "NONE",
+      "basis": "single-baby"
+    },
+    {
+      "index": 220,
+      "name": "ToyAgumon",
+      "version": 15,
+      "stage": 2,
+      "type1": "STEEL",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 221,
+      "name": "Kokuwamon",
+      "version": 15,
+      "stage": 2,
+      "type1": "BUG",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 222,
+      "name": "Hagurumon",
+      "version": 15,
+      "stage": 2,
+      "type1": "STEEL",
+      "type2": "ELECTRIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 223,
+      "name": "Commandramon",
+      "version": 15,
+      "stage": 2,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 224,
+      "name": "Greymon",
+      "version": 15,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 225,
+      "name": "Revolmon",
+      "version": 15,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 226,
+      "name": "Clockmon",
+      "version": 15,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "PSYCHIC",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 227,
+      "name": "Thunderballmon",
+      "version": 15,
+      "stage": 3,
+      "type1": "ELECTRIC",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 228,
+      "name": "Tankmon",
+      "version": 15,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "GROUND",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 229,
+      "name": "Guardromon",
+      "version": 15,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 230,
+      "name": "Mechanorimon",
+      "version": 15,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 231,
+      "name": "HiCommandramon",
+      "version": 15,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 232,
+      "name": "MetalGreymon",
+      "version": 15,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 233,
+      "name": "Andromon",
+      "version": 15,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 234,
+      "name": "Cyberdramon",
+      "version": 15,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 235,
+      "name": "BigMamemon",
+      "version": 15,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 236,
+      "name": "Knightmon",
+      "version": 15,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 237,
+      "name": "Megadramon",
+      "version": 15,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 238,
+      "name": "WaruMonzaemon",
+      "version": 15,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 239,
+      "name": "Cargodramon",
+      "version": 15,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 240,
+      "name": "WarGreymon",
+      "version": 15,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 241,
+      "name": "HiAndromon",
+      "version": 15,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 242,
+      "name": "MetalGarurumon",
+      "version": 15,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 243,
+      "name": "Brigadramon",
+      "version": 15,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 244,
+      "name": "ZekeGreymon",
+      "version": 15,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 245,
+      "name": "Mugendramon",
+      "version": 15,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 246,
+      "name": "VenomVamdemon",
+      "version": 15,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "POISON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 247,
+      "name": "Ragnamon",
+      "version": 15,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 248,
+      "name": "Omegamon",
+      "version": 15,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 249,
+      "name": "Chaosdramon",
+      "version": 15,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 250,
+      "name": "YukimiBotamon",
+      "version": 10,
+      "stage": 0,
+      "type1": "ICE",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 251,
+      "name": "Nyaromon",
+      "version": 10,
+      "stage": 1,
+      "type1": "FAIRY",
+      "type2": "NONE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 252,
+      "name": "Agumon",
+      "version": 10,
+      "stage": 2,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-family"
+    },
+    {
+      "index": 253,
+      "name": "Plotmon",
+      "version": 10,
+      "stage": 2,
+      "type1": "FAIRY",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 254,
+      "name": "Gabumon",
+      "version": 10,
+      "stage": 2,
+      "type1": "ICE",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 255,
+      "name": "Gammamon",
+      "version": 10,
+      "stage": 2,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 256,
+      "name": "Greymon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 257,
+      "name": "Leomon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 258,
+      "name": "Tailmon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 259,
+      "name": "Garurumon",
+      "version": 10,
+      "stage": 3,
+      "type1": "ICE",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 260,
+      "name": "Angemon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 261,
+      "name": "BetelGammamon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 262,
+      "name": "Igamon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 263,
+      "name": "KausGammamon",
+      "version": 10,
+      "stage": 3,
+      "type1": "FLYING",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 264,
+      "name": "WezenGammamon",
+      "version": 10,
+      "stage": 3,
+      "type1": "GROUND",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 265,
+      "name": "GulusGammamon",
+      "version": 10,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 266,
+      "name": "MetalGreymon",
+      "version": 10,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 267,
+      "name": "Asuramon",
+      "version": 10,
+      "stage": 4,
+      "type1": "FIGHTING",
+      "type2": "FIRE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 268,
+      "name": "WereGarurumon",
+      "version": 10,
+      "stage": 4,
+      "type1": "ICE",
+      "type2": "FIGHTING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 269,
+      "name": "HolyAngemon",
+      "version": 10,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 270,
+      "name": "Angewomon",
+      "version": 10,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "FLYING",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 271,
+      "name": "Canoweissmon",
+      "version": 10,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 272,
+      "name": "MetalMamemon",
+      "version": 10,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "NORMAL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 273,
+      "name": "Regulusmon",
+      "version": 10,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 274,
+      "name": "WarGreymon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 275,
+      "name": "Siriusmon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 276,
+      "name": "Dominimon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 277,
+      "name": "MetalGarurumon",
+      "version": 10,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "ICE",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 278,
+      "name": "Quantumon",
+      "version": 10,
+      "stage": 5,
+      "type1": "PSYCHIC",
+      "type2": "FAIRY",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 279,
+      "name": "Arcturusmon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 280,
+      "name": "Omegamon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "STEEL",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 281,
+      "name": "Mastemon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 282,
+      "name": "Proximamon",
+      "version": 10,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "DARK",
+      "basis": "explicit-theme"
+    },
+    {
+      "index": 283,
+      "name": "Guilmon",
+      "version": 16,
+      "stage": 2,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 284,
+      "name": "Growmon",
+      "version": 16,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 285,
+      "name": "MegaloGrowlmon",
+      "version": 16,
+      "stage": 4,
+      "type1": "FIRE",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 286,
+      "name": "Dukemon",
+      "version": 16,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 287,
+      "name": "Dukemon Crimson Mode",
+      "version": 16,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "DRAGON",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 288,
+      "name": "Keramon",
+      "version": 17,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "BUG",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 289,
+      "name": "Kurisarimon",
+      "version": 17,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "BUG",
+      "basis": "dmul-db-compatible-family"
+    },
+    {
+      "index": 290,
+      "name": "Infermon",
+      "version": 17,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "BUG",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 291,
+      "name": "Diablomon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "BUG",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 292,
+      "name": "Lunamon",
+      "version": 18,
+      "stage": 2,
+      "type1": "ICE",
+      "type2": "FAIRY",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 293,
+      "name": "Lekismon",
+      "version": 18,
+      "stage": 3,
+      "type1": "ICE",
+      "type2": "FIGHTING",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 294,
+      "name": "Crescemon",
+      "version": 18,
+      "stage": 4,
+      "type1": "ICE",
+      "type2": "FAIRY",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 295,
+      "name": "Dianamon",
+      "version": 18,
+      "stage": 5,
+      "type1": "ICE",
+      "type2": "FAIRY",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 296,
+      "name": "Gaomon",
+      "version": 19,
+      "stage": 2,
+      "type1": "FIGHTING",
+      "type2": "NORMAL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 297,
+      "name": "Gaogamon",
+      "version": 19,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "ICE",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 298,
+      "name": "MachGaogamon",
+      "version": 19,
+      "stage": 4,
+      "type1": "FIGHTING",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 299,
+      "name": "MirageGaogamon",
+      "version": 19,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 300,
+      "name": "Renamon",
+      "version": 20,
+      "stage": 2,
+      "type1": "PSYCHIC",
+      "type2": "FIRE",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 301,
+      "name": "Kyubimon",
+      "version": 20,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "PSYCHIC",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 302,
+      "name": "Taomon",
+      "version": 20,
+      "stage": 4,
+      "type1": "PSYCHIC",
+      "type2": "FAIRY",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 303,
+      "name": "Sakuyamon",
+      "version": 20,
+      "stage": 5,
+      "type1": "PSYCHIC",
+      "type2": "FAIRY",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 304,
+      "name": "Hackmon",
+      "version": 21,
+      "stage": 2,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 305,
+      "name": "BaoHackmon",
+      "version": 21,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 306,
+      "name": "SaviorHackmon",
+      "version": 21,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 307,
+      "name": "Jesmon",
+      "version": 21,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 308,
+      "name": "DORUmon",
+      "version": 16,
+      "stage": 2,
+      "type1": "DRAGON",
+      "type2": "NORMAL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 309,
+      "name": "DORUgamon",
+      "version": 16,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "DARK",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 310,
+      "name": "DORUguremon",
+      "version": 16,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 311,
+      "name": "DORUgoramon",
+      "version": 16,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "DARK",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 312,
+      "name": "Raptordramon",
+      "version": 16,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 313,
+      "name": "Grademon",
+      "version": 16,
+      "stage": 4,
+      "type1": "FIGHTING",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 314,
+      "name": "Alphamon",
+      "version": 16,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 315,
+      "name": "Ryudamon",
+      "version": 16,
+      "stage": 2,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 316,
+      "name": "Ginryumon",
+      "version": 16,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 317,
+      "name": "Hisyaryumon",
+      "version": 16,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 318,
+      "name": "Ouryumon",
+      "version": 16,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 319,
+      "name": "Alphamon Ouryuken",
+      "version": 16,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "dmul-explicit-family"
+    },
+    {
+      "index": 320,
+      "name": "Dodomon",
+      "version": 16,
+      "stage": 0,
+      "type1": "DRAGON",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 321,
+      "name": "Dorimon",
+      "version": 16,
+      "stage": 1,
+      "type1": "DRAGON",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 322,
+      "name": "Gigimon",
+      "version": 16,
+      "stage": 1,
+      "type1": "FIRE",
+      "type2": "NONE",
+      "basis": "dmul-db-compatible-baby"
+    },
+    {
+      "index": 323,
+      "name": "Kuramon",
+      "version": 17,
+      "stage": 0,
+      "type1": "DARK",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 324,
+      "name": "Tsumemon",
+      "version": 17,
+      "stage": 1,
+      "type1": "DARK",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 325,
+      "name": "Pitchmon",
+      "version": 18,
+      "stage": 0,
+      "type1": "WATER",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 326,
+      "name": "Moonmon",
+      "version": 18,
+      "stage": 1,
+      "type1": "ICE",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 327,
+      "name": "Bubbmon",
+      "version": 19,
+      "stage": 0,
+      "type1": "FAIRY",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 328,
+      "name": "Mochimon",
+      "version": 19,
+      "stage": 1,
+      "type1": "GRASS",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 329,
+      "name": "Mokumon",
+      "version": 20,
+      "stage": 0,
+      "type1": "GHOST",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 330,
+      "name": "Pokomon",
+      "version": 20,
+      "stage": 1,
+      "type1": "PSYCHIC",
+      "type2": "NONE",
+      "basis": "dmul-db-compatible-baby"
+    },
+    {
+      "index": 331,
+      "name": "Botamon",
+      "version": 21,
+      "stage": 0,
+      "type1": "FIRE",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 332,
+      "name": "Koromon",
+      "version": 21,
+      "stage": 1,
+      "type1": "FIRE",
+      "type2": "NONE",
+      "basis": "dmul-selected-baby"
+    },
+    {
+      "index": 333,
+      "name": "Dracomon",
+      "version": 16,
+      "stage": 2,
+      "type1": "DRAGON",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 334,
+      "name": "Coredramon Blue",
+      "version": 16,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "WATER"
+    },
+    {
+      "index": 335,
+      "name": "Coredramon Green",
+      "version": 16,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "GRASS"
+    },
+    {
+      "index": 336,
+      "name": "GeoGreymon",
+      "version": 16,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 337,
+      "name": "Wingdramon",
+      "version": 16,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "FLYING"
+    },
+    {
+      "index": 338,
+      "name": "Groundramon",
+      "version": 16,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "GROUND"
+    },
+    {
+      "index": 339,
+      "name": "RizeGreymon",
+      "version": 16,
+      "stage": 4,
+      "type1": "FIRE",
+      "type2": "STEEL"
+    },
+    {
+      "index": 340,
+      "name": "Slayerdramon",
+      "version": 16,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 341,
+      "name": "Breakdramon",
+      "version": 16,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "STEEL"
+    },
+    {
+      "index": 342,
+      "name": "Examon",
+      "version": 16,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "FLYING"
+    },
+    {
+      "index": 343,
+      "name": "Dracmon",
+      "version": 17,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 344,
+      "name": "Ghostmon",
+      "version": 17,
+      "stage": 2,
+      "type1": "GHOST",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 345,
+      "name": "Tsukaimon",
+      "version": 17,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "FLYING"
+    },
+    {
+      "index": 346,
+      "name": "Soulmon",
+      "version": 17,
+      "stage": 3,
+      "type1": "GHOST",
+      "type2": "DARK"
+    },
+    {
+      "index": 347,
+      "name": "IceDevimon",
+      "version": 17,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "ICE"
+    },
+    {
+      "index": 348,
+      "name": "Sangloupmon",
+      "version": 17,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 349,
+      "name": "Fangmon",
+      "version": 17,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 350,
+      "name": "Witchmon",
+      "version": 17,
+      "stage": 3,
+      "type1": "PSYCHIC",
+      "type2": "DARK"
+    },
+    {
+      "index": 351,
+      "name": "Boogiemon",
+      "version": 17,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 352,
+      "name": "Matadormon",
+      "version": 17,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 353,
+      "name": "Astamon",
+      "version": 17,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 354,
+      "name": "NeoDevimon",
+      "version": 17,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FLYING"
+    },
+    {
+      "index": 355,
+      "name": "SkullBaluchimon",
+      "version": 17,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "GROUND"
+    },
+    {
+      "index": 356,
+      "name": "Wisemon",
+      "version": 17,
+      "stage": 4,
+      "type1": "PSYCHIC",
+      "type2": "DARK"
+    },
+    {
+      "index": 357,
+      "name": "Cerberumon",
+      "version": 17,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 358,
+      "name": "GranDracmon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 359,
+      "name": "Barbamon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 360,
+      "name": "Lilithmon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 361,
+      "name": "BeelStarmon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 362,
+      "name": "Murmukusmon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FLYING"
+    },
+    {
+      "index": 363,
+      "name": "Swimmon",
+      "version": 18,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 364,
+      "name": "Kamemon",
+      "version": 18,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "STEEL"
+    },
+    {
+      "index": 365,
+      "name": "Sangomon",
+      "version": 18,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "ROCK"
+    },
+    {
+      "index": 366,
+      "name": "Penmon",
+      "version": 18,
+      "stage": 2,
+      "type1": "WATER",
+      "type2": "ICE"
+    },
+    {
+      "index": 367,
+      "name": "Dolphmon",
+      "version": 18,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 368,
+      "name": "Tylomon",
+      "version": 18,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "DARK"
+    },
+    {
+      "index": 369,
+      "name": "Tobiumon",
+      "version": 18,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "FLYING"
+    },
+    {
+      "index": 370,
+      "name": "Orcamon",
+      "version": 18,
+      "stage": 3,
+      "type1": "WATER",
+      "type2": "ICE"
+    },
+    {
+      "index": 371,
+      "name": "MarinChimairamon",
+      "version": 18,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "DARK"
+    },
+    {
+      "index": 372,
+      "name": "Gusokumon",
+      "version": 18,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "BUG"
+    },
+    {
+      "index": 373,
+      "name": "WaruSeadramon",
+      "version": 18,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "DARK"
+    },
+    {
+      "index": 374,
+      "name": "Divemon",
+      "version": 18,
+      "stage": 4,
+      "type1": "WATER",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 375,
+      "name": "Regalecusmon",
+      "version": 18,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "DARK"
+    },
+    {
+      "index": 376,
+      "name": "Neptunemon",
+      "version": 18,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 377,
+      "name": "Leviamon",
+      "version": 18,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "DARK"
+    },
+    {
+      "index": 378,
+      "name": "AncientMermaimon",
+      "version": 18,
+      "stage": 5,
+      "type1": "WATER",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 379,
+      "name": "Pomumon",
+      "version": 19,
+      "stage": 2,
+      "type1": "GRASS",
+      "type2": "FLYING"
+    },
+    {
+      "index": 380,
+      "name": "Funbeemon",
+      "version": 19,
+      "stage": 2,
+      "type1": "BUG",
+      "type2": "FLYING"
+    },
+    {
+      "index": 381,
+      "name": "Lalamon",
+      "version": 19,
+      "stage": 2,
+      "type1": "GRASS",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 382,
+      "name": "Parasaurmon",
+      "version": 19,
+      "stage": 3,
+      "type1": "GRASS",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 383,
+      "name": "Sunflowmon",
+      "version": 19,
+      "stage": 3,
+      "type1": "GRASS",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 384,
+      "name": "Waspmon",
+      "version": 19,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "FLYING"
+    },
+    {
+      "index": 385,
+      "name": "Ajatarmon",
+      "version": 19,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 386,
+      "name": "CannonBeemon",
+      "version": 19,
+      "stage": 4,
+      "type1": "BUG",
+      "type2": "STEEL"
+    },
+    {
+      "index": 387,
+      "name": "Lilamon",
+      "version": 19,
+      "stage": 4,
+      "type1": "GRASS",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 388,
+      "name": "GrandisKuwagamon",
+      "version": 19,
+      "stage": 5,
+      "type1": "BUG",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 389,
+      "name": "TigerVespamon",
+      "version": 19,
+      "stage": 5,
+      "type1": "BUG",
+      "type2": "STEEL"
+    },
+    {
+      "index": 390,
+      "name": "Lotusmon",
+      "version": 19,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 391,
+      "name": "Bancho Lilimon",
+      "version": 19,
+      "stage": 5,
+      "type1": "GRASS",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 392,
+      "name": "Impmon",
+      "version": 20,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 393,
+      "name": "Gazimon",
+      "version": 20,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 394,
+      "name": "Goblimon",
+      "version": 20,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 395,
+      "name": "Phascomon",
+      "version": 20,
+      "stage": 2,
+      "type1": "DARK",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 396,
+      "name": "Sorcermon",
+      "version": 20,
+      "stage": 3,
+      "type1": "PSYCHIC",
+      "type2": "ICE"
+    },
+    {
+      "index": 397,
+      "name": "BlackTailmon",
+      "version": 20,
+      "stage": 3,
+      "type1": "DARK",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 398,
+      "name": "Musyamon",
+      "version": 20,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "DARK"
+    },
+    {
+      "index": 399,
+      "name": "Fugamon",
+      "version": 20,
+      "stage": 3,
+      "type1": "FIGHTING",
+      "type2": "DARK"
+    },
+    {
+      "index": 400,
+      "name": "Baalmon",
+      "version": 20,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 401,
+      "name": "Bastemon",
+      "version": 20,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 402,
+      "name": "Archnemon",
+      "version": 20,
+      "stage": 4,
+      "type1": "BUG",
+      "type2": "DARK"
+    },
+    {
+      "index": 403,
+      "name": "SkullSatamon",
+      "version": 20,
+      "stage": 4,
+      "type1": "DARK",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 404,
+      "name": "Beelzebumon",
+      "version": 20,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 405,
+      "name": "Gulfmon",
+      "version": 20,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 406,
+      "name": "Plutomon",
+      "version": 20,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 407,
+      "name": "Kuzuhamon",
+      "version": 20,
+      "stage": 5,
+      "type1": "PSYCHIC",
+      "type2": "DARK"
+    },
+    {
+      "index": 408,
+      "name": "Kudamon",
+      "version": 21,
+      "stage": 2,
+      "type1": "FAIRY",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 409,
+      "name": "Lucemon",
+      "version": 21,
+      "stage": 2,
+      "type1": "FAIRY",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 410,
+      "name": "Patamon",
+      "version": 21,
+      "stage": 2,
+      "type1": "FLYING",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 411,
+      "name": "Morphomon",
+      "version": 21,
+      "stage": 2,
+      "type1": "BUG",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 412,
+      "name": "Gladimon",
+      "version": 21,
+      "stage": 3,
+      "type1": "STEEL",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 413,
+      "name": "Reppamon",
+      "version": 21,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 414,
+      "name": "Pidmon",
+      "version": 21,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "FLYING"
+    },
+    {
+      "index": 415,
+      "name": "Darcmon",
+      "version": 21,
+      "stage": 3,
+      "type1": "FAIRY",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 416,
+      "name": "Chirinmon",
+      "version": 21,
+      "stage": 4,
+      "type1": "FAIRY",
+      "type2": "ELECTRIC"
+    },
+    {
+      "index": 417,
+      "name": "Hippogriffomon",
+      "version": 21,
+      "stage": 4,
+      "type1": "FLYING",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 418,
+      "name": "Mistymon",
+      "version": 21,
+      "stage": 4,
+      "type1": "PSYCHIC",
+      "type2": "STEEL"
+    },
+    {
+      "index": 419,
+      "name": "Seraphimon",
+      "version": 21,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "FLYING"
+    },
+    {
+      "index": 420,
+      "name": "Ophanimon",
+      "version": 21,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "FLYING"
+    },
+    {
+      "index": 421,
+      "name": "Duftmon",
+      "version": 21,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 422,
+      "name": "Craniummon",
+      "version": 21,
+      "stage": 5,
+      "type1": "STEEL",
+      "type2": "DARK"
+    },
+    {
+      "index": 423,
+      "name": "Sleipmon",
+      "version": 21,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "ICE"
+    },
+    {
+      "index": 424,
+      "name": "Armagemon",
+      "version": 17,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 425,
+      "name": "GraceNovamon",
+      "version": 0,
+      "stage": 5,
+      "type1": "FAIRY",
+      "type2": "PSYCHIC"
+    },
+    {
+      "index": 426,
+      "name": "Coronamon",
+      "version": 21,
+      "stage": 2,
+      "type1": "FIRE",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 427,
+      "name": "Firamon",
+      "version": 21,
+      "stage": 3,
+      "type1": "FIRE",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 428,
+      "name": "Flaremon",
+      "version": 21,
+      "stage": 4,
+      "type1": "FIRE",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 429,
+      "name": "Apollomon",
+      "version": 21,
+      "stage": 5,
+      "type1": "FIRE",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 430,
+      "name": "MirageGaogamon Burst Mode",
+      "version": 19,
+      "stage": 5,
+      "type1": "FIGHTING",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 431,
+      "name": "Beelzebumon Blast Mode",
+      "version": 20,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FIRE"
+    },
+    {
+      "index": 432,
+      "name": "JESmon GX",
+      "version": 21,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "STEEL"
+    },
+    {
+      "index": 433,
+      "name": "Lucemon Falldown Mode",
+      "version": 21,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 434,
+      "name": "Lucemon Satan Mode",
+      "version": 21,
+      "stage": 5,
+      "type1": "DARK",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 435,
+      "name": "Chibomon",
+      "version": 22,
+      "stage": 0,
+      "type1": "DRAGON",
+      "type2": "NONE"
+    },
+    {
+      "index": 436,
+      "name": "DemiVeemon",
+      "version": 22,
+      "stage": 1,
+      "type1": "DRAGON",
+      "type2": "NONE"
+    },
+    {
+      "index": 437,
+      "name": "Veemon",
+      "version": 22,
+      "stage": 2,
+      "type1": "DRAGON",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 438,
+      "name": "Wormmon",
+      "version": 22,
+      "stage": 2,
+      "type1": "BUG",
+      "type2": "NORMAL"
+    },
+    {
+      "index": 439,
+      "name": "Hawkmon",
+      "version": 22,
+      "stage": 2,
+      "type1": "FLYING",
+      "type2": "FIRE"
+    },
+    {
+      "index": 440,
+      "name": "Armadillomon",
+      "version": 22,
+      "stage": 2,
+      "type1": "GROUND",
+      "type2": "ROCK"
+    },
+    {
+      "index": 441,
+      "name": "ExVeemon",
+      "version": 22,
+      "stage": 3,
+      "type1": "DRAGON",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 442,
+      "name": "Snimon",
+      "version": 22,
+      "stage": 3,
+      "type1": "BUG",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 443,
+      "name": "Aquilamon",
+      "version": 22,
+      "stage": 3,
+      "type1": "FLYING",
+      "type2": "FIRE"
+    },
+    {
+      "index": 444,
+      "name": "Ankylomon",
+      "version": 22,
+      "stage": 3,
+      "type1": "GROUND",
+      "type2": "ROCK"
+    },
+    {
+      "index": 445,
+      "name": "JewelBeemon",
+      "version": 22,
+      "stage": 4,
+      "type1": "BUG",
+      "type2": "STEEL"
+    },
+    {
+      "index": 446,
+      "name": "Yatagaramon",
+      "version": 22,
+      "stage": 4,
+      "type1": "FLYING",
+      "type2": "DARK"
+    },
+    {
+      "index": 447,
+      "name": "Meteormon",
+      "version": 22,
+      "stage": 4,
+      "type1": "ROCK",
+      "type2": "STEEL"
+    },
+    {
+      "index": 448,
+      "name": "Paildramon",
+      "version": 22,
+      "stage": 4,
+      "type1": "DRAGON",
+      "type2": "BUG"
+    },
+    {
+      "index": 449,
+      "name": "Dinobeemon",
+      "version": 22,
+      "stage": 4,
+      "type1": "BUG",
+      "type2": "DRAGON"
+    },
+    {
+      "index": 450,
+      "name": "Silphymon",
+      "version": 22,
+      "stage": 4,
+      "type1": "FLYING",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 451,
+      "name": "Shakkoumon",
+      "version": 22,
+      "stage": 4,
+      "type1": "STEEL",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 452,
+      "name": "Valkyrimon",
+      "version": 22,
+      "stage": 5,
+      "type1": "FLYING",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 453,
+      "name": "Ravmon",
+      "version": 22,
+      "stage": 5,
+      "type1": "FLYING",
+      "type2": "DARK"
+    },
+    {
+      "index": 454,
+      "name": "Imperialdramon Dragon Mode",
+      "version": 22,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "WATER"
+    },
+    {
+      "index": 455,
+      "name": "Imperialdramon Fighter Mode",
+      "version": 22,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "FIGHTING"
+    },
+    {
+      "index": 456,
+      "name": "Imperialdramon Paladin Mode",
+      "version": 22,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "FAIRY"
+    },
+    {
+      "index": 457,
+      "name": "Imperialdramon OmegaX",
+      "version": 22,
+      "stage": 5,
+      "type1": "DRAGON",
+      "type2": "STEEL",
+      "basis": "Imperial final mode; dragon/armored weapon profile"
+    }
+  ]
+}
