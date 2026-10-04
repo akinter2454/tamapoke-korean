@@ -1989,13 +1989,13 @@
     "0888/0001": {
       "form_key": "0001",
       "id": 1534,
-      "label": "Crowned Sword",
+      "label": "Crowned_Sword",
       "natdex": 888
     },
     "0889/0001": {
       "form_key": "0001",
       "id": 1535,
-      "label": "Crowned Shield",
+      "label": "Crowned_Shield",
       "natdex": 889
     },
     "0892/0001": {
