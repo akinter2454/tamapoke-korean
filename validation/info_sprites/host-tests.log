@@ -1,2 +1,0 @@
-PASS: 5106 safe placements, 0 intentionally hidden, 512 masks, 3328 status combinations, 9 live emotes, expiry, read-only state.
-PASS: actual firmware render functions compiled and executed under address/undefined-behavior sanitizers

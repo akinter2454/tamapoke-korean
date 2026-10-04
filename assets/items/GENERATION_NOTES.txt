@@ -1,4 +1,0 @@
-Built-in image_gen used; six independent images, not a sliced atlas.
-Prompt: ONE standalone inventory icon, simple chunky pixel art for a 24x24 sprite, seven opaque colors plus transparency, bold navy outline, flat shading, no tiny detail/text, whole object centered, transparent margin, square canvas, no backdrop/ground shadow/UI/border/collage.
-Subjects: TRAIN orange dumbbell; CARE mint care kit with white heart; IV violet potion with cyan diamond; CROWN gold three-point crown/red jewel; CHARM cyan star on gold loop; SHINY_BERRY pink berry/two green leaves/sparkle.
-Each original is in source/{NAME}.png. tools/generate_item_icons_v31092.py converts it to 24x24 and replaces only six item arrays/palettes in ui_sprites.h.
