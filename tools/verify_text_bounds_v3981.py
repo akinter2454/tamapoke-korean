@@ -17,8 +17,20 @@ ck('mission reward uses bounded renderer', 'uiDrawLeftFit(rewardLine' in s)
 ck('boss availability line bounded', 'uiDrawCenteredFit(pool,CX,226,300,2,1);' in s)
 ck('rival challenge line bounded', 'uiDrawCenteredFit(go,CX,313,230,3,1);' in s)
 # Species fallback must not be copied into Combatant.name in care-slot conversion.
-m=re.search(r'static bool combatantFromCareSlot.*?return true;\n}',s,re.S)
-block=m.group(0) if m else ''
+# v3.109.5 adds an explicit forward declaration and a level-cap parameter, so
+# locate the actual definition instead of starting at the prototype.
+def fn_body(signature):
+    start=s.find(signature)
+    if start<0: return ''
+    brace=s.find('{',start)
+    depth=0
+    for pos in range(brace,len(s)):
+        if s[pos]=='{': depth+=1
+        elif s[pos]=='}':
+            depth-=1
+            if depth==0: return s[brace+1:pos]
+    return ''
+block=fn_body('static bool combatantFromCareSlot(uint8_t slot, Combatant &c, uint32_t nowEpoch, uint8_t capLvl) {')
 ck('care-slot combatant species name stays dex-backed', 'else c.name[0] = 0;' in block and 'creatureName(m.speciesId)' not in block)
 # Prove the concrete problematic names exceed the old 12-byte field and the new path does not depend on it.
 long_names=['미라쥬가오가몬 버스트 모드','베르제브몬 블래스트 모드','황제드라몬 팔라딘 모드','알로라 식스테일']

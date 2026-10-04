@@ -1,0 +1,539 @@
+tools/verify_evolution_levels.py
+evolution audit OK: dex_count=827, direct_max=64, extra_max=0, max_level=100, retire_penalty=0
+
+tools/verify_featured_evolutions.py
+TamaPoke featured evolution-6 audit
+
+NOTE pmd_catalog.json not present; static lock/policy checks only (full check runs after catalog sync in Actions).
+
+featured evolution-6 audit OK
+
+
+tools/verify_base_pack_policy.py
+TamaPoke v3.110.1 BASE PACK POLICY AUDIT
+
+Pinned upstream commit: 7d5a2b3f4a4bee4f107cdae77ad13949dddfc615
+Upstream repository: DylanPDao/TamaPoke
+Base pack files: sprites-kanto/johto/hoenn/sinnoh/unova/kalos/alola.pak
+Audited upstream packing policy: normal sprite = PMDCollab sprite/NNNN root; shiny = sprite/NNNN/0000/0001.
+Installer policy: immutable commit URL only; no mutable main or releases/latest fallback.
+PC full-SD bundle builder downloads and revalidates the same immutable seven base TPAKs before extracting them.
+Browser pre-transfer guard (automatic and manually selected named base packs): only mons/pNNN.bin, mons/psNNN.bin, optional mons/thumbs.bin; exact regional NatDex range; TPK2/TPK3 sprite magic; duplicate names rejected.
+Local catalog base fallback: AltColor/Alternate/Cutscene/Beta, gimmicks, and regional siblings cannot be selected as base art.
+
+Region ranges:
+  Kanto 1-151
+  Johto 152-251
+  Hoenn 252-386
+  Sinnoh 387-493
+  Unova 494-649
+  Kalos 650-721
+  Alola 722-809
+
+RESULT: PASS
+
+tools/verify_release_storage_policy.py
+release storage policy OK: single sprites-current Release, stable asset, no full-ZIP Actions artifact, legacy sprite Releases/artifacts cleaned
+
+tools/verify_full_sd_bundle.py
+full SD sprite bundle self-test OK
+full SD bundle integration audit OK
+
+tools/verify_sd_serial_protocol.py
+SD/WebSerial protocol regression OK: fw=3.110.1 proto=4 framed exact-read + CRC + numbered retry ACK + atomic commit
+
+tools/verify_digimon_behavior_declaration_order.py
+Digimon behavior declaration order OK: prototype < beh global < function definition
+
+tools/verify_runtime_stability.py
+runtime stability audit OK
+ - Battle Tower hub closes only after successful start
+ - boss/tower/rival result exit stops BGM
+ - training screen/touch priority consistent
+ - training NVS writes are batched/deferred and staggered
+ - frame cadence remains 85/100 ms
+
+tools/verify_backup_fields.py
+BACKUP VERIFY OK: 141 SAVE_FIELDS cover 131 literal tamapoke writes
+Portable mirrors cover party/box and all five care slots; A/B journals rebuild after import.
+
+tools/verify_waveshare_battery_v3992.py
+PASS official ADC channels
+PASS direct fuel gauge
+PASS no hand voltage curve
+PASS battery raw voltage
+PASS vbus voltage
+PASS system voltage
+PASS charger status
+PASS diagnostic API
+PASS on-device BAT page
+PASS serial BAT command
+PASS version
+
+tools/verify_save_compatibility.py
+SAVE COMPAT OK: v1 -> v2 forward restore, 117 legacy fields unchanged, 141 current fields
+Backup serial cap=8192 bytes; catalog lock forms=354 max_id=1535 next=1536; Digimon namespace remains >=2000
+Growable research blob uses prefix-safe loading; raw party/box/care mirrors remain migration inputs after IMPORT.
+
+tools/verify_battle_name_v3980.py
+v3.110.1 battle-name regression OK: canonical Korean names stay dex-derived; Combatant.name is nickname-only
+
+tools/verify_care_slots_v3980.py
+v3.110.1 five-care-slot regression OK: UI span=302px, portable care0..care4, A/B c0..c4, v2 guard migration
+
+tools/verify_text_bounds_v3981.py
+PASS: firmware version >= 3.98.1
+PASS: UTF-8 ellipsis safety exists
+PASS: round-screen chord safety exists
+PASS: center fit applies round width
+PASS: left fit ellipsizes at minimum size
+PASS: battle side name uses bounded renderer
+PASS: mission name uses bounded renderer
+PASS: mission reward uses bounded renderer
+PASS: boss availability line bounded
+PASS: rival challenge line bounded
+PASS: care-slot combatant species name stays dex-backed
+PASS: regression corpus contains names longer than old 12-byte field
+PASS: literal centered strings stay inside round-screen chord
+
+tools/verify_ui_geometry_declaration_order_v3991.py
+PASS: firmware is v3.99.1 or newer
+PASS: CX/CY center constants exist
+PASS: round text helpers exist
+PASS: CX/CY are declared before uiRoundTextWidth
+PASS: CX/CY are declared before uiDrawCenteredFit
+PASS: CX/CY are defined exactly once
+PASS: text helpers still use round-panel center constants
+PASS: firmware source mirror matches root
+UI geometry declaration-order v3.99.1 verifier PASS
+
+tools/verify_digimon_shiny_v3990.py
+PASS: firmware version keeps v3.99.0+ Digimon Shiny feature
+PASS: Digimon eggs share the normal rare-variant roll
+PASS: Digimon shiny suppression removed
+PASS: hatching preserves shiny for Digimon
+PASS: Shiny Berry accepts Pokemon and Digimon
+PASS: changing Digimon version cannot erase/reroll shiny state
+PASS: player-wide Digimon shiny discovery registry exists
+PASS: Digimon shiny registry is save-compatible
+PASS: raising/evolving a shiny Digimon records the shiny form
+PASS: algorithmic RGB565 shiny palette exists
+PASS: outline/highlight preservation guard exists
+PASS: home/companion Digimon render uses shiny palette
+PASS: battle Digimon render uses shiny palette
+PASS: profile/evolution/ceremony helper uses shiny palette without breaking silhouettes
+PASS: Digimon dex exposes shiny discovery marker
+PASS: legacy DigiPet stores shiny state
+PASS: legacy DigiPet shiny state persists
+PASS: legacy DigiPet shiny discovery persists through forms
+PASS: Shiny Berry UI describes Digimon support
+PASS: firmware source mirror matches root
+Digimon shiny v3.99.0 verifier PASS
+
+tools/verify_learnset_expansion.py
+legacy learnset audit: <=4 295 -> 28; >=7 after=754; tiny preserved=17
+learnset/stability audit OK
+ - legacy sparse natural learnsets are supplemented from existing legal pools
+ - intentional tiny/gimmick learnsets remain sparse
+ - National Dex 810+ has staged natural-learning support
+ - move queue and UI/battle bounds guards are present
+
+tools/verify_catalog_push_resilience.py
+catalog push resilience OK: generated source push cannot block Pages deployment
+
+tools/verify_firmware_source_fallback_v3953.py
+firmware source fallback v3.110.1 OK
+
+tools/verify_pokedex_hunt_target_ui.py
+Pokedex hunt target UI OK: high-contrast target badge + readable footer
+
+tools/verify_training_rewards.py
+Training reward regression OK: compact IV berries, 5 guaranteed, 30% total x9, 30% current-Shiny berry
+
+tools/verify_battle_hub_v31000.py
+PASS: unified battle hub + compact exploration/treasure sub-hub
+
+tools/verify_nurture_events_v31000.py
+PASS: choice-based random nurture events with persistent cadence and feedback
+
+tools/verify_compact_items_v31000.py
+PASS: compact six-item inventory, one-time migration, selectable training/IV items
+
+tools/verify_wild_encounter_v31010.py
+v3.101.0 wild encounter OK: unregistered-only pools, victory discovery, Digimon Jogress material unlock, SAVE_VERSION 2
+
+tools/verify_battle_ui_v31020.py
+PASS: firmware keeps v3.102.0+ battle UI
+PASS: dark battle HUD palette
+PASS: context/weather top tag
+PASS: battle context includes wild
+PASS: HP bar segmented high contrast
+PASS: HUD uses type accent
+PASS: lower command dock dark
+PASS: fight command accent
+PASS: switch/run commands distinct
+PASS: move cells type accented
+PASS: narration dark panel
+PASS: touch geometry unchanged
+PASS: source mirror exact
+PASS: interactive preview exists
+OK: 14 battle UI checks
+
+tools/verify_sprite_upgrade_v31040.py
+PASS: firmware 3.104.0+
+PASS: 24x24 sprite geometry
+PASS: 4bpp frame size
+PASS: indexed sprite struct
+PASS: 8-shade palettes
+PASS: 4bpp run renderer
+PASS: attack training detail
+PASS: defense training detail
+PASS: speed two-frame animation
+PASS: vitality detailed heart
+PASS: event eight props
+PASS: treasure burst animation
+PASS: three themed treasure chests
+PASS: six item icons
+PASS: egg frames
+PASS: wild PMD preserved
+PASS: save schema unchanged
+PASS: source mirror exact
+PASS: generator present
+PASS: preview present
+PASS: all sprite arrays exactly 288 bytes
+OK: 21 enhanced sprite checks; arrays=46
+
+tools/verify_motion_fx_v31050.py
+PASS: firmware v3.105.0+
+PASS: fx sprites packed
+PASS: training fx state
+PASS: defense fx hookup
+PASS: sack fx hookup
+PASS: speed fx hookup
+PASS: vitality fx hookup
+PASS: training fx renders
+PASS: item use fx state
+PASS: compact edible item fx removed
+PASS: shiny charm item fx retained
+PASS: item fx home
+PASS: item fx bag
+PASS: treasure reveal fx
+PASS: shiny hatch fx
+PASS: shiny battle fx
+PASS: battle session reset
+PASS: save schema unchanged
+PASS: source mirror exact
+PASS: generator present
+PASS: preview present
+PASS: workflow runs verifier
+PASS: all packed arrays 288 bytes
+OK: 23 motion-FX checks; arrays=46
+
+tools/verify_battle_qol_v31060.py
+PASS: firmware v3.106.0+
+PASS: damage popup uses TurnLog damage
+PASS: critical/effect tags
+PASS: fresh wild dex card
+PASS: digimon material confirmation
+PASS: party lock append only
+PASS: lock sanitization
+PASS: legacy lock padding migration
+PASS: lock blocks release
+PASS: box compact filters
+PASS: deposit forces all filter
+PASS: five slot summary
+PASS: summary is view only
+PASS: jogress visual preview
+PASS: jogress keeps touch boxes
+PASS: battle retry helper
+PASS: wild retry only after loss
+PASS: shared result hub exit
+PASS: protection marker portable
+PASS: save schema unchanged
+PASS: source mirror exact
+PASS: workflow runs verifier
+OK: 22 v3.106.0 battle/QoL checks
+
+tools/verify_collection_rarity_fx_v31070.py
+PASS: FW 3.107.0+
+PASS: SAVE_VERSION remains 2
+PASS: wild rarity enum has 3 tiers
+PASS: wild fixed 72/23/5 roll
+PASS: wild tier sampler unregistered only
+PASS: wild tier fallback exists
+PASS: Pokemon rarity uses dex rarity
+PASS: Digimon rarity uses evolution stage
+PASS: rarity labels visible
+PASS: rare discovery feedback
+PASS: player pages add collection page
+PASS: Pokemon dex progress
+PASS: Digimon dex progress
+PASS: Shiny progress
+PASS: wild Jogress material progress
+PASS: count helpers exist
+PASS: collection next goal shown
+PASS: transient evolution kind exists
+PASS: normal evolution marks kind 1
+PASS: Jogress marks kind 2
+PASS: Jogress distinct sound
+PASS: evolution transition overlay exists
+PASS: normal EVOLUTION presentation
+PASS: Jogress fusion presentation
+PASS: transition reaches PMD/DGI/fallbacks
+PASS: new sound enums
+PASS: new sound note tables
+PASS: critical cue wired
+PASS: new dex discovery cue wired
+PASS: feedback module present
+PASS: stock haptic defaults disabled
+PASS: optional haptic is nonblocking
+PASS: feedback lifecycle wired
+PASS: root and firmware mirror exact
+PASS: workflow runs 3.107 verifier
+PASS: installer marker 3.107+
+
+36/36 checks passed
+
+tools/verify_finish_polish_v31080.py
+PASS: FW 3.108.0+
+PASS: SAVE_VERSION remains 2
+PASS: C565 declared before use
+PASS: shared UI chrome uiGamePageBase
+PASS: shared UI chrome uiGameCard
+PASS: shared UI chrome uiGameButton
+PASS: shared UI chrome uiGameBackHint
+PASS: battle hub uses shared chrome
+PASS: wild encounter uses shared chrome
+PASS: party/box detail uses shared chrome
+PASS: collection page uses shared cards
+PASS: adventure/explore use shared chrome
+PASS: boss/tower use shared chrome
+PASS: treasure/rival use shared chrome
+PASS: bag/missions use shared chrome
+PASS: wild reveal timing state
+PASS: wild reveal silhouette and scan
+PASS: wild reveal hides identity
+PASS: wild battle disabled during reveal
+PASS: wild repeated frame uses partial present
+PASS: evolution result transient state
+PASS: evolution result armed on falling edge
+PASS: evolution result card exists
+PASS: evolution result tap dismiss
+PASS: evolution result forces safe home present
+PASS: SFX definitions have per-effect mix
+PASS: mixedVolume helper exists
+PASS: music mixed below SFX
+PASS: UI press is async queue-first
+PASS: touch gesture handler remains
+PASS: training press-down fast paths remain
+PASS: animated scheduler includes wild reveal
+PASS: animated scheduler includes evolution
+PASS: root and firmware mirror exact
+PASS: workflow runs v3.108 verifier
+PASS: installer marker 3.108+
+
+36/36 checks passed
+
+tools/verify_hotfix_v31081.py
+PASS: FW v3.108.1+
+PASS: root/mirror exact
+PASS: rival cooldown constant 30
+PASS: rival age remainder bounded
+PASS: rival epoch remainder bounded
+PASS: rival stale future unlocks
+PASS: reported 6625-min skew falls back to sane age clock
+PASS: both stale clocks cannot lock player
+PASS: normal fresh cooldown remains 30
+PASS: LAN label removed from battle hub
+PASS: battle hub has five entries
+PASS: battle hub cannot open LAN
+PASS: touch active poll <=12ms
+PASS: latency releaseCandidate removed
+PASS: 18ms second-release wait removed
+PASS: tap still resolves on release for gestures
+PASS: training remains immediate press-down
+PASS: installer v3.108.1+ marker
+PASS: workflow runs hotfix verifier twice
+
+19/19 checks passed
+
+tools/verify_battlehub_training_ui_v31082.py
+PASS: FW v3.108.2+
+PASS: root/mirror exact
+PASS: battle hub keeps five entries
+PASS: battle hub cards enlarged to 44px
+PASS: battle hub cards widened to 346px
+PASS: battle hub uses 49px row pitch
+PASS: battle hub starts at safe y90
+PASS: battle hub touch geometry matches render
+PASS: explore button resized and touch matched
+PASS: LAN remains absent from hub
+PASS: training feedback no longer uses success ring/check sprites
+PASS: training overlay feedback is disabled or compact
+PASS: training success scoring unchanged
+PASS: installer v3.108.2+ marker
+PASS: workflow runs v3.108.2 verifier twice
+
+15/15 checks passed
+
+tools/verify_training_assets_v31084.py
+PASS: FW v3.108.4+
+PASS: root/mirror exact
+PASS: training start does not arm overlay timer
+PASS: training draw has no sprite overlay
+PASS: TRAIN_SACK_IDLE_PX 288 bytes
+PASS: TRAIN_SACK_HIT_L_PX 288 bytes
+PASS: TRAIN_SACK_HIT_R_PX 288 bytes
+PASS: TRAIN_SACK_CRIT_PX 288 bytes
+PASS: TRAIN_SHIELD_IDLE_PX 288 bytes
+PASS: TRAIN_SHIELD_BLOCK_PX 288 bytes
+PASS: TRAIN_SHIELD_GOOD_PX 288 bytes
+PASS: TRAIN_SHIELD_PERFECT_PX 288 bytes
+PASS: TRAIN_BOLT_A_PX 288 bytes
+PASS: TRAIN_BOLT_B_PX 288 bytes
+PASS: TRAIN_HEART_IDLE_PX 288 bytes
+PASS: TRAIN_HEART_PULSE_PX 288 bytes
+PASS: TRAIN_HEART_PERFECT_PX 288 bytes
+PASS: sandbag state frames stable
+PASS: shield state frames stable
+PASS: bolt animation frames stable
+PASS: heart feedback frames stable
+PASS: sandbag is elongated
+PASS: TRAIN_SHIELD_IDLE_PX readable bbox
+PASS: TRAIN_BOLT_A_PX readable bbox
+PASS: TRAIN_HEART_IDLE_PX readable bbox
+PASS: sack supplied frame in bounded 144px area
+PASS: defense supplied shield stays 96px
+PASS: speed target keeps adaptive scale
+PASS: heart supplied art stays 96px
+PASS: training menu uses same four icons
+PASS: training menu text/bar shifted for icons
+PASS: source asset attack_sandbag.png
+PASS: runtime asset attack_sandbag_24.png
+PASS: source asset defense_shield.png
+PASS: runtime asset defense_shield_24.png
+PASS: source asset speed_bolt.png
+PASS: runtime asset speed_bolt_24.png
+PASS: source asset vitality_heart.png
+PASS: runtime asset vitality_heart_24.png
+PASS: training sprite generator bundled
+PASS: installer version matches firmware
+PASS: workflow runs training verifier twice
+
+42/42 checks passed
+
+tools/verify_training_user_v31088.py
+PASS: six 48px frames, 1152 bytes each, distinct hit/success art, timer reset, all game hookups, source mirror
+
+tools/verify_signature_moves.py
+PASS: 142 moves, including 18 digital signature moves, Korean names and battle effects verified
+
+tools/verify_instant_farewell.py
+PASS: good farewell is immediate and carries no evolution penalty
+
+tools/verify_iv_candy_bag.py
+PASS: compact IV berry remains reusable through a four-stat selector
+
+tools/verify_vitality_training.py
+PASS: four-stat training, faster gains, selectable compact IV berry and matched rewards verified
+
+tools/verify_card_evolution.py
+card-only evolution UI regression OK: normal evolution and Jogress are explicitly selectable
+
+tools/verify_pokemon_branch_choice_v31093.py
+pokemon branch choice audit OK: explicit selection + Eevee 4x2 paging + save-layout unchanged
+
+tools/verify_digimon_normal_evolution_v31094.py
+Digimon normal evolution v3.109.4 OK: Paildramon Lv45 -> Imperialdramon DM + Digimon dialog dispatch restored; save/jogress/Pokemon paths preserved
+
+tools/verify_roster_battle_picker.py
+v3.109.5 roster picker OK: care slots 1..5 + party/box tabs; gym/boss/wild/tower/rival unified; LAN legacy preserved
+
+tools/verify_battle_team_picker_v31095.py
+v3.109.5 battle-team picker OK: five care slots visible, all main local battle entries select first, save/party/box layouts untouched
+
+tools/verify_digimon_system.py
+unified Digimon system OK: 458 species, shared Pet/party/box/battle IDs, DMC/Pendulum + 7 DMUL DigiTama, separate dex
+
+tools/verify_digimon_capacity.py
+DIGIMON CAPACITY OK: roster=458, cap=2048, free=1590
+RAM reserve arrays: best=2048 B + registry=256 B per owner; two owners ~= 4608 B
+Persistence today follows roster: best=458 B, registry=58 B; old cap=352 prefix migration preserved
+
+tools/verify_digimon_catalog_v3930.py
+v3.110.1 catalog OK: legacy IDs 0..332 fixed, new IDs 333..457 appended, total=458, CAP=2048
+
+tools/verify_digimon_evolution_frame2.py
+Digimon evolution frame-2 transform + Pose completion OK
+
+tools/verify_digimon_animation_evolution.py
+Digimon animation/evolution OK: Pokemon-style DGI3 roles, Sick/Hurt split, fixed-frame-2 evolution + Pose completion, 458-form DMC/P0-P5/DMUL branches
+
+tools/verify_digimon_moves.py
+Digimon moves OK: distinct Pokemon pool x3 + one signature, picker/evolution/legacy migration
+
+tools/verify_digimon_type_variety.py
+Digimon explicit typing OK: 421/458 dual typed, all 18 types covered, Jogress material mixing guarded
+
+tools/verify_digimon_fusion_policy.py
+Digimon fusion/Git policy OK: stable first-90 base, 458-species catalog, legacy save migration, no private sprite payload
+
+tools/verify_jogress_choice_v3960.py
+v3.110.1 Jogress choice OK: explicit fusion path no longer preempts normal evolution
+
+tools/verify_digimon_fixed_branches.py
+fixed Digimon branches OK: 205 legacy sources; DMC/Pendulum preserved; DMUL uses dominant ATK/DEF/SPE/HP
+
+tools/verify_dmul_branch_routes.py
+DMUL v3.110.1 routes OK: 7 DigiTama, Ver.22 active, OmegaX final evolution and special/Jogress targets present
+
+tools/verify_dmul_sprite_species_replacements_v3951.py
+v3.110.1 DMUL sprite species replacements OK: ID360 Lilithmon, ID393 Gazimon, ID410 Patamon; IDs/count preserved
+
+tools/verify_dmul_route_integrity_v3940.py
+DMUL route integrity OK: 122 route sources, versions 16-22, 458 species; all normal targets stay in-version and advance one stage
+
+tools/verify_no_care_mistake_evolution.py
+v3.110.1 no-care-mistake Digimon evolution OK
+
+tools/verify_imperial_omegax_v3950.py
+v3.110.1 Imperialdramon OmegaX OK: ID457, Paladin Lv70 + ATK/SPE 100, DRAGON/STEEL, no care gate
+
+tools/verify_dmul_sprite_downloader.py
+DMUL sprite downloader OK: 175 contiguous IDs 283..457, catalog-aligned, online/local fallback and ZIP output
+
+tools/verify_digimon_sprite_tool_catalog_v3962.py
+v3.110.1 Digimon sprite tools OK: 458-entry pack maker + 175-entry DMUL downloader stay catalog-aligned
+
+tools/verify_runtime_stabilization_v3962.py
+v3.110.1 runtime stabilization OK: evolution status, persistence, modal input, DGI fallback, compile-CI guard
+
+tools/verify_digimon_name_qol_v3970.py
+v3.110.1 Digimon name/evolution QoL OK: 458 names aligned, compact labels, on-device evolution conditions
+
+tools/verify_progress_card_readability_v3971.py
+v3.110.1 progress-card readability baseline OK: level compacted, evolution UI raised, condition text >=2x
+
+tools/verify_progress_card_readability_v3972.py
+v3.110.1 progress-card long-route readability OK: Alphamon Ouryuken wraps to 3x/4x
+
+tools/verify_casual_energy.py
+casual energy OK: 15-min awake drain, 30-min overweight surcharge, lower activity/event costs, 10/min sleep recovery
+
+tools/verify_pendulum_color.py
+Pendulum COLOR OK: P0-P5 preserved; device picker extended safely for seven DMUL DigiTama
+
+tools/verify_local_includes.py
+PASS: every quoted firmware include exists in the project root
+
+tools/verify_pendulum_sprite_import.py
+PASS: DMC/Pendulum/DMUL importer, DGI3 output and current Pokemon-style Digimon motion roles verified
+
+tools/verify_dgi48_format.py
+DGI3 OK: 48x48, 3/15 frames, black-safe transparency, validation, DGI1/DGI2 compatibility
+
+tools/verify_sd_digimon_isolation.py
+SD isolation OK: no format, separate folders, separate NVS namespaces
+
+tools/verify_reserved_species.py
+reserved species OK: #1020->1038 and #1021->1039 stay disabled without renumbering

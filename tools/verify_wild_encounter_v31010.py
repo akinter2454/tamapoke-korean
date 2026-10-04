@@ -20,7 +20,8 @@ for token in ['bool wildOpen = false;', '"야생 대면"', 'renderWildEncounter(
     assert token in ino, f'missing wild UI token: {token}'
 assert 'speciesHasArt(d) && !pet.isRegistered(d)' in ino, 'Pokemon pool must be unregistered + drawable only'
 assert '!pet.isDigiRegistered(d)' in ino, 'Digimon pool must be unregistered only'
-assert 'buildSquad(0,3,0xFFFFFFFFUL)' in ino, 'wild battle should keep a compact 3-member player cap'
+assert 'openLocalBattlePicker(PICK_WILD,3)' in ino, 'wild battle must enter the common team picker'
+assert 'buildLocalSquad(0,3,squadMask)' in ino, 'wild battle should keep a selected compact 3-member player cap'
 assert 'pet.registerWildVictory(btlWildDex)' in ino, 'wild win must register discovery'
 assert 'wildCandidate = 0;' in ino and 'wildMode = 0;' in ino, 'victory should clear the encounter and return to chooser'
 

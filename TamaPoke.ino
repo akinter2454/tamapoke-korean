@@ -46,6 +46,8 @@
 #include "game_extras.h"
 #include "personality.h"
 #include "ui_sprites.h"
+#include "ui_info_sprites.h"
+#include "ui_info_layout.h"
 #include "digi_thumbnail.h"
 #include "habitat_assets.h"
 #include "habitat_time_assets.h"
@@ -53,7 +55,7 @@
 
 // Version del firmware. Subir este numero en cada release (y manifest.json para
 // el instalador web). Se muestra en la pantalla de ajustes y por serie al arrancar.
-#define FW_VERSION "3.109.4"
+#define FW_VERSION "3.110.1"
 // Round 466x466 panel center. These geometry constants must be declared before
 // the text fitting helpers below; GitHub Actions compiles in strict C++ order.
 #define CX 233
@@ -176,6 +178,37 @@ static void drawUiSprite4bpp(const UiSprite4bpp *spr, int x, int y, uint8_t scal
     }
   }
 }
+
+// v3.110.1 display-only sprites. Original training art is intentionally separate.
+static bool gInfoCaptureHome = false;
+static bool gInfoHomeBoundsValid = false;
+static UiInfoRect gInfoHomeBounds = {0,0,0,0};
+static void infoHomeBounds(int x,int y,int w,int h) {
+  if(!gInfoCaptureHome || w<=0 || h<=0)return;
+  gInfoHomeBounds={(int16_t)x,(int16_t)y,(int16_t)w,(int16_t)h};
+  gInfoHomeBoundsValid=true;
+}
+static void drawInfoSprite(const UiInfoSprite *spr,int x,int y) {
+  if(!spr)return;
+  for(uint8_t row=0;row<spr->size;++row) {
+    uint8_t col=0;
+    while(col<spr->size) {
+      uint16_t at=row*spr->size+col;
+      uint8_t v=pgm_read_byte(spr->pixels+(at>>1));
+      uint8_t idx=(at&1)?v>>4:v&15;
+      uint8_t run=1;
+      while(col+run<spr->size) {
+        uint16_t next=at+run;uint8_t b=pgm_read_byte(spr->pixels+(next>>1));
+        if(((next&1)?b>>4:b&15)!=idx)break;
+        ++run;
+      }
+      if(idx)canvasFillRectFast(x+col,y+row,run,1,pgm_read_word(spr->palette+idx));
+      col+=run;
+    }
+  }
+}
+static void drawInfoTypePair(uint8_t t1,uint8_t t2,int cx,int y);
+static void drawHomeInfoEmote();
 
 // Only training uses 48px / 15-color art; legacy 24px UI remains unchanged.
 // Row runs go straight to the existing Canvas buffer. No allocations or I/O.
@@ -813,8 +846,14 @@ void renderRandomEvent();
 static void extraRewardLabel(char *out, size_t n, uint8_t kind, uint8_t id, uint8_t count);
 void startTowerBattle();
 void startBossBattle();
+void pickDefault(uint8_t cap);
+static void openLocalBattlePicker(uint8_t mode, uint8_t cap);
+static void returnFromPicker();
 static void stepDefenseGauge(uint32_t now);
 static uint8_t squadCapForRegion(uint8_t region, uint8_t idx, bool hard);
+static int careSlotDex(uint8_t slot);
+static uint8_t careSnapshotLevel(const CareSnapshot &cs, uint32_t nowEpoch);
+static bool combatantFromCareSlot(uint8_t slot, Combatant &c, uint32_t nowEpoch, uint8_t capLvl);
 void drawConfirmPanel(const char *q, const char *sub1, const char *sub2,
                       uint16_t subCol, const char *o1, uint16_t c1, uint16_t t1,
                       const char *o2, uint16_t c2, uint16_t t2);
@@ -1044,8 +1083,18 @@ bool pickOpen = false;
 // not a trainer index: squadCap() already returns an uncapped six for anything
 // past the roster, which is what a LAN battle wants -- two players who know
 // each other can bring what they like.
-#define PICK_LAN 0xFF
-#define PICK_BOSS 0xFE
+#define PICK_LAN   0xFF
+#define PICK_BOSS  0xFE
+#define PICK_WILD  0xFD
+#define PICK_TOWER 0xFC
+#define PICK_RIVAL 0xFB
+// Local battle picker bit layout. The five live-raising slots come first so
+// care slots 1..5 are always visible together on the first page. Party/box
+// remain available on their own tabs without moving or rewriting saved data.
+#define PICK_CARE_BASE  0
+#define PICK_PARTY_BASE CARE_SLOT_COUNT
+#define PICK_BOX_BASE   (CARE_SLOT_COUNT + PARTY_SLOTS)
+#define PICK_LOCAL_COUNT (CARE_SLOT_COUNT + PARTY_SLOTS + BOX_SLOTS)
 static void lanOffer(bool host);
 uint8_t pickTrainer = 0;
 uint8_t pickRegion = 0;      // region latched when a gym leader opens the team picker
@@ -1061,8 +1110,8 @@ uint8_t pickSourceTab = 0;  // 0=current+party, 1=box; selection persists across
 #define PICK_Y(i) (108 + ((i) / 2) * (PICK_CELL_H + 6))
 #define PICK_TAB_Y 70
 #define PICK_TAB_H 30
-#define PICK_TAB_W 150
-#define PICK_TAB_X(i) (78 + (i) * (PICK_TAB_W + 10))
+#define PICK_TAB_W 100
+#define PICK_TAB_X(i) (73 + (i) * (PICK_TAB_W + 10))
 #define PICK_GO_Y 350
 // BACK beside FIGHT on the team-select screen. There was no way out of it but a
 // swipe, which is invisible -- the same complaint as everywhere else.
@@ -2255,7 +2304,7 @@ void renderMonSheet(const PartyMon &m, bool fromBox) {
   else snprintf(ty, sizeof(ty), "%s/%s", localizedTypeName(t1), localizedTypeName(t2));
   snprintf(sub,sizeof(sub),"%s",ty);
   uiGamePageBase(head, nullptr, m.locked() ? UI_BAR_WARN : C565(0x62,0x8f,0xdc));
-  gfx->setTextColor(UI_TRACK); uiDrawCenteredFit(sub,CX,67,150,1,1);
+  drawInfoTypePair(t1,t2,CX,55);
   drawMonLockBadge(m.locked());
 
   for (int i = 0; i < MOVE_SLOTS; i++)
@@ -2567,12 +2616,7 @@ void onSwipe(int dir) {
     uint8_t pages = (pickCandidates() + PICK_PER_PAGE - 1) / PICK_PER_PAGE;
     if (!pages) pages = 1;
     int p = (int)pickPage + (dir > 0 ? -1 : 1);
-    if (p < 0 || p >= pages) {
-      pickOpen = false;
-      if (pickTrainer == PICK_BOSS) bossOpen = true;
-      else if (pickTrainer == PICK_LAN) lanOpen = true;
-      else { gymRegion = pickRegion; gymOpen = true; }
-    }
+    if (p < 0 || p >= pages) returnFromPicker();
     else pickPage = (uint8_t)p;
     return;
   }
@@ -4356,7 +4400,11 @@ void render() {
     drawHeader(name, scenePokemonNameColor(currentSceneType(), gNight), statusMsg());
     drawCareTabs();
     drawStreakBadge();
+    gInfoHomeBoundsValid=false;
+    gInfoCaptureHome=true;
     drawPet();
+    gInfoCaptureHome=false;
+    drawHomeInfoEmote();
     drawBath();
     drawPoops();
     drawItemUseFx(CX, PET_CY - 10);
@@ -5427,8 +5475,7 @@ void renderCardStats() {
   else snprintf(ty, sizeof(ty), "%s/%s", localizedTypeName(t1), localizedTypeName(t2));
   gfx->setTextColor(creatureAccent(pet.speciesId));
   uiSetTextSize(2);
-  uiSetCursor(CX - uiTextHalfWidth(ty, 2), 76);
-  gfx->print(ty);
+  drawInfoTypePair(t1,t2,CX,72);
 
   // 360 de tope de barra: a nivel 73 (fin de ciclo) el stat mas alto de toda
   // la dex es la vitalidad de CHANSEY (355). El 260 anterior ya se desbordaba.
@@ -5458,20 +5505,65 @@ void renderCardStats() {
   }
 }
 
+// Read-only indicators: thresholds are visual hints, not new care rules.
+static void drawHomeInfoEmote() {
+  if(!gInfoHomeBoundsValid || pet.isEgg() || pet.evolving() || pet.ceremony ||
+     bathUntil || pet.eating() || pet.showMedal() || pet.showMilestone() ||
+     feedMenuUntil || confirmUntil || choiceKind || evolveResultUntil ||
+     uiFxActive(itemFxUntil,millis())) return;
+  const UiInfoSprite *icons[9]={&UI_INFO_HUNGRY,&UI_INFO_TIRED,&UI_INFO_LOW_ENERGY,
+    &UI_INFO_BATH,&UI_INFO_BORED,&UI_INFO_SLEEPY,&UI_INFO_HAPPY,&UI_INFO_TRAIN,&UI_INFO_EVOLVE};
+  uint16_t mask=0;
+  if(pet.sleeping)mask=1U<<5;
+  else {
+    if(pet.fullness<25)mask|=1U<<0;
+    if(pet.energy>=25 && pet.energy<45)mask|=1U<<1;
+    if(pet.energy<25)mask|=1U<<2;
+    if(pet.hygiene<25)mask|=1U<<3;
+    if(pet.joy<25)mask|=1U<<4;
+    if(pet.showHeart())mask|=1U<<6;
+    if(pet.energy>=70 && pet.fullness>=50 && pet.hygiene>=50 && pet.joy>=50)mask|=1U<<7;
+    if(pet.wantEvolveButton())mask|=1U<<8;
+  }
+  static uint16_t previousMask=0;
+  static int16_t previousDex=-1;
+  static uint8_t previousSlot=255;
+  static uint32_t started=0;
+  uint32_t now=millis();
+  if(mask!=previousMask || pet.speciesId!=previousDex || careSlots.active()!=previousSlot) {
+    previousMask=mask;previousDex=pet.speciesId;previousSlot=careSlots.active();started=now;
+  }
+  uint32_t age=now-started; // unsigned subtraction remains safe over millis wrap
+  if(!mask || age%5000UL>=1700UL)return;
+  // Affection and evolution have a short immediate cue before cycling needs.
+  uint8_t chosen=(mask&(1U<<6))?6:((age<1700 && (mask&(1U<<8)))?8:uiInfoMaskPick(mask,age/5000UL));
+  UiInfoRect where;
+  if(chosen<9 && uiInfoHomePosition(gInfoHomeBounds,where))drawInfoSprite(icons[chosen],where.x,where.y);
+}
+
+static int infoTypeChipWidth(uint8_t type) {
+  return type<TYPE_COUNT?uiTextWidth(localizedTypeName(type),1)+30:0;
+}
 // Draws one move as a row: name, its type in the type's own colour, and either
 // power or a STATUS marker. Shared by the moves page and the picker so a move
 // looks the same wherever you meet it.
 // A filled chip in the type's own colour, label in whichever of black/white
 // reads on it. Returns its width so a caller can lay out beside it.
 int drawTypeChip(int x, int y, uint8_t type) {
-  const char *nm = localizedTypeName(type);
-  int w = uiTextWidth(nm, 1) + 10;
-  gfx->fillRoundRect(x, y, w, 15, 4, typeColor(type));
-  uiSetTextSize(1);
-  gfx->setTextColor(typeColorIsLight(type) ? UI_INK : UI_WHITE);
-  uiSetCursor(x + 5, y + 4);
-  gfx->print(nm);
+  if(type>=TYPE_COUNT)return 0;
+  const char *nm=localizedTypeName(type);
+  int w=infoTypeChipWidth(type);
+  gfx->fillRoundRect(x,y,w,20,4,typeColor(type));
+  drawInfoSprite(UI_INFO_TYPES[type],x+2,y+1);
+  gfx->setTextColor(typeColorIsLight(type)?UI_INK:UI_WHITE);
+  uiSetTextSize(1);uiSetCursor(x+23,y+6);gfx->print(nm);
   return w;
+}
+static void drawInfoTypePair(uint8_t t1,uint8_t t2,int cx,int y) {
+  int a=infoTypeChipWidth(t1),b=infoTypeChipWidth(t2);
+  int x=cx-(a+(b?b+6:0))/2;
+  if(a)drawTypeChip(x,y,t1);
+  if(b)drawTypeChip(x+a+6,y,t2);
 }
 
 void drawMoveRow(int y, uint8_t mv, bool highlight, int16_t dex) {
@@ -5894,6 +5986,43 @@ static void buildSquad(uint8_t maxLvl, uint8_t maxCount, uint32_t mask) {
   if (btlSquadN) btlYou = btlSquad[0];
 }
 
+// Local battles use the same five raising slots shown on the home screen, then
+// optional banked party/box members. This is intentionally separate from the
+// legacy LAN builder above: the link packet predates care slots and keeps its
+// original live-pet + party bit layout for compatibility.
+static void buildLocalSquad(uint8_t maxLvl, uint8_t maxCount, uint32_t mask) {
+  btlSquadN = 0;
+  btlSquadAt = 0;
+  btlPetIn = false;
+  if (maxCount > TRAINER_TEAM_MAX) maxCount = TRAINER_TEAM_MAX;
+  uint32_t nowEpoch = rtcEpoch();
+  if (!nowEpoch) nowEpoch = pet.lastSeenEpoch;
+
+  for (uint8_t i = 0; i < CARE_SLOT_COUNT && btlSquadN < maxCount; ++i) {
+    uint8_t bit = (uint8_t)(PICK_CARE_BASE + i);
+    if (!(mask & (1UL << bit))) continue;
+    Combatant c;
+    if (!combatantFromCareSlot(i, c, nowEpoch, maxLvl)) continue;
+    btlSquad[btlSquadN++] = c;
+    if (i == careSlots.active()) btlPetIn = true;
+  }
+  for (uint8_t i = 0; i < PARTY_SLOTS && btlSquadN < maxCount; ++i) {
+    uint8_t bit = (uint8_t)(PICK_PARTY_BASE + i);
+    if (!(mask & (1UL << bit)) || party.slots[i].empty() || !speciesHasArt(party.slots[i].dex)) continue;
+    PartyMon m = party.slots[i];
+    if (maxLvl && m.level > maxLvl) m.level = maxLvl;
+    combatantFromParty(btlSquad[btlSquadN++], m);
+  }
+  for (uint8_t i = 0; i < BOX_SLOTS && btlSquadN < maxCount; ++i) {
+    uint8_t bit = (uint8_t)(PICK_BOX_BASE + i);
+    if (!(mask & (1UL << bit)) || party.box[i].empty() || !speciesHasArt(party.box[i].dex)) continue;
+    PartyMon m = party.box[i];
+    if (maxLvl && m.level > maxLvl) m.level = maxLvl;
+    combatantFromParty(btlSquad[btlSquadN++], m);
+  }
+  if (btlSquadN) btlYou = btlSquad[0];
+}
+
 // How many you may bring: the leader's own count in hard mode, six otherwise.
 static uint8_t squadCapForRegion(uint8_t region, uint8_t idx, bool hard) {
   if (idx >= TRAINER_COUNT) return TRAINER_TEAM_MAX;
@@ -5970,7 +6099,7 @@ void startTrainerBattle(uint8_t idx, bool hard) {
   // BOTH ladders cap your level to the leader's best. Without it a L73 team
   // walks every trainer at 100% and the type chart never matters. Hard adds the
   // size cap on top, plus a smarter AI and better opposing IVs.
-  buildSquad(top, hard ? tr.count : TRAINER_TEAM_MAX, squadMask);
+  buildLocalSquad(top, hard ? tr.count : TRAINER_TEAM_MAX, squadMask);
   if (!btlSquadN) return;
   btlSetCurrentWeather();
   btlApplyWeatherToPlayerSquad();
@@ -6009,7 +6138,7 @@ void startBattle(int16_t dex, uint8_t lvl) {
   btlTrainer = -1;
   if (pet.isEgg() || pet.ceremony != CER_NONE) return;
   if (dex < 1 || dex > DEX_COUNT) return;
-  buildSquad(0, TRAINER_TEAM_MAX, 0xFFFF);
+  buildLocalSquad(0, TRAINER_TEAM_MAX, squadMask);
   if (!btlSquadN) return;
   btlSetCurrentWeather();
   btlApplyWeatherToPlayerSquad();
@@ -6398,8 +6527,28 @@ static void btlHpBar(int x, int y, int w, const Combatant &c, uint16_t shown) {
   }
 }
 
+static void drawBattleInfoIcons(int x,int y,const Combatant &c) {
+  const UiInfoSprite *ail=nullptr;
+  switch(c.ailment) {
+    case AIL_BURN:ail=&UI_INFO_BURN;break;
+    case AIL_POISON:ail=&UI_INFO_POISON;break;
+    case AIL_PARA:ail=&UI_INFO_PARALYSIS;break;
+    case AIL_SLEEP:ail=&UI_INFO_SLEEP;break;
+    case AIL_FREEZE:ail=&UI_INFO_FREEZE;break;
+    case AIL_CONFUSE:ail=&UI_INFO_CONFUSION;break;
+    default:break; // corrupted unknown status cannot index past a sprite table
+  }
+  if(ail){drawInfoSprite(ail,x,y);x+=20;}
+  if(c.confuseTurns && c.ailment!=AIL_CONFUSE){drawInfoSprite(&UI_INFO_CONFUSION,x,y);x+=20;}
+  const uint8_t stat[3]={SI_ATK,SI_DEF,SI_SPE};
+  const UiInfoSprite *up[3]={&UI_INFO_ATK_UP,&UI_INFO_DEF_UP,&UI_INFO_SPE_UP};
+  const UiInfoSprite *down[3]={&UI_INFO_ATK_DOWN,&UI_INFO_DEF_DOWN,&UI_INFO_SPE_DOWN};
+  for(uint8_t i=0;i<3;++i)if(c.stage[stat[i]]) {
+    drawInfoSprite(c.stage[stat[i]]>0?up[i]:down[i],x,y);x+=20;
+  }
+}
 static void btlSide(int tx, int ty, int sx, int sy, const Combatant &c, uint8_t who) {
-  int ph = (who == 0) ? 62 : 58;
+  int ph = (who == 0) ? 70 : 62;
   uint16_t accent = isCreatureId(c.dex) ? typeColor(creatureType1(c.dex)) : BTL_HUD_MUTED;
   gfx->fillRoundRect(tx - 8, ty - 8, 166, ph, 10, BTL_HUD_DARK);
   gfx->drawRoundRect(tx - 8, ty - 8, 166, ph, 10, accent);
@@ -6430,21 +6579,10 @@ static void btlSide(int tx, int ty, int sx, int sy, const Combatant &c, uint8_t 
     snprintf(hp, sizeof(hp), "%u/%u", btlHpShown[who], c.maxHp);
     gfx->setTextColor(UI_WHITE);
     uiSetTextSize(1);
-    uiSetCursor(tx + 146 - uiTextWidth(hp, 1), ty + 34);
+    uiSetCursor(tx + 146 - uiTextWidth(hp, 1), ty + 51);
     gfx->print(hp);
   }
-  if (c.ailment != AIL_NONE) {
-    static const StrId AIL_STR[] = { S_AIL_PARA, S_AIL_PARA, S_AIL_BURN, S_AIL_POISON,
-                                     S_AIL_SLEEP, S_AIL_FREEZE, S_AIL_CONFUSE };
-    const char *ail = T(AIL_STR[c.ailment]);
-    int aw = uiTextWidth(ail, 1) + 12;
-    if (aw < 34) aw = 34;
-    gfx->fillRoundRect(tx, ty + 32, aw, 18, 6, UI_BAR_BAD);
-    gfx->setTextColor(UI_WHITE);
-    uiSetTextSize(1);
-    uiSetCursor(tx + 6, ty + 37);
-    gfx->print(ail);
-  }
+  drawBattleInfoIcons(tx,ty+30,c);
 
   // A small shadow platform anchors the sprite to the battlefield and keeps
   // large Digimon from visually floating above the backdrop.
@@ -6652,12 +6790,23 @@ static void btlRetryCurrent() {
   btlFreeSprites();
   audioMusic(MUS_NONE);
   btlDexNewUntil = 0;
-  if (wild) { startWildBattle(wildDex, wildLv); return; }
-  if (boss) { startBossBattle(); return; }
-  if (tower) { startTowerBattle(); return; }
+  battleOpen = false;
+  // A retry is still a new battle entry: show the picker again instead of
+  // silently reusing a cached squad from the previous fight.
+  if (wild) {
+    wildCandidate = wildDex; wildCandidateLevel = wildLv;
+    openLocalBattlePicker(PICK_WILD, 3);
+    return;
+  }
+  if (boss) { openLocalBattlePicker(PICK_BOSS, 3); return; }
+  if (tower) { openLocalBattlePicker(PICK_TOWER, TRAINER_TEAM_MAX); return; }
   if (trainer >= 0) {
+    pickTrainer = (uint8_t)trainer;
     pickRegion = region;
-    startTrainerBattle((uint8_t)trainer, hard);
+    pickHard = hard;
+    pickPage = 0; pickSourceTab = 0;
+    pickDefault(squadCapForRegion(pickRegion, pickTrainer, pickHard));
+    pickOpen = true;
   }
 }
 
@@ -7492,38 +7641,65 @@ void renderSpeed() {
 // bringing the right type -- and the squad used to be simply whoever sat first
 // in the party.
 
-// candidate n: 0 = live pet, 1..PARTY_SLOTS = party, then BOX_SLOTS box entries.
-// LAN remains live+party only because its packet format predates box selection.
+// Local candidate n: 0..4 = raising slots 1..5, then party, then box.
+// LAN intentionally keeps its legacy candidate mapping (0 = current pet,
+// 1..PARTY_SLOTS = party) because its wire packet predates care slots.
 uint8_t pickCandidateLimit() {
-  return pickTrainer == PICK_LAN ? PARTY_SLOTS : (uint8_t)(PARTY_SLOTS + BOX_SLOTS);
+  return pickTrainer == PICK_LAN ? PARTY_SLOTS : (uint8_t)(PICK_LOCAL_COUNT - 1);
 }
-bool pickExists(uint8_t n) {
-  if (n == 0) return !pet.isEgg() && creatureHasArt(pet.speciesId);
-  if (n <= PARTY_SLOTS)
-    return !party.slots[n - 1].empty() && speciesHasArt(party.slots[n - 1].dex);
-  uint8_t b = (uint8_t)(n - PARTY_SLOTS - 1);
+
+static bool localPickExists(uint8_t n) {
+  if (n < CARE_SLOT_COUNT) return careSlotDex(n) >= 1;
+  if (n < PICK_BOX_BASE) {
+    uint8_t p = (uint8_t)(n - PICK_PARTY_BASE);
+    return p < PARTY_SLOTS && !party.slots[p].empty() && speciesHasArt(party.slots[p].dex);
+  }
+  uint8_t b = (uint8_t)(n - PICK_BOX_BASE);
   return b < BOX_SLOTS && !party.box[b].empty() && speciesHasArt(party.box[b].dex);
 }
+
+bool pickExists(uint8_t n) {
+  if (pickTrainer != PICK_LAN) return localPickExists(n);
+  if (n == 0) return !pet.isEgg() && creatureHasArt(pet.speciesId);
+  return n <= PARTY_SLOTS && !party.slots[n - 1].empty() && speciesHasArt(party.slots[n - 1].dex);
+}
+
 bool pickVisible(uint8_t n) {
   if (!pickExists(n)) return false;
   if (pickTrainer == PICK_LAN) return n <= PARTY_SLOTS;
-  return pickSourceTab == 0 ? n <= PARTY_SLOTS : n > PARTY_SLOTS;
+  if (pickSourceTab == 0) return n < CARE_SLOT_COUNT;
+  if (pickSourceTab == 1) return n >= PICK_PARTY_BASE && n < PICK_BOX_BASE;
+  return n >= PICK_BOX_BASE;
 }
+
 uint8_t pickChosen() {
   uint8_t c = 0;
   for (uint8_t n = 0; n <= pickCandidateLimit(); n++)
     if (pickExists(n) && (squadMask & (1UL << n))) c++;
   return c;
 }
+
 uint8_t pickCandidates() {
   uint8_t c = 0;
   for (uint8_t n = 0; n <= pickCandidateLimit(); n++)
     if (pickVisible(n)) c++;
   return c;
 }
-// Trims the selection to the first `cap` candidates. The default used to be
-// "everything", which with a live pet plus six banked is seven against a cap of
-// six -- so the screen opened already invalid.
+
+static uint8_t localRosterAvailable() {
+  uint8_t c = 0;
+  for (uint8_t n = 0; n < PICK_LOCAL_COUNT; ++n) if (localPickExists(n)) ++c;
+  return c;
+}
+
+static uint8_t pickCap() {
+  if (pickTrainer == PICK_BOSS || pickTrainer == PICK_WILD || pickTrainer == PICK_RIVAL) return 3;
+  if (pickTrainer == PICK_LAN || pickTrainer == PICK_TOWER) return TRAINER_TEAM_MAX;
+  return squadCapForRegion(pickRegion, pickTrainer, pickHard);
+}
+
+// Every battle entry resets the previous selection. This includes retries/next
+// tower floors so stale cached squads never skip the explicit picker.
 void pickDefault(uint8_t cap) {
   squadMask = 0;
   uint8_t taken = 0;
@@ -7531,40 +7707,76 @@ void pickDefault(uint8_t cap) {
     if (pickExists(n)) { squadMask |= (1UL << n); taken++; }
 }
 
+static void openLocalBattlePicker(uint8_t mode, uint8_t cap) {
+  pickTrainer = mode;
+  pickHard = false;
+  pickPage = 0;
+  pickSourceTab = 0;  // raising slots first; all five fit on one page
+  pickDefault(cap);
+  partyOpen = false; boxOpen = false; gymOpen = false; bossOpen = false;
+  towerOpen = false; rivalOpen = false; wildOpen = false; adventureOpen = false;
+  battleHubOpen = false;
+  pickOpen = true;
+}
+
 static void drawPickCell(uint8_t n, int x, int y, uint8_t capLvl) {
   bool on = (squadMask & (1UL << n)) != 0;
-  int16_t dex; uint16_t lvl; const char *nm; bool shiny;
-  if (n == 0) {
-    dex = pet.speciesId; lvl = pet.level(); shiny = pet.shiny;
-    nm = pet.nick[0] ? pet.nick : creatureName(dex);
-  } else if (n <= PARTY_SLOTS) {
-    const PartyMon &m = party.slots[n - 1];
+  int16_t dex = -1; uint16_t lvl = 1; const char *nm = ""; bool shiny = false;
+  char source[16] = "";
+
+  if (pickTrainer == PICK_LAN) {
+    if (n == 0) {
+      dex = pet.speciesId; lvl = pet.level(); shiny = pet.shiny;
+      nm = pet.nick[0] ? pet.nick : creatureName(dex);
+      snprintf(source, sizeof(source), "현재");
+    } else {
+      const PartyMon &m = party.slots[n - 1];
+      dex = m.dex; lvl = m.level; shiny = m.shiny;
+      nm = m.nick[0] ? m.nick : creatureName(dex);
+      snprintf(source, sizeof(source), "파티");
+    }
+  } else if (n < CARE_SLOT_COUNT) {
+    const uint8_t slot = n;
+    dex = careSlotDex(slot);
+    if (slot == careSlots.active()) {
+      lvl = pet.level(); shiny = pet.shiny;
+      nm = pet.nick[0] ? pet.nick : creatureName(dex);
+    } else {
+      const CareSnapshot *cs = careSlots.snapshot(slot);
+      if (cs) {
+        uint32_t e = rtcEpoch(); if (!e) e = pet.lastSeenEpoch;
+        lvl = careSnapshotLevel(*cs, e); shiny = cs->shiny != 0;
+        nm = cs->nick[0] ? cs->nick : creatureName(dex);
+      }
+    }
+    snprintf(source, sizeof(source), "육성%u", (unsigned)(slot + 1));
+  } else if (n < PICK_BOX_BASE) {
+    const PartyMon &m = party.slots[n - PICK_PARTY_BASE];
     dex = m.dex; lvl = m.level; shiny = m.shiny;
     nm = m.nick[0] ? m.nick : creatureName(dex);
+    snprintf(source, sizeof(source), "파티");
   } else {
-    const PartyMon &m = party.box[n - PARTY_SLOTS - 1];
+    const PartyMon &m = party.box[n - PICK_BOX_BASE];
     dex = m.dex; lvl = m.level; shiny = m.shiny;
     nm = m.nick[0] ? m.nick : creatureName(dex);
+    snprintf(source, sizeof(source), "박스");
   }
-  if (capLvl && lvl > capLvl) lvl = capLvl;   // show the level it will FIGHT at
+
+  if (capLvl && lvl > capLvl) lvl = capLvl;
   gfx->fillRoundRect(x, y, PICK_CELL_W, PICK_CELL_H, 10, on ? UI_BG_DAY : UI_TRACK);
   gfx->drawRoundRect(x, y, PICK_CELL_W, PICK_CELL_H, 10, on ? UI_INK : 0x8410);
   const uint8_t *th = thumbs.get(dex);
   if (th) drawThumb(th, x - 12, y - 6, 2, !on);
-  const char *source = n == 0 ? "현재" : (n <= PARTY_SLOTS ? "파티" : "박스");
   gfx->setTextColor(on ? UI_BAR_OK : 0x8410);
   uiSetTextSize(1);
   uiSetCursor(x + 6, y + PICK_CELL_H - 13);
   gfx->print(source);
   gfx->setTextColor(on ? UI_INK : 0x8410);
-  uiSetTextSize(1);
-  uiSetCursor(x + 54, y + 14);
-  gfx->print(nm);
+  uiDrawLeftFit(nm, x + 54, y + 12, PICK_CELL_W - 76, 1, 1);
   char l[16];
   snprintf(l, sizeof(l), "Lv.%u%s", (unsigned)lvl, shiny ? " *" : "");
   uiSetCursor(x + 54, y + 30);
   gfx->print(l);
-  // its typing is the whole reason you are on this screen
   uint8_t t1=creatureType1(dex),t2=creatureType2(dex);
   gfx->setTextColor(on ? creatureAccent(dex) : 0x8410);
   uiSetCursor(x + 54, y + 48);
@@ -7584,25 +7796,23 @@ static void drawPickCell(uint8_t n, int x, int y, uint8_t capLvl) {
 void renderPick() {
   gfx->fillScreen(RGB565_BLACK);
   gfx->fillCircle(CX, CY, 231, UI_BG_DAY);
-  uint8_t cap = pickTrainer == PICK_BOSS ? 3 :
-                ((pickTrainer == PICK_LAN) ? TRAINER_TEAM_MAX : squadCapForRegion(pickRegion, pickTrainer, pickHard));
-  uint8_t top = 0;          // the level cap shown on each cell; 0 = uncapped
-  char head[40];
-  if (pickTrainer == PICK_BOSS) {
-    snprintf(head, sizeof(head), "타입 보스 출전 멤버");
-  } else if (pickTrainer == PICK_LAN) {
-    snprintf(head, sizeof(head), "%s: %s", T(S_LAN),
-             lanWantHost ? T(S_LAN_HOST) : T(S_LAN_JOIN));
+  uint8_t cap = pickCap();
+  uint8_t top = 0;
+  char head[48];
+  if (pickTrainer == PICK_BOSS) snprintf(head, sizeof(head), "타입 보스 출전 멤버");
+  else if (pickTrainer == PICK_WILD) snprintf(head, sizeof(head), "야생 대면 출전 멤버");
+  else if (pickTrainer == PICK_TOWER) snprintf(head, sizeof(head), "배틀 타워 출전 멤버");
+  else if (pickTrainer == PICK_RIVAL) snprintf(head, sizeof(head), "라이벌 출전 멤버");
+  else if (pickTrainer == PICK_LAN) {
+    snprintf(head, sizeof(head), "%s: %s", T(S_LAN), lanWantHost ? T(S_LAN_HOST) : T(S_LAN_JOIN));
   } else {
     const Trainer &t = TRAINER_SETS[pickRegion % GYM_REGIONS].list[pickTrainer];
-    for (int k = 0; k < t.count; k++)
-      if (t.team[k].level > top) top = t.team[k].level;
+    for (int k = 0; k < t.count; k++) if (t.team[k].level > top) top = t.team[k].level;
     snprintf(head, sizeof(head), "%s  Lv.%u x%u", t.name, top, t.count);
   }
   gfx->setTextColor(UI_INK);
   uiSetTextSize(2);
-  uiSetCursor(CX - uiTextHalfWidth(head, 2), 28);
-  gfx->print(head);
+  uiDrawCenteredFit(head, CX, 28, 350, 2, 1);
   char sub[28];
   snprintf(sub, sizeof(sub), T(S_PICK_FMT), pickChosen(), cap);
   uiSetTextSize(1);
@@ -7611,12 +7821,11 @@ void renderPick() {
   gfx->print(sub);
 
   if (pickTrainer != PICK_LAN) {
-    const char *tabs[2] = { "현재·파티", "박스" };
-    for (uint8_t i = 0; i < 2; i++) {
+    const char *tabs[3] = { "육성", "파티", "박스" };
+    for (uint8_t i = 0; i < 3; i++) {
       bool active = pickSourceTab == i;
       int tx = PICK_TAB_X(i);
-      gfx->fillRoundRect(tx, PICK_TAB_Y, PICK_TAB_W, PICK_TAB_H, 9,
-                         active ? UI_BAR_OK : UI_WHITE);
+      gfx->fillRoundRect(tx, PICK_TAB_Y, PICK_TAB_W, PICK_TAB_H, 9, active ? UI_BAR_OK : UI_WHITE);
       gfx->drawRoundRect(tx, PICK_TAB_Y, PICK_TAB_W, PICK_TAB_H, 9, UI_INK);
       gfx->setTextColor(active ? UI_WHITE : UI_INK);
       uiSetTextSize(2);
@@ -7641,29 +7850,35 @@ void renderPick() {
     else gfx->drawCircle(dx, 338, 4, UI_INK);
   }
 
-  bool ok = pickTrainer == PICK_BOSS ? pickChosen() == 3 :
-            (pickChosen() > 0 && pickChosen() <= cap);
+  bool ok = pickTrainer == PICK_BOSS ? pickChosen() == 3 : (pickChosen() > 0 && pickChosen() <= cap);
   gfx->fillRoundRect(PICK_BACK_X, PICK_GO_Y, PICK_BTN_W, PICK_BTN_H, 12, UI_TRACK);
   gfx->drawRoundRect(PICK_BACK_X, PICK_GO_Y, PICK_BTN_W, PICK_BTN_H, 12, UI_INK);
   gfx->setTextColor(UI_INK);
   uiSetTextSize(2);
-  uiSetCursor(PICK_BACK_X + (PICK_BTN_W - uiTextWidth(T(S_BACK), 2)) / 2,
-                 PICK_GO_Y + 14);
+  uiSetCursor(PICK_BACK_X + (PICK_BTN_W - uiTextWidth(T(S_BACK), 2)) / 2, PICK_GO_Y + 14);
   gfx->print(T(S_BACK));
-  gfx->fillRoundRect(PICK_GO_X, PICK_GO_Y, PICK_BTN_W, PICK_BTN_H, 12,
-                     ok ? UI_BAR_OK : UI_TRACK);
+  gfx->fillRoundRect(PICK_GO_X, PICK_GO_Y, PICK_BTN_W, PICK_BTN_H, 12, ok ? UI_BAR_OK : UI_TRACK);
   gfx->drawRoundRect(PICK_GO_X, PICK_GO_Y, PICK_BTN_W, PICK_BTN_H, 12, UI_INK);
   gfx->setTextColor(ok ? UI_BG_DAY : 0x8410);
   uiSetTextSize(2);
-  uiSetCursor(PICK_GO_X + (PICK_BTN_W - uiTextWidth(T(S_FIGHT), 2)) / 2,
-                 PICK_GO_Y + 14);
+  uiSetCursor(PICK_GO_X + (PICK_BTN_W - uiTextWidth(T(S_FIGHT), 2)) / 2, PICK_GO_Y + 14);
   gfx->print(T(S_FIGHT));
   gfx->flush();
 }
 
+static void returnFromPicker() {
+  pickOpen = false;
+  if (pickTrainer == PICK_LAN) lanOpen = true;
+  else if (pickTrainer == PICK_BOSS) bossOpen = true;
+  else if (pickTrainer == PICK_WILD) wildOpen = true;
+  else if (pickTrainer == PICK_TOWER) towerOpen = true;
+  else if (pickTrainer == PICK_RIVAL) rivalOpen = true;
+  else { gymRegion = pickRegion; gymOpen = true; }
+}
+
 void pickTap(int16_t x, int16_t y) {
   if (pickTrainer != PICK_LAN && y >= PICK_TAB_Y && y <= PICK_TAB_Y + PICK_TAB_H) {
-    for (uint8_t i = 0; i < 2; i++) {
+    for (uint8_t i = 0; i < 3; i++) {
       int tx = PICK_TAB_X(i);
       if (x < tx || x > tx + PICK_TAB_W) continue;
       pickSourceTab = i;
@@ -7672,40 +7887,26 @@ void pickTap(int16_t x, int16_t y) {
       return;
     }
   }
-  if (y >= PICK_GO_Y && y <= PICK_GO_Y + PICK_BTN_H &&
-      x >= PICK_BACK_X && x <= PICK_BACK_X + PICK_BTN_W) {   // BACK
+  if (y >= PICK_GO_Y && y <= PICK_GO_Y + PICK_BTN_H && x >= PICK_BACK_X && x <= PICK_BACK_X + PICK_BTN_W) {
     sfxPlay(SFX_TAP);
-    pickOpen = false;
-    if (pickTrainer == PICK_LAN) { lanOpen = true; }
-    else if (pickTrainer == PICK_BOSS) { bossOpen = true; }
-    else { gymRegion = pickRegion; gymOpen = true; }
+    returnFromPicker();
     return;
   }
-  if (y >= PICK_GO_Y && y <= PICK_GO_Y + PICK_BTN_H &&
-      x >= PICK_GO_X && x <= PICK_GO_X + PICK_BTN_W) {
-    uint8_t cap = pickTrainer == PICK_BOSS ? 3 :
-                  ((pickTrainer == PICK_LAN) ? TRAINER_TEAM_MAX : squadCapForRegion(pickRegion, pickTrainer, pickHard));
+  if (y >= PICK_GO_Y && y <= PICK_GO_Y + PICK_BTN_H && x >= PICK_GO_X && x <= PICK_GO_X + PICK_BTN_W) {
+    uint8_t cap = pickCap();
     if ((pickTrainer == PICK_BOSS && pickChosen() != 3) ||
         (pickTrainer != PICK_BOSS && (pickChosen() == 0 || pickChosen() > cap))) return;
     sfxPlay(SFX_TAP);
     pickOpen = false;
-    if (pickTrainer == PICK_BOSS) {
-      startBossBattle();
-      if (!battleOpen) { pickOpen = true; sfxPlay(SFX_DENY); }
-      return;
-    }
-    if (pickTrainer == PICK_LAN) {
-      // The squad is chosen BEFORE the radio comes up, so what gets offered to
-      // the peer is what the player picked -- lanOffer() builds lan.mine from
-      // squadMask, and the fight is then rebuilt from lan.mine rather than from
-      // the party (see startLinkBattle).
+    if (pickTrainer == PICK_BOSS) startBossBattle();
+    else if (pickTrainer == PICK_WILD) startWildBattle(wildCandidate, wildCandidateLevel);
+    else if (pickTrainer == PICK_TOWER) startTowerBattle();
+    else if (pickTrainer == PICK_RIVAL) startRivalBattle();
+    else if (pickTrainer == PICK_LAN) {
       lanOffer(lanWantHost);
       lanOpen = true;
       return;
-    }
-    startTrainerBattle(pickTrainer, pickHard);
-    // If squad construction failed, keep the picker visible instead of falling
-    // through to the home screen with every overlay closed.
+    } else startTrainerBattle(pickTrainer, pickHard);
     if (!battleOpen) { pickOpen = true; sfxPlay(SFX_DENY); }
     return;
   }
@@ -8726,14 +8927,15 @@ void renderBag() {
       const int rx = bagRowBaseX();
       gfx->fillRoundRect(rx, y, BAG_ROW_W, BAG_ROW_H, 11, have ? UI_WHITE : UI_BG_DAY);
       gfx->drawRoundRect(rx, y, BAG_ROW_W, BAG_ROW_H, 11, have ? col : UI_TRACK);
+      drawInfoSprite(UI_INFO_TYPES[t],rx+10,y+15);
       char nm[64]; snprintf(nm, sizeof(nm), "%s 기술머신", localizedTypeName(t));
       gfx->setTextColor(have ? UI_INK : UI_TRACK);
-      uiDrawLeftFit(nm, bagRowTextX(), y + 6, BAG_ROW_W - 86, 2, 1);
+      uiDrawLeftFit(nm, bagRowTextX()+24, y + 6, BAG_ROW_W - 110, 2, 1);
       uint8_t mv = extras.bestTmMove(pet, t);
       char tmEffect[80];
       if (mv) snprintf(tmEffect, sizeof(tmEffect), "가르칠 기술: %s", localizedMoveName(mv));
       else snprintf(tmEffect, sizeof(tmEffect), "현재 배울 수 있는 기술 없음");
-      uiDrawLeftFit(tmEffect, bagRowTextX(), y + 28, BAG_ROW_W - 86, 2, 1);
+      uiDrawLeftFit(tmEffect, bagRowTextX()+24, y + 28, BAG_ROW_W - 110, 2, 1);
       char cnt[8]; snprintf(cnt, sizeof(cnt), "x%u", extras.tmCount(t));
       uiSetTextSize(2); uiSetCursor(bagRowQtyX(cnt), y + 13); gfx->print(cnt);
     }
@@ -8902,11 +9104,9 @@ void renderRandomEvent() {
   uiDrawCenteredFit(extras.eventTitleKo(), CX, 88, 306, 3, 1);
 
   const uint8_t eid = extras.eventId();
-  uint16_t ec = eventSpriteColor(eid);
-  gfx->fillCircle(CX, 154, 45, lerp565(ec, UI_WHITE, 11, 16));
-  gfx->drawCircle(CX, 154, 45, ec);
+  // Icon-only slot: title ends at 112; sprite stays in 130..182; body starts at 202.
   int propBob = ((millis() / 220) & 1) ? -2 : 2;
-  drawUiSprite4bpp(eventSpriteFor(eid), CX - 36, 118 + propBob, 3);
+  drawUiSprite4bpp(eventSpriteFor(eid), CX - 24, 132 + propBob, 2);
 
   gfx->setTextColor(UI_INK);
   uiDrawCenteredFit(extras.eventTextKo(), CX, 202, 310, 2, 1);
@@ -8932,7 +9132,7 @@ static int careSlotDex(uint8_t slot) {
     const CareSnapshot *cs = careSlots.snapshot(slot);
     d = cs ? cs->speciesId : -1;
   }
-  return speciesHasArt(d) ? d : -1;
+  return creatureHasArt(d) ? d : -1;
 }
 
 static uint8_t careSnapshotLevel(const CareSnapshot &cs, uint32_t nowEpoch) {
@@ -8958,17 +9158,23 @@ static uint16_t careCalcStat(uint8_t base, uint8_t iv, uint8_t lvl, uint8_t tr) 
   return (uint16_t)base + lvl + (uint16_t)iv * lvl / 100 + tr;
 }
 
-static bool combatantFromCareSlot(uint8_t slot, Combatant &c, uint32_t nowEpoch) {
+static bool combatantFromCareSlot(uint8_t slot, Combatant &c, uint32_t nowEpoch, uint8_t capLvl) {
   if (slot >= CARE_SLOT_COUNT) return false;
   if (slot == careSlots.active()) {
     if (pet.isEgg() || !creatureHasArt(pet.speciesId)) return false;
-    combatantFromPet(c, pet);
+    Pet tmp = pet;
+    if (capLvl && tmp.level() > capLvl) {
+      tmp.ageMinutes = (uint32_t)(capLvl - 1) * MINUTES_PER_LEVEL;
+      tmp.levelMinutes = tmp.ageMinutes;
+    }
+    combatantFromPet(c, tmp);
     return true;
   }
   const CareSnapshot *ps = careSlots.snapshot(slot);
   if (!ps || !isCreatureId(ps->speciesId) || !creatureHasArt(ps->speciesId)) return false;
   const CareSnapshot &m = *ps;
   uint8_t lvl = careSnapshotLevel(m, nowEpoch);
+  if (capLvl && lvl > capLvl) lvl = capLvl;
   uint8_t pers = personalityIdFor(m.speciesId, m.ivAtk, m.ivDef, m.ivSpe, m.ivHp);
   c = Combatant();
   c.dex = m.speciesId;
@@ -9013,7 +9219,7 @@ void startBossBattle() {
   if (pet.ceremony != CER_NONE) { sfxPlay(SFX_DENY); return; }
   // The boss now uses the same explicit roster selection as gyms. Nothing is
   // withdrawn from or reordered in party/box storage; battle uses copies.
-  buildSquad(0, 3, squadMask);
+  buildLocalSquad(0, 3, squadMask);
   if (btlSquadN != 3) { sfxPlay(SFX_DENY); return; }
   uint8_t maxLv = 1;
   for (uint8_t i = 0; i < btlSquadN; i++)
@@ -9068,7 +9274,8 @@ void renderBattleHub() {
                     i == 4 ? C565(0x66,0x7a,0xbf) : C565(0x62,0x8f,0xdc);
     uiGameCard(HUB_X, y, HUB_W, HUB_H, edge, false);
     gfx->setTextColor(UI_INK);
-    uiDrawLeftFit(N[i], HUB_X + 24, y + 7, 184, 2, 1);
+    drawInfoSprite(UI_INFO_HUB[i],HUB_X+10,y+6);
+    uiDrawLeftFit(N[i], HUB_X + 50, y + 7, 164, 2, 1);
     char info[72]; info[0] = 0;
     if (i == 0) snprintf(info, sizeof(info), "배지 %u", pet.badgeCount(gymHard));
     else if (i == 1) {
@@ -9290,7 +9497,8 @@ void wildEncounterTap(int16_t x,int16_t y){
   }
   if(x>=115&&x<=351&&y>=356&&y<=404){
     if(wildRevealUntil && (int32_t)(wildRevealUntil-millis())>0){sfxPlay(SFX_DENY);return;}
-    startWildBattle(wildCandidate,wildCandidateLevel);sfxPlay(SFX_TAP);return;
+    if(!localRosterAvailable()){sfxPlay(SFX_DENY);return;}
+    openLocalBattlePicker(PICK_WILD,3);sfxPlay(SFX_TAP);return;
   }
   if(y>408){galleryPmd.unload();wildMode=0;wildCandidate=0;wildCandidateRarity=0;wildRevealUntil=0;wildPresentedDex=-32768;sfxPlay(SFX_TAP);}
 }
@@ -9298,7 +9506,7 @@ void wildEncounterTap(int16_t x,int16_t y){
 void startWildBattle(int16_t dex,uint8_t lvl){
   if(!isCreatureId(dex)||pet.ceremony!=CER_NONE)return;
   wildCandidateRarity=wildRarityForDex(dex);
-  buildSquad(0,3,0xFFFFFFFFUL); if(!btlSquadN)return;
+  buildLocalSquad(0,3,squadMask); if(!btlSquadN)return;
   btlSetCurrentWeather(); btlApplyWeatherToPlayerSquad();
   btlTower=false;btlBoss=false;btlRival=false;btlBossPhase2=false;btlRivalSpecial=RIVSPEC_NONE;btlTrainer=-1;
   btlWild=true;btlWildDex=dex;btlHard=false;btlFoeAt=0;btlFoeSquadN=0;
@@ -9376,7 +9584,7 @@ void renderExplore() {
       uint16_t col = typeColor((uint8_t)t);
       gfx->fillRoundRect(78, y, 310, 38, 11, lerp565(col, UI_WHITE, 6, 8));
       gfx->drawRoundRect(78, y, 310, 38, 11, col);
-      gfx->setTextColor(UI_INK); uiSetTextSize(2); uiSetCursor(98, y + 8); gfx->print(localizedTypeName((uint8_t)t));
+      gfx->setTextColor(UI_INK); uiSetTextSize(2); drawInfoSprite(UI_INFO_TYPES[t],90,y+10); uiSetCursor(118, y + 8); gfx->print(localizedTypeName((uint8_t)t));
       if (!pet.isEgg() && creatureType1(pet.speciesId) == t) { gfx->setTextColor(UI_BAR_OK); uiSetTextSize(1); uiSetCursor(318, y + 12); gfx->print("보너스"); }
     }
     char pg[24]; snprintf(pg,sizeof(pg),"<  %u/3  >", explorePage+1); gfx->setTextColor(UI_INK); uiSetTextSize(2);
@@ -9402,18 +9610,16 @@ void exploreTap(int16_t x, int16_t y) {
 
 void renderBoss() {
   uint8_t t=extras.bossType(pet);
-  uint8_t available=0;
-  if (!pet.isEgg() && creatureHasArt(pet.speciesId)) available++;
-  for (uint8_t i=0;i<PARTY_SLOTS;i++) if(!party.slots[i].empty()&&speciesHasArt(party.slots[i].dex)) available++;
-  for (uint8_t i=0;i<BOX_SLOTS;i++) if(!party.box[i].empty()&&speciesHasArt(party.box[i].dex)) available++;
+  uint8_t available=localRosterAvailable();
   uiGamePageBase("3마리 타입 보스", nullptr, typeColor(t));
   gfx->fillRoundRect(72,96,322,92,18,lerp565(typeColor(t),UI_WHITE,6,8)); gfx->drawRoundRect(72,96,322,92,18,typeColor(t));
+  if(t<TYPE_COUNT)drawInfoSprite(UI_INFO_TYPES[t],CX-9,91);
   char bn[48]; snprintf(bn,sizeof(bn),"오늘의 보스: %s",localizedTypeName(t)); gfx->setTextColor(typeColor(t)); uiDrawCenteredFit(bn,CX,118,300,3,1);
   gfx->setTextColor(UI_INK); const char* done=extras.bossDefeated(t)?"오늘 타입은 격파 기록 있음":"첫 격파는 타입 기술머신 확정"; uiDrawCenteredFit(done,CX,154,300,1,1);
   char bp[96];snprintf(bp,sizeof(bp),"HP 50%%↓ 2페이즈: %s",bossPhaseEffectKo(t));gfx->setTextColor(UI_BAR_BAD);uiDrawCenteredFit(bp,CX,174,300,1,1);
   char bw[48];snprintf(bw,sizeof(bw),"현재 날씨: %s",extras.weatherNameKo(extras.weatherId(pet)));gfx->setTextColor(UI_INK);uiDrawCenteredFit(bw,CX,192,300,1,1);
   gfx->fillRoundRect(72,214,322,62,12,UI_WHITE);gfx->drawRoundRect(72,214,322,62,12,UI_INK);
-  char pool[64];snprintf(pool,sizeof(pool),"현재·파티·박스에서 선택 가능: %u마리",available);gfx->setTextColor(UI_INK);uiDrawCenteredFit(pool,CX,226,300,2,1);
+  char pool[64];snprintf(pool,sizeof(pool),"육성·파티·박스에서 선택 가능: %u마리",available);gfx->setTextColor(UI_INK);uiDrawCenteredFit(pool,CX,226,300,2,1);
   gfx->setTextColor(UI_INK);uiSetTextSize(1);uiSetCursor(CX-uiTextHalfWidth("도전을 누른 뒤 출전할 3마리를 고르세요",1),254);gfx->print("도전을 누른 뒤 출전할 3마리를 고르세요");
   gfx->fillRoundRect(104,302,258,62,16,available>=3?UI_BAR_BAD:UI_TRACK);gfx->setTextColor(UI_WHITE);uiSetTextSize(3);const char* go=available>=3?"멤버 선택":"3마리 필요";uiSetCursor(CX-uiTextHalfWidth(go,3),321);gfx->print(go);
   gfx->setTextColor(UI_INK);uiSetTextSize(2);uiSetCursor(CX-uiTextHalfWidth("뒤로",2),405);gfx->print("뒤로");gfx->flush();
@@ -9421,13 +9627,9 @@ void renderBoss() {
 
 void bossTap(int16_t x,int16_t y){
   if(x>=104&&x<=362&&y>=302&&y<=364){
-    uint8_t available=0;
-    if(!pet.isEgg()&&creatureHasArt(pet.speciesId))available++;
-    for(uint8_t i=0;i<PARTY_SLOTS;i++)if(!party.slots[i].empty()&&speciesHasArt(party.slots[i].dex))available++;
-    for(uint8_t i=0;i<BOX_SLOTS;i++)if(!party.box[i].empty()&&speciesHasArt(party.box[i].dex))available++;
+    uint8_t available=localRosterAvailable();
     if(available<3){sfxPlay(SFX_DENY);return;}
-    pickTrainer=PICK_BOSS;pickPage=0;pickSourceTab=0;pickDefault(3);
-    partyOpen=false;boxOpen=false;gymOpen=false;adventureOpen=false;battleHubOpen=false;bossOpen=false;pickOpen=true;
+    openLocalBattlePicker(PICK_BOSS,3);
     sfxPlay(SFX_TAP);return;
   }
   if(y>390){bossOpen=false;battleHubOpen=true;}
@@ -9511,7 +9713,8 @@ void towerTap(int16_t x, int16_t y) {
   if (extras.towerBuffPending()) {
     if (x>=76 && x<=390) for(uint8_t i=0;i<3;i++){int ry=198+i*58;if(y>=ry&&y<=ry+50){if(extras.chooseTowerBuff(i))sfxPlay(SFX_MEDAL);else sfxPlay(SFX_DENY);return;}}
   } else if (x >= 96 && x <= 370 && y >= 266 && y <= 334) {
-    sfxPlay(SFX_TAP); startTowerBattle(); return;
+    if(!localRosterAvailable()){sfxPlay(SFX_DENY);return;}
+    sfxPlay(SFX_TAP); openLocalBattlePicker(PICK_TOWER,TRAINER_TEAM_MAX); return;
   }
   if (y > 382) { towerOpen = false; battleHubOpen = true; sfxPlay(SFX_TAP); }
 }
@@ -9597,17 +9800,10 @@ void startRivalBattle() {
   btlWild = false; btlWildDex = 0;
   if (!extras.rivalReady(pet) || pet.ceremony != CER_NONE) { sfxPlay(SFX_DENY); return; }
   if (extras.rivalHasSpecial() && extras.rivalSpecial() != RIVSPEC_TREASURE_RACE) { sfxPlay(SFX_DENY); return; }
-  uint32_t e = rtcEpoch(); if(!e)e=pet.lastSeenEpoch;
-  btlSquadN=0; btlSquadAt=0; btlPetIn=false;
-  uint8_t maxLv=1;
-  for(uint8_t i=0;i<CARE_SLOT_COUNT;i++){
-    Combatant c; if(!combatantFromCareSlot(i,c,e)) continue;
-    btlSquad[btlSquadN++]=c;
-    if(i==careSlots.active()) btlPetIn=true;
-    if(c.level>maxLv)maxLv=c.level;
-    if(btlSquadN>=3)break;
-  }
+  buildLocalSquad(0,3,squadMask);
   if(!btlSquadN){sfxPlay(SFX_DENY);return;}
+  uint8_t maxLv=1;
+  for(uint8_t i=0;i<btlSquadN;i++) if(btlSquad[i].level>maxLv)maxLv=btlSquad[i].level;
   btlSetCurrentWeather();
   btlApplyWeatherToPlayerSquad();
   btlYou=btlSquad[0];
@@ -9670,7 +9866,7 @@ void renderRival() {
     gfx->fillRoundRect(104,294,258,62,16,can?C565(0x5e,0x76,0xc8):UI_TRACK);gfx->setTextColor(UI_WHITE);uiSetTextSize(3);
     char go[48]; if(wait)snprintf(go,sizeof(go),"약 %u분 후 재대결",wait); else snprintf(go,sizeof(go),"라이벌 도전");
     uiDrawCenteredFit(go,CX,313,230,3,1);
-    gfx->setTextColor(UI_INK);uiSetTextSize(1);const char *tip=ready>=3?"육성 슬롯 3마리가 모두 출전합니다":"현재 준비된 육성 슬롯만 출전합니다";
+    gfx->setTextColor(UI_INK);uiSetTextSize(1);const char *tip=ready>=3?"도전 후 출전 멤버를 선택합니다":"준비된 멤버 중 출전 멤버를 선택합니다";
     uiDrawCenteredFit(tip,CX,368,300,1,1);
   }
   gfx->setTextColor(UI_INK);uiSetTextSize(2);uiSetCursor(CX-uiTextHalfWidth("뒤로",2),410);gfx->print("뒤로");gfx->flush();
@@ -9684,12 +9880,12 @@ void rivalTap(int16_t x,int16_t y){
       bool ok=false;
       if(sp==RIVSPEC_GIFT)ok=extras.claimRivalGift();
       else if(sp==RIVSPEC_TRADE)ok=extras.acceptRivalTrade();
-      else if(sp==RIVSPEC_TREASURE_RACE){sfxPlay(SFX_TAP);startRivalBattle();return;}
+      else if(sp==RIVSPEC_TREASURE_RACE){if(!localRosterAvailable()){sfxPlay(SFX_DENY);return;}sfxPlay(SFX_TAP);openLocalBattlePicker(PICK_RIVAL,3);return;}
       sfxPlay(ok?SFX_MEDAL:SFX_DENY);return;
     }
     if(x>=292&&x<=374&&y>=350&&y<=398){extras.dismissRivalSpecial();sfxPlay(SFX_TAP);return;}
   } else if(x>=104&&x<=362&&y>=294&&y<=356){
-    if(extras.rivalReady(pet)&&bossReadyCount()>0){sfxPlay(SFX_TAP);startRivalBattle();}else sfxPlay(SFX_DENY);return;
+    if(extras.rivalReady(pet)&&bossReadyCount()>0&&localRosterAvailable()){sfxPlay(SFX_TAP);openLocalBattlePicker(PICK_RIVAL,3);}else sfxPlay(SFX_DENY);return;
   }
   if(y>398){rivalOpen=false;battleHubOpen=true;sfxPlay(SFX_TAP);}
 }
@@ -9972,6 +10168,7 @@ static void drawDigiSprite() {
   int sc=digiSpriteW==16?8:2;
   int drawW=digiSpriteW*sc,drawH=digiSpriteH*sc;
   int drawX=x-drawW/2,drawY=PET_GROUND-drawH;
+  infoHomeBounds(drawX,drawY,drawW,drawH);
   for(int py=0;py<digiSpriteH;py++)for(int px=0;px<digiSpriteW;px++){
     int sx=flip?digiSpriteW-1-px:px;
     uint16_t c=digiPixels[py*digiSpriteW+sx];
@@ -9982,7 +10179,7 @@ static void drawDigiSprite() {
     }
   }
 
-  if(pet.showHeart())
+  if(pet.showHeart() && !gInfoCaptureHome)
     drawMap(SPR_HEART,32,x+50,PET_GROUND-190,2,false);
 }
 void renderDigi(){
@@ -10044,6 +10241,7 @@ void renderDigiDex(){
     else snprintf(digiName,sizeof(digiName),"???");
     uiDrawCenteredFit(digiName,CX,132,350,3,2);
     uiDrawCenteredFit(isDigiFusionSpecies(id)?"융합체":(id==DIGI_CHAOSDRAMON?"상위 진화체":digiStageName(DIGI_SPECIES[id].stage)),CX,180,350,2,1);
+    if(seen)drawInfoTypePair(creatureType1(makeDigimonId(id)),creatureType2(makeDigimonId(id)),CX,202);
     gfx->setTextColor(UI_TRACK);uiDrawCenteredFit("진화 조건",CX,228,330,2,1);gfx->setTextColor(UI_INK);uiDrawCenteredFit(digiDexRule(id),CX,264,350,2,1);
     if(isDigiExtraSpecies(id)){char lv[64];snprintf(lv,sizeof(lv),"현재 최고기록 %u",pet.digiBest[id]);uiDrawCenteredFit(lv,CX,324,330,1,1);}
     uiDrawCenteredFit("목록으로",CX,410,140,2,1);gfx->flush();return;
@@ -10669,6 +10867,7 @@ void renderGallery() {
       const uint8_t *t = thumbs.get(galleryDetail);
       if (t) drawThumb(t, CX - GAL_CELL, 135, 4, !reg);
     }
+    if(reg)drawInfoTypePair(creatureType1(galleryDetail),creatureType2(galleryDetail),CX,306);
     // Pokedex Search: selectable even for an unseen silhouette, so it can
     // actually help fill the dex. Unavailable-art entries stay disabled.
     bool canHunt = pet.huntCanTarget(galleryDetail);
@@ -11239,7 +11438,10 @@ static void drawEvolutionPickerPanel() {
     uiDrawCenteredFit(creatureName(target), 262, y + 20, 230, 2, 1);
     uiSetTextSize(1);
     gfx->setTextColor(pet.isRegistered(target) ? UI_BAR_OK : UI_TRACK);
-    uiDrawCenteredFit(pet.isRegistered(target) ? "도감 등록" : "미등록", 262, y + 44, 150, 1, 1);
+    uint8_t it1=creatureType1(target),it2=creatureType2(target);
+    if(it1<TYPE_COUNT)drawInfoSprite(UI_INFO_TYPES[it1],158,y+40);
+    if(it2<TYPE_COUNT)drawInfoSprite(UI_INFO_TYPES[it2],180,y+40);
+    uiDrawCenteredFit(pet.isRegistered(target) ? "도감 등록" : "미등록", 286, y + 44, 130, 1, 1);
   }
 
   gfx->setTextColor(UI_INK);
@@ -11630,6 +11832,7 @@ void drawPet() {
   PetMood m = pet.mood();
   if (m == MOOD_HAPPY && (millis() / 500) % 2) y -= 6;  // saltito
 
+  infoHomeBounds(x,y,32*s,32*s);
   drawMap(sp.sprite, SPRITE_H, x, y, s, false);
 
   // expresiones superpuestas usando las anclas de la especie
@@ -11641,7 +11844,7 @@ void drawPet() {
   if (m == MOOD_EATING) overlayMouth(sp, x, y, s, true);
   else if (m == MOOD_SAD) overlayMouth(sp, x, y, s, false);
 
-  if (pet.showHeart()) drawMap(SPR_HEART, 32, x + 20 * s, y - 2 * s, 2, false);
+  if (pet.showHeart() && !gInfoCaptureHome) drawMap(SPR_HEART, 32, x + 20 * s, y - 2 * s, 2, false);
   gHomePetNightTint = false;
 }
 
@@ -11807,6 +12010,7 @@ void drawPmdActM(PmdMon &m, uint8_t actId, int cx, int groundY, uint32_t t, bool
   const int c0 = (a.frameL[fi] < a.w) ? a.frameL[fi] : ((a.visL < a.w) ? a.visL : 0);
   const int c1 = (a.frameR[fi] > c0 && a.frameR[fi] <= a.w) ? a.frameR[fi] :
                  ((a.visR > c0 && a.visR <= a.w) ? a.visR : a.w);
+  if(&m==&pmd)infoHomeBounds(x0+c0*s,y0+r0*s,(c1-c0)*s,(r1-r0)*s);
   for (int r = r0; r < r1; r++) {
     const uint8_t *row = fr + r * a.w;
     int c = c0;
@@ -11897,7 +12101,7 @@ void drawPetPMD() {
 
   drawPmdAct(act, (int)beh.x, PET_GROUND, now - beh.t0, loop || act == PMD_IDLE, false, 5);
 
-  if (pet.showHeart()) drawMap(SPR_HEART, 32, (int)beh.x + 50, PET_GROUND - 190, 2, false);
+  if (pet.showHeart() && !gInfoCaptureHome) drawMap(SPR_HEART, 32, (int)beh.x + 50, PET_GROUND - 190, 2, false);
 }
 
 // sprite animado desde la SD: zoom entero por pixel, frames a su ritmo
@@ -11906,6 +12110,7 @@ void drawPetSD() {
   int w = mon.w * s, h = mon.h * s;
   int x = CX - w / 2;
   int y = PET_CY - h / 2;
+  infoHomeBounds(x,y,w,h);
 
   bool sil = false;
   if (pet.evolving()) {
@@ -11929,7 +12134,7 @@ void drawPetSD() {
   }
 
   // emotes en vez de expresiones (los sprites importados no tienen anclas)
-  if (pet.showHeart()) drawMap(SPR_HEART, 32, x + w - 30, y - 50, 2, false);
+  if (pet.showHeart() && !gInfoCaptureHome) drawMap(SPR_HEART, 32, x + w - 30, y - 50, 2, false);
 }
 
 // ojo cerrado: borra el ojo 3x4 y dibuja el parpado
