@@ -1,0 +1,5 @@
+TamaPoke featured evolution-6 audit
+
+NOTE pmd_catalog.json not present; static lock/policy checks only (full check runs after catalog sync in Actions).
+
+featured evolution-6 audit OK

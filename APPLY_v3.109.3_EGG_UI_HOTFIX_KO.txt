@@ -1,0 +1,7 @@
+TamaPoke v3.109.3 — 알/디지몬 선택 UI 핫픽스
+
+1. 대기 중인 알 그래픽을 18px 아래로 내려 PET_GROUND에 맞춤.
+2. 시작 시 디지몬 기기 선택 목록의 긴 영문명을 UI 전용 약어로 표시.
+3. 선택 목록 텍스트를 카드 폭에 자동 맞춤(uiDrawLeftFit).
+4. 알 아래 기기 선택 탭도 자동 맞춤(uiDrawCenteredFit)하여 왼쪽 화면 이탈 방지.
+5. FW_VERSION / SAVE_VERSION / 게임 데이터 구조 변경 없음.

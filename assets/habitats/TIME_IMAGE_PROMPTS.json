@@ -1,0 +1,185 @@
+{
+  "mode": "built-in image_gen; one separate call per image; no atlas slicing",
+  "prompts": [
+    {
+      "n": "normal",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached normal type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky, low sun, warm rim lighting and natural long shadows; actual evening scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "normal",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached normal type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "fire",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached fire type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "fire",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached fire type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "water",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached water type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "water",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached water type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "electric",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached electric type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "electric",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached electric type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "grass",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached grass type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "grass",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached grass type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "ice",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached ice type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "ice",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached ice type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "fighting",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached fighting type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "fighting",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached fighting type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "poison",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached poison type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "poison",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached poison type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "ground",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached ground type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "ground",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached ground type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "flying",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached flying type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "flying",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached flying type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "psychic",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached psychic type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "psychic",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached psychic type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "bug",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached bug type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "bug",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached bug type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "rock",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached rock type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "rock",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached rock type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "ghost",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached ghost type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "ghost",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached ghost type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "dragon",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached dragon type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "dragon",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached dragon type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "dark",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached dark type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "dark",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached dark type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "steel",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached steel type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "steel",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached steel type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "fairy",
+      "phase": "sunset",
+      "prompt": "Use case: lighting-weather. Edit target: attached fairy type pixel-art virtual-pet habitat. Create ONE standalone square sunset version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Warm orange-pink evening sky with a low setting sun where visible, warm rim lighting and natural long shadows. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    },
+    {
+      "n": "fairy",
+      "phase": "night",
+      "prompt": "Use case: lighting-weather. Edit target: attached fairy type pixel-art virtual-pet habitat. Create ONE standalone square night version of this exact landscape. Preserve camera, layout, terrain, walkable central foreground, landmarks and pixel art style. Deep blue starry night sky and moon where visible, restrained moonlight on terrain, gentle luminous details appropriate to this habitat. Keep ground readable, not black. Actual time-of-day scene details, not a flat color filter. Full square image edge to edge, no crop, no panels, no collage, no UI, no text, no characters. Crisp large pixel clusters readable at 116x116 and 16 colors."
+    }
+  ]
+}

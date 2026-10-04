@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TamaPoke DMUL Expanded Sprite Downloader v3.95.1 r13</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0a1020;--panel:#141f33;--panel2:#0e192b;--line:#2a4267;
+  --tx:#eef4ff;--muted:#9fb2d3;--good:#55d69e;--warn:#ffd166;--bad:#ff8795;--blue:#78baff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#08101d,#10192b 52%,#09111f);color:var(--tx);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1120px;margin:auto;padding:18px}
+.hero,.section{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+h1{margin:0 0 6px;font-size:27px}h2{margin:0 0 10px;font-size:20px}h3{margin:0;font-size:16px}
+.lead,.muted{color:var(--muted)}.lead{margin:0}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:13px}
+button,.btn{font:inherit;border:0;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer;background:var(--good);color:#07150f}
+button.secondary,.btn.secondary{background:#2a3e60;color:var(--tx)}
+button.warn{background:var(--warn);color:#261c00}
+button:disabled{opacity:.4;cursor:not-allowed}
+input[type=file]{display:none}
+.status{white-space:pre-wrap;background:#0b1525;border-radius:12px;padding:11px 13px;color:var(--muted);margin-top:12px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}
+.metric{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:11px}
+.metric b{display:block;font-size:22px}.metric span{font-size:12px;color:var(--muted)}
+.note{border-left:4px solid var(--warn);background:#1a2131;padding:11px 13px;border-radius:9px;margin-top:12px}
+.oklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px}
+.okitem{padding:9px 10px;border:1px solid #275a49;background:#10291f;border-radius:10px}
+.okitem b{display:block}.okitem span{font-size:12px;color:#9edfc3}
+.missing{border:1px solid #6b5430;background:#221d16;border-radius:14px;padding:13px;margin:10px 0}
+.missing.noalt{border-color:#633844;background:#24171c}
+.misshead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}
+.badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:999px;background:#293e60;color:#d7e6ff;margin-left:5px}
+.badge.warn{background:#5b4520;color:#ffe4a0}.badge.bad{background:#57303a;color:#ffc1ca}.badge.good{background:#194936;color:#a7efcf}
+.options{display:grid;gap:7px}
+.option{display:grid;grid-template-columns:auto 54px 1fr;gap:9px;align-items:center;background:#101a2a;border:1px solid #263c5d;border-radius:11px;padding:8px;cursor:pointer}
+.option:hover{border-color:#4d6f9d}.option input{width:19px;height:19px}
+.option img{width:54px;height:54px;object-fit:contain;image-rendering:pixelated;background:#09111e;border-radius:7px}
+.optname{font-weight:750}.meta{font-size:12px;color:var(--muted);word-break:break-word}
+.progress{height:10px;background:#0b1423;border-radius:999px;overflow:hidden;margin-top:8px}.bar{height:100%;width:0;background:var(--good);transition:width .15s}
+.actions{position:sticky;bottom:8px;background:#0b1322e8;backdrop-filter:blur(10px);border:1px solid var(--line);padding:11px;border-radius:14px;display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.small{font-size:12px;color:var(--muted)}
+a{color:#8cc8ff}
+details{margin-top:8px}summary{cursor:pointer;color:#cfe0ff}
+@media(max-width:720px){main{padding:10px}.metrics{grid-template-columns:1fr 1fr}.option{grid-template-columns:auto 46px 1fr}.option img{width:46px;height:46px}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+  <h1>TamaPoke · DMUL Expansion Sprite Downloader <span class="badge">v3.95.1 r13</span></h1>
+  <p class="lead">현재 확정된 <b>ID 283~457, 총 175종</b>을 검사합니다. DMUL Dragon~Imperial과 특수 융합체를 현재 v3.95.1 카탈로그 ID 그대로 저장합니다. Source가 <b>DMUL</b>이면 우선 사용하고, 없을 때만 다른 Source 후보를 표시합니다.</p>
+  <div class="row">
+    <button id="reload">DMUL DB 다시 불러오기</button>
+    <label class="btn secondary" for="local">sprites.json 직접 열기</label>
+    <input id="local" type="file" accept=".json,application/json">
+    <a class="btn secondary" href="https://dmc-sprite-database.vercel.app/" target="_blank" rel="noreferrer">원본 DB 열기</a>
+  </div>
+  <div class="metrics">
+    <div class="metric"><b id="mTotal">174</b><span>확정 DMUL/특수 슬롯</span></div>
+    <div class="metric"><b id="mDmul">0</b><span>DMUL Source DB 확인</span></div>
+    <div class="metric"><b id="mMissing">0</b><span>DMUL Source 없음</span></div>
+    <div class="metric"><b id="mSelected">0</b><span>직접 선택한 대체 리소스</span></div>
+  </div>
+  <div id="status" class="status">온라인 DB와 이미지 저장소 목록을 불러오는 중…</div>
+  <div class="progress"><div id="bar" class="bar"></div></div>
+  <div class="note">
+    <b>다운로드 규칙</b><br>
+    ① <b>DB에 Source: DMUL 레코드가 존재하는지</b>와 <b>실제 이미지셋 다운로드 경로를 해석했는지</b>를 분리해서 판정합니다.<br>
+    ② Source: DMUL 레코드가 있으면 더 이상 “완전 미발견”으로 표시하지 않습니다. 파일셋 해석이 어려운 경우에는 별도의 <b>DMUL 레코드 있음 · 경로 해석 필요</b> 목록으로 표시합니다.<br>
+    ③ 다운로드 경로는 DB의 Download 계열 필드뿐 아니라 <b>레코드 내부의 전체 이미지/ZIP 경로</b>, DB 연결 폴더, 저장소 이름 매칭 순으로 찾습니다.<br>
+    ④ DMUL Source 자체가 없을 때만 다른 Source 후보를 직접 선택합니다.<br>
+    ⑤ 명칭 별칭: DB의 <code>DoruGreymon</code>은 게임의 <code>DORUguremon</code>으로 자동 매칭합니다.<br>⑥ r4부터 대표 이미지가 이미지셋의 첫 프레임인 경우 이를 제외하지 않아 SD 팩 변환에 필요한 첫 프레임까지 함께 저장합니다.
+  </div>
+</section>
+
+<section class="section">
+  <h2>DMUL Source 자동 확보</h2>
+  <p class="muted">여기는 따로 선택할 필요가 없습니다. 다운로드 버튼을 누르면 자동 포함됩니다.</p>
+  <div id="dmulList" class="oklist"><div class="muted">분석 중…</div></div>
+</section>
+
+<section class="section">
+  <h2>DMUL Source 있음 · 이미지셋 경로 해석 필요</h2>
+  <p class="muted">DB에는 Source: DMUL 레코드가 실제로 존재하지만 자동으로 전체 파일셋 경로를 아직 해석하지 못한 항목입니다. 이 항목은 “완전 미발견”이 아닙니다.</p>
+  <div id="unresolvedList"><div class="muted">분석 중…</div></div>
+</section>
+
+<section class="section">
+  <h2>DMUL Source 없음 · 직접 선택</h2>
+  <p class="muted">DMUL이라고 표시된 리소스를 찾지 못한 디지몬만 표시됩니다. 대체 Source가 여러 개면 원하는 것을 하나 이상 체크할 수 있습니다.</p>
+  <div class="row">
+    <button id="selectFirst" class="secondary" disabled>각 종 첫 후보 자동 선택</button>
+    <button id="clearAlt" class="secondary" disabled>대체 선택 전부 해제</button>
+  </div>
+  <div id="missingList"><div class="muted">분석 중…</div></div>
+</section>
+
+<div class="actions">
+  <div>
+    <b id="readyText">DB 분석 대기 중</b>
+    <div class="small">DMUL 자동 리소스 + 직접 선택한 대체 리소스를 한 ZIP으로 받습니다.</div>
+  </div>
+  <button id="download" class="warn" disabled>선택 완료 · 전체 이미지셋 다운로드</button>
+</div>
+</main>
+
+<script>
+const DB_PAGE='https://dmc-sprite-database.vercel.app/';
+const REPO='https://github.com/tero0x/dmc-sprites';
+const RAW_BASE='https://raw.githubusercontent.com/tero0x/dmc-sprites/main/';
+const CDN_BASE='https://cdn.jsdelivr.net/gh/tero0x/dmc-sprites@main/';
+const DATA_URLS=[RAW_BASE+'sprites.json',CDN_BASE+'sprites.json'];
+const TREE_URLS=[
+  'https://api.github.com/repos/tero0x/dmc-sprites/git/trees/main?recursive=1',
+  'https://data.jsdelivr.com/v1/package/gh/tero0x/dmc-sprites@main/flat'
+];
+
+// TamaPoke v3.95.1 confirmed IDs 283..457. Existing IDs are preserved exactly.
+const ROSTER=[{"id":283,"name":"Guilmon","v":16,"s":2,"family":"Dragon"},{"id":284,"name":"Growmon","v":16,"s":3,"family":"Dragon"},{"id":285,"name":"MegaloGrowlmon","v":16,"s":4,"family":"Dragon"},{"id":286,"name":"Dukemon","v":16,"s":5,"family":"Dragon"},{"id":287,"name":"Dukemon Crimson Mode","v":16,"s":5,"family":"Dragon"},{"id":288,"name":"Keramon","v":17,"s":2,"family":"Dark"},{"id":289,"name":"Kurisarimon","v":17,"s":3,"family":"Dark"},{"id":290,"name":"Infermon","v":17,"s":4,"family":"Dark"},{"id":291,"name":"Diablomon","v":17,"s":5,"family":"Dark"},{"id":292,"name":"Lunamon","v":18,"s":2,"family":"Deep"},{"id":293,"name":"Lekismon","v":18,"s":3,"family":"Deep"},{"id":294,"name":"Crescemon","v":18,"s":4,"family":"Deep"},{"id":295,"name":"Dianamon","v":18,"s":5,"family":"Deep"},{"id":296,"name":"Gaomon","v":19,"s":2,"family":"Nature"},{"id":297,"name":"Gaogamon","v":19,"s":3,"family":"Nature"},{"id":298,"name":"MachGaogamon","v":19,"s":4,"family":"Nature"},{"id":299,"name":"MirageGaogamon","v":19,"s":5,"family":"Nature"},{"id":300,"name":"Renamon","v":20,"s":2,"family":"Nightmare"},{"id":301,"name":"Kyubimon","v":20,"s":3,"family":"Nightmare"},{"id":302,"name":"Taomon","v":20,"s":4,"family":"Nightmare"},{"id":303,"name":"Sakuyamon","v":20,"s":5,"family":"Nightmare"},{"id":304,"name":"Hackmon","v":21,"s":2,"family":"Secret"},{"id":305,"name":"BaoHackmon","v":21,"s":3,"family":"Secret"},{"id":306,"name":"SaviorHackmon","v":21,"s":4,"family":"Secret"},{"id":307,"name":"Jesmon","v":21,"s":5,"family":"Secret"},{"id":308,"name":"DORUmon","v":16,"s":2,"family":"Dragon"},{"id":309,"name":"DORUgamon","v":16,"s":3,"family":"Dragon"},{"id":310,"name":"DORUguremon","v":16,"s":4,"family":"Dragon"},{"id":311,"name":"DORUgoramon","v":16,"s":5,"family":"Dragon"},{"id":312,"name":"Raptordramon","v":16,"s":3,"family":"Dragon"},{"id":313,"name":"Grademon","v":16,"s":4,"family":"Dragon"},{"id":314,"name":"Alphamon","v":16,"s":5,"family":"Dragon"},{"id":315,"name":"Ryudamon","v":16,"s":2,"family":"Dragon"},{"id":316,"name":"Ginryumon","v":16,"s":3,"family":"Dragon"},{"id":317,"name":"Hisyaryumon","v":16,"s":4,"family":"Dragon"},{"id":318,"name":"Ouryumon","v":16,"s":5,"family":"Dragon"},{"id":319,"name":"Alphamon Ouryuken","v":16,"s":5,"family":"Dragon"},{"id":320,"name":"Dodomon","v":16,"s":0,"family":"Dragon"},{"id":321,"name":"Dorimon","v":16,"s":1,"family":"Dragon"},{"id":322,"name":"Gigimon","v":16,"s":1,"family":"Dragon"},{"id":323,"name":"Kuramon","v":17,"s":0,"family":"Dark"},{"id":324,"name":"Tsumemon","v":17,"s":1,"family":"Dark"},{"id":325,"name":"Pitchmon","v":18,"s":0,"family":"Deep"},{"id":326,"name":"Moonmon","v":18,"s":1,"family":"Deep"},{"id":327,"name":"Bubbmon","v":19,"s":0,"family":"Nature"},{"id":328,"name":"Mochimon","v":19,"s":1,"family":"Nature"},{"id":329,"name":"Mokumon","v":20,"s":0,"family":"Nightmare"},{"id":330,"name":"Pokomon","v":20,"s":1,"family":"Nightmare"},{"id":331,"name":"Botamon","v":21,"s":0,"family":"Secret"},{"id":332,"name":"Koromon","v":21,"s":1,"family":"Secret"},{"id":333,"name":"Dracomon","v":16,"s":2,"family":"Dragon"},{"id":334,"name":"Coredramon Blue","v":16,"s":3,"family":"Dragon"},{"id":335,"name":"Coredramon Green","v":16,"s":3,"family":"Dragon"},{"id":336,"name":"GeoGreymon","v":16,"s":3,"family":"Dragon"},{"id":337,"name":"Wingdramon","v":16,"s":4,"family":"Dragon"},{"id":338,"name":"Groundramon","v":16,"s":4,"family":"Dragon"},{"id":339,"name":"RizeGreymon","v":16,"s":4,"family":"Dragon"},{"id":340,"name":"Slayerdramon","v":16,"s":5,"family":"Dragon"},{"id":341,"name":"Breakdramon","v":16,"s":5,"family":"Dragon"},{"id":342,"name":"Examon","v":16,"s":5,"family":"Dragon"},{"id":343,"name":"Dracmon","v":17,"s":2,"family":"Dark"},{"id":344,"name":"Ghostmon","v":17,"s":2,"family":"Dark"},{"id":345,"name":"Tsukaimon","v":17,"s":2,"family":"Dark"},{"id":346,"name":"Soulmon","v":17,"s":3,"family":"Dark"},{"id":347,"name":"IceDevimon","v":17,"s":3,"family":"Dark"},{"id":348,"name":"Sangloupmon","v":17,"s":3,"family":"Dark"},{"id":349,"name":"Fangmon","v":17,"s":3,"family":"Dark"},{"id":350,"name":"Witchmon","v":17,"s":3,"family":"Dark"},{"id":351,"name":"Boogiemon","v":17,"s":3,"family":"Dark","fallbacks":["Phelesmon"]},{"id":352,"name":"Matadormon","v":17,"s":4,"family":"Dark"},{"id":353,"name":"Astamon","v":17,"s":4,"family":"Dark"},{"id":354,"name":"NeoDevimon","v":17,"s":4,"family":"Dark"},{"id":355,"name":"SkullBaluchimon","v":17,"s":4,"family":"Dark"},{"id":356,"name":"Wisemon","v":17,"s":4,"family":"Dark"},{"id":357,"name":"Cerberumon","v":17,"s":4,"family":"Dark","fallbacks":["Mummymon","Bastemon"]},{"id":358,"name":"GranDracmon","v":17,"s":5,"family":"Dark"},{"id":359,"name":"Barbamon","v":17,"s":5,"family":"Dark"},{"id":360,"name":"Lilithmon","v":17,"s":5,"family":"Dark","fallbacks":["Lilithmon","Belphemon: Rage Mode"]},{"id":361,"name":"BeelStarmon","v":17,"s":5,"family":"Dark"},{"id":362,"name":"Murmukusmon","v":17,"s":5,"family":"Dark"},{"id":363,"name":"Swimmon","v":18,"s":2,"family":"Deep"},{"id":364,"name":"Kamemon","v":18,"s":2,"family":"Deep"},{"id":365,"name":"Sangomon","v":18,"s":2,"family":"Deep"},{"id":366,"name":"Penmon","v":18,"s":2,"family":"Deep"},{"id":367,"name":"Dolphmon","v":18,"s":3,"family":"Deep"},{"id":368,"name":"Tylomon","v":18,"s":3,"family":"Deep"},{"id":369,"name":"Tobiumon","v":18,"s":3,"family":"Deep"},{"id":370,"name":"Orcamon","v":18,"s":3,"family":"Deep"},{"id":371,"name":"MarinChimairamon","v":18,"s":4,"family":"Deep"},{"id":372,"name":"Gusokumon","v":18,"s":4,"family":"Deep"},{"id":373,"name":"WaruSeadramon","v":18,"s":4,"family":"Deep"},{"id":374,"name":"Divemon","v":18,"s":4,"family":"Deep"},{"id":375,"name":"Regalecusmon","v":18,"s":5,"family":"Deep"},{"id":376,"name":"Neptunemon","v":18,"s":5,"family":"Deep"},{"id":377,"name":"Leviamon","v":18,"s":5,"family":"Deep"},{"id":378,"name":"AncientMermaimon","v":18,"s":5,"family":"Deep"},{"id":379,"name":"Pomumon","v":19,"s":2,"family":"Nature"},{"id":380,"name":"Funbeemon","v":19,"s":2,"family":"Nature","fallbacks":["Kunemon"]},{"id":381,"name":"Lalamon","v":19,"s":2,"family":"Nature"},{"id":382,"name":"Parasaurmon","v":19,"s":3,"family":"Nature"},{"id":383,"name":"Sunflowmon","v":19,"s":3,"family":"Nature"},{"id":384,"name":"Waspmon","v":19,"s":3,"family":"Nature"},{"id":385,"name":"Ajatarmon","v":19,"s":4,"family":"Nature"},{"id":386,"name":"CannonBeemon","v":19,"s":4,"family":"Nature"},{"id":387,"name":"Lilamon","v":19,"s":4,"family":"Nature"},{"id":388,"name":"GrandisKuwagamon","v":19,"s":5,"family":"Nature"},{"id":389,"name":"TigerVespamon","v":19,"s":5,"family":"Nature"},{"id":390,"name":"Lotusmon","v":19,"s":5,"family":"Nature","fallbacks":["Ceresmon","Rosemon"]},{"id":391,"name":"Bancho Lilimon","v":19,"s":5,"family":"Nature","fallbacks":["QueenBeemon","Rafflesimon"]},{"id":392,"name":"Impmon","v":20,"s":2,"family":"Nightmare"},{"id":393,"name":"Gazimon","v":20,"s":2,"family":"Nightmare","fallbacks":["PicoDevimon","Gazimon"]},{"id":394,"name":"Goblimon","v":20,"s":2,"family":"Nightmare"},{"id":395,"name":"Phascomon","v":20,"s":2,"family":"Nightmare"},{"id":396,"name":"Sorcermon","v":20,"s":3,"family":"Nightmare"},{"id":397,"name":"BlackTailmon","v":20,"s":3,"family":"Nightmare"},{"id":398,"name":"Musyamon","v":20,"s":3,"family":"Nightmare"},{"id":399,"name":"Fugamon","v":20,"s":3,"family":"Nightmare"},{"id":400,"name":"Baalmon","v":20,"s":4,"family":"Nightmare"},{"id":401,"name":"Bastemon","v":20,"s":4,"family":"Nightmare","fallbacks":["Mummymon","Fantomon"]},{"id":402,"name":"Archnemon","v":20,"s":4,"family":"Nightmare","fallbacks":["Mummymon","Fantomon"]},{"id":403,"name":"SkullSatamon","v":20,"s":4,"family":"Nightmare"},{"id":404,"name":"Beelzebumon","v":20,"s":5,"family":"Nightmare"},{"id":405,"name":"Gulfmon","v":20,"s":5,"family":"Nightmare"},{"id":406,"name":"Plutomon","v":20,"s":5,"family":"Nightmare"},{"id":407,"name":"Kuzuhamon","v":20,"s":5,"family":"Nightmare"},{"id":408,"name":"Kudamon","v":21,"s":2,"family":"Secret"},{"id":409,"name":"Lucemon","v":21,"s":2,"family":"Secret"},{"id":410,"name":"Patamon","v":21,"s":2,"family":"Secret"},{"id":411,"name":"Morphomon","v":21,"s":2,"family":"Secret"},{"id":412,"name":"Gladimon","v":21,"s":3,"family":"Secret"},{"id":413,"name":"Reppamon","v":21,"s":3,"family":"Secret"},{"id":414,"name":"Pidmon","v":21,"s":3,"family":"Secret","fallbacks":["Angemon"]},{"id":415,"name":"Darcmon","v":21,"s":3,"family":"Secret"},{"id":416,"name":"Chirinmon","v":21,"s":4,"family":"Secret","fallbacks":["HolyAngemon","Mihiramon"]},{"id":417,"name":"Hippogriffomon","v":21,"s":4,"family":"Secret","fallbacks":["Mihiramon","HolyAngemon"]},{"id":418,"name":"Mistymon","v":21,"s":4,"family":"Secret"},{"id":419,"name":"Seraphimon","v":21,"s":5,"family":"Secret"},{"id":420,"name":"Ophanimon","v":21,"s":5,"family":"Secret"},{"id":421,"name":"Duftmon","v":21,"s":5,"family":"Secret"},{"id":422,"name":"Craniummon","v":21,"s":5,"family":"Secret","fallbacks":["Dynasmon","Gankoomon"]},{"id":423,"name":"Sleipmon","v":21,"s":5,"family":"Secret"},{"id":424,"name":"Armagemon","v":17,"s":5,"family":"Dark"},{"id":425,"name":"GraceNovamon","v":0,"s":5,"family":"Fusion"},{"id":426,"name":"Coronamon","v":21,"s":2,"family":"Secret"},{"id":427,"name":"Firamon","v":21,"s":3,"family":"Secret"},{"id":428,"name":"Flaremon","v":21,"s":4,"family":"Secret"},{"id":429,"name":"Apollomon","v":21,"s":5,"family":"Secret"},{"id":430,"name":"MirageGaogamon Burst Mode","v":19,"s":5,"family":"Nature"},{"id":431,"name":"Beelzebumon Blast Mode","v":20,"s":5,"family":"Nightmare"},{"id":432,"name":"JESmon GX","v":21,"s":5,"family":"Secret"},{"id":433,"name":"Lucemon Falldown Mode","v":21,"s":5,"family":"Secret"},{"id":434,"name":"Lucemon Satan Mode","v":21,"s":5,"family":"Secret"},{"id":435,"name":"Chibomon","v":22,"s":0,"family":"Imperial"},{"id":436,"name":"DemiVeemon","v":22,"s":1,"family":"Imperial"},{"id":437,"name":"Veemon","v":22,"s":2,"family":"Imperial"},{"id":438,"name":"Wormmon","v":22,"s":2,"family":"Imperial"},{"id":439,"name":"Hawkmon","v":22,"s":2,"family":"Imperial"},{"id":440,"name":"Armadillomon","v":22,"s":2,"family":"Imperial"},{"id":441,"name":"ExVeemon","v":22,"s":3,"family":"Imperial"},{"id":442,"name":"Snimon","v":22,"s":3,"family":"Imperial"},{"id":443,"name":"Aquilamon","v":22,"s":3,"family":"Imperial"},{"id":444,"name":"Ankylomon","v":22,"s":3,"family":"Imperial"},{"id":445,"name":"JewelBeemon","v":22,"s":4,"family":"Imperial"},{"id":446,"name":"Yatagaramon","v":22,"s":4,"family":"Imperial","fallbacks":["Karatenmon","Garudamon"]},{"id":447,"name":"Meteormon","v":22,"s":4,"family":"Imperial"},{"id":448,"name":"Paildramon","v":22,"s":4,"family":"Imperial"},{"id":449,"name":"Dinobeemon","v":22,"s":4,"family":"Imperial"},{"id":450,"name":"Silphymon","v":22,"s":4,"family":"Imperial"},{"id":451,"name":"Shakkoumon","v":22,"s":4,"family":"Imperial"},{"id":452,"name":"Valkyrimon","v":22,"s":5,"family":"Imperial"},{"id":453,"name":"Ravmon","v":22,"s":5,"family":"Imperial"},{"id":454,"name":"Imperialdramon Dragon Mode","v":22,"s":5,"family":"Imperial"},{"id":455,"name":"Imperialdramon Fighter Mode","v":22,"s":5,"family":"Imperial"},{"id":456,"name":"Imperialdramon Paladin Mode","v":22,"s":5,"family":"Imperial"},{"id":457,"name":"Imperialdramon OmegaX","v":22,"s":5,"family":"Imperial"}];
+if(ROSTER.length!==175||ROSTER[0]?.id!==283||ROSTER[ROSTER.length-1]?.id!==457||ROSTER.some((d,i)=>d.id!==283+i)) throw Error('DMUL roster ID 검증 실패: v3.95.1은 ID 283~457 연속 175종이어야 합니다.');
+
+
+const ALIAS={"dracumon":"dracmon","coredramonblue":"coredramonblue","coredramonbl":"coredramonblue","coredramongreen":"coredramongreen","coredramongr":"coredramongreen","risegreymon":"rizegreymon","marinekimeramon":"marinchimairamon","marinechimairamon":"marinchimairamon","marinechimera":"marinchimairamon","waruseadramon":"waruseadramon","wargreymonx":"wargreymonx","beelzemon":"beelzebumon","beelzemonblastmode":"beelzebumonblastmode","beelzebumonblastmode":"beelzebumonblastmode","jesmongx":"jesmongx","lucemonfalldownmode":"lucemonfalldownmode","lucemonchaosmode":"lucemonfalldownmode","lucemonsatanmode":"lucemonsatanmode","gracenovamon":"gracenovamon","armageddemon":"armagemon","armagemon":"armagemon","grandracmon":"grandracmon","grandedracmon":"grandracmon","myotismon":"vamdemon","ladydevimon":"ladydevimon","blackgatomon":"blacktailmon","blacktailmon":"blacktailmon","qilinmon":"chirinmon","tyilinmon":"chirinmon","kentaurosmon":"sleipmon","sleipmon":"sleipmon","leopardmon":"duftmon","duftmon":"duftmon","marineangemon":"marinangemon","cannonbeemon":"cannonbeemon","fanbeemon":"funbeemon","tigerespamon":"tigervespamon","tigervespamon":"tigervespamon","ancientmermaidmon":"ancientmermaimon","ancientmermaimon":"ancientmermaimon","sorcerimon":"sorcermon","sorcermon":"sorcermon","piedmon":"piemon","vmon":"veemon","veemon":"veemon","xvmon":"exveemon","exveemon":"exveemon","dinobeemon":"dinobeemon","imperialdramon":"imperialdramondragonmode","imperialdramondragonmode":"imperialdramondragonmode","imperialdramondm":"imperialdramondragonmode","imperialdramonfightermode":"imperialdramonfightermode","imperialdramonfm":"imperialdramonfightermode","imperialdramonpaladinmode":"imperialdramonpaladinmode","imperialdramonpm":"imperialdramonpaladinmode","imperialdramonomegax":"imperialdramonomegax","valkyrimon":"valkyrimon","ravemon":"ravmon","ravmon":"ravmon","chibimon":"demiveemon","demiveemon":"demiveemon","boogeymon":"boogiemon","boogiemon":"boogiemon","cerberumon":"cerberumon","cerberusmon":"cerberumon","funbeemon":"funbeemon","lotusmon":"lotusmon","lotosmon":"lotusmon","rotosmon":"lotusmon","bancholilimon":"bancholilimon","bancholillymon":"bancholilimon","banchoulilimon":"bancholilimon","bantyolilimon":"bancholilimon","mistymon":"mistymon","mystimon":"mistymon","archnemon":"archnemon","arukenimon":"archnemon","archenmon":"archnemon","pidmon":"pidmon","piddomon":"pidmon","chirinmon":"chirinmon","hippogriffomon":"hippogriffomon","hippogryphomon":"hippogriffomon","hippogryphonmon":"hippogriffomon","craniummon":"craniummon","craniamon":"craniummon","yatagaramon":"yatagaramon","crowmon":"yatagaramon","belphemonragemode":"belphemonragemode","belphemonrm":"belphemonragemode","lilithmon":"lilithmon","phelesmon":"phelesmon","mummymon":"mummymon","bastemon":"bastemon","ceresmon":"ceresmon","queenbeemon":"queenbeemon","picodevimon":"picodevimon","demidevimon":"picodevimon","mihiramon":"mihiramon","dynasmon":"dynasmon","karatenmon":"karatenmon","growlmon":"growmon","megagrowlmon":"megalogrowlmon","wargrowlmon":"megalogrowlmon","gallantmon":"dukemon","gallantmoncrimsonmode":"dukemoncrimsonmode","diaboromon":"diablomon","chrysalimon":"kurisarimon","dorugreymon":"doruguremon","huckmon":"hackmon","baohuckmon":"baohackmon","saviorhuckmon":"saviorhackmon","alphamonouryuuken":"alphamonouryuken","viximon":"pokomon","pabumon":"bubbmon","motimon":"mochimon","pichimon":"pitchmon","wizardmon":"wizarmon","venommyotismon":"venomvamdemon","phantomon":"fantomon","daemon":"demon","creepymon":"demon","gatomon":"tailmon","magnaangemon":"holyangemon","machinedramon":"mugendramon","paildramon":"paildramon"};
+// r10: corrected-name aliases are automatic; fallback species are suggestions only, never silent matches. DoruGreymon(DB/English) -> DORUguremon(game/Japanese romanization)
+
+
+const $=id=>document.getElementById(id);
+let records=[],repoFiles=[],repoByDir=new Map(),repoDirs=[],treeReady=false;
+let analysis=null,selectedAlt=new Set(),packCache=new WeakMap();
+
+function rawKey(s){return String(s??'').toLowerCase().replace(/[^a-z0-9]/g,'')}
+function canon(s){let k=rawKey(s);return ALIAS[k]||k}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function attr(s){return esc(s)}
+function safe(s){return String(s??'file').replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').replace(/\s+/g,' ').trim().slice(0,110)||'file'}
+function stageName(s){return ['유년기 I','유년기 II','성장기','성숙기','완전체','궁극체'][s]||('Stage '+s)}
+function family(v){return ({16:'Dragon',17:'Dark',18:'Deep',19:'Nature',20:'Nightmare',21:'Secret',22:'Imperial',0:'Fusion'})[v]||('V'+v)}
+function isDmulSource(r){let s=rawKey(r.source);return s==='dmul'||s.startsWith('dmul')||s.includes('dmul')}
+function strings(v,out=[],d=0){
+  if(d>6||v==null)return out;
+  if(typeof v==='string'){out.push(v);return out}
+  if(Array.isArray(v)){for(const x of v)strings(x,out,d+1);return out}
+  if(typeof v==='object'){for(const x of Object.values(v))strings(x,out,d+1)}
+  return out
+}
+function findDirect(o,rx){
+  if(!o||typeof o!=='object'||Array.isArray(o))return'';
+  for(const [k,v] of Object.entries(o))if(rx.test(k)&&typeof v==='string'&&v.trim())return v.trim();
+  return''
+}
+function first(o,rx,d=0){
+  if(d>5||o==null||typeof o!=='object')return'';
+  let a=findDirect(o,rx);if(a)return a;
+  for(const v of Object.values(o))if(v&&typeof v==='object'){let z=first(v,rx,d+1);if(z)return z}
+  return''
+}
+function recordName(o){
+  return findDirect(o,/^(name|digimon|species|title)$/i)||
+         first(o,/^(name|digimon|species|title)$/i)
+}
+function normalizeAssetUrl(s){
+  if(!s||typeof s!=='string')return'';
+  let x=s.trim();if(/^data:/i.test(x))return'';
+  if(/^https?:\/\//i.test(x)){
+    return x.replace(/^https:\/\/github\.com\/tero0x\/dmc-sprites\/blob\/main\//i,RAW_BASE)
+  }
+  x=x.replace(/^\.\//,'').replace(/^\//,'');
+  if(/\.(png|gif|webp|jpg|jpeg|bmp|zip)(\?|$)/i.test(x)){
+    if(!x.includes('/'))x='images/'+x;
+    return RAW_BASE+x
+  }
+  return''
+}
+function previewOf(o){
+  const vals=[];
+  function walk(v,k='',d=0){
+    if(d>6||v==null)return;
+    if(typeof v==='string'){
+      let u=normalizeAssetUrl(v);
+      if(u&&/\.(png|gif|webp|jpg|jpeg|bmp)(\?|$)/i.test(u)){
+        let sc=/image|preview|sprite|thumb/i.test(k)?5:1;vals.push({u,sc})
+      }
+    }else if(Array.isArray(v)){for(const x of v)walk(x,k,d+1)}
+    else if(typeof v==='object'){for(const [kk,x] of Object.entries(v))walk(x,kk,d+1)}
+  }
+  walk(o);vals.sort((a,b)=>b.sc-a.sc);return vals[0]?.u||''
+}
+function flatten(data){
+  const out=[],seen=new Set();
+  function walk(v,d=0){
+    if(d>6||v==null)return;
+    if(Array.isArray(v)){for(const x of v)walk(x,d+1);return}
+    if(typeof v!=='object')return;
+    const name=recordName(v),source=first(v,/^source$/i);
+    if(name&&(source||first(v,/stage|attribute|style|author|artist|size/i))){
+      const c=canon(name),preview=previewOf(v),author=first(v,/author|artist|creator/i);
+      const sig=[c,source,author,preview].join('|');
+      if(!seen.has(sig)){
+        seen.add(sig);out.push({
+          raw:v,name,canon:c,source,author,
+          stage:first(v,/^stage$/i),style:first(v,/style/i),size:first(v,/size|dimension/i),
+          preview
+        })
+      }
+    }
+    for(const [k,x] of Object.entries(v))if(x&&typeof x==='object'&&!/pixels|frames|imagedata/i.test(k))walk(x,d+1)
+  }
+  walk(data);return out
+}
+
+async function fetchJson(url){
+  const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()
+}
+async function fetchDB(){
+  const errs=[];
+  for(const u of DATA_URLS){try{return await fetchJson(u)}catch(e){errs.push(e.message)}}
+  throw Error('sprites.json 로드 실패: '+errs.join(' / '))
+}
+async function fetchTree(){
+  const errs=[];
+  for(const u of TREE_URLS){
+    try{
+      const j=await fetchJson(u);let files=[];
+      if(Array.isArray(j.tree))files=j.tree.filter(x=>x?.type==='blob'&&x.path).map(x=>x.path);
+      else if(Array.isArray(j.files))files=j.files.map(x=>String(x.name||x.path||'').replace(/^\//,''));
+      files=[...new Set(files.filter(p=>/^images\//i.test(p)&&/\.(png|gif|webp|jpg|jpeg|bmp|zip)$/i.test(p)))];
+      if(!files.length)throw Error('images 파일 없음');
+      repoFiles=files;repoByDir=new Map();
+      for(const p of files){
+        const dir=parent(p);if(!repoByDir.has(dir))repoByDir.set(dir,[]);repoByDir.get(dir).push(p)
+      }
+      repoDirs=[...repoByDir.entries()].map(([dir,files])=>({dir,files,last:canon(dir.split('/').pop()||''),all:canon(dir)}));
+      treeReady=true;return
+    }catch(e){errs.push(e.message)}
+  }
+  throw Error('저장소 파일 목록 로드 실패: '+errs.join(' / '))
+}
+function parent(p){let a=String(p).replace(/\\/g,'/').split('/');a.pop();return a.join('/')}
+function repoPath(v){
+  if(!v||typeof v!=='string')return'';
+  let x=v.trim().replace(/\\/g,'/');
+  try{x=decodeURIComponent(x)}catch{}
+  let m=x.match(/raw\.githubusercontent\.com\/tero0x\/dmc-sprites\/(?:main|master)\/(.+)$/i);
+  if(m)return m[1].split('?')[0];
+  m=x.match(/cdn\.jsdelivr\.net\/gh\/tero0x\/dmc-sprites@[^/]+\/(.+)$/i);
+  if(m)return m[1].split('?')[0];
+  m=x.match(/github\.com\/tero0x\/dmc-sprites\/(?:blob|raw)\/(?:main|master)\/(.+)$/i);
+  if(m)return m[1].split('?')[0];
+  x=x.replace(/^https?:\/\/[^/]+\//i,'').replace(/^\.\//,'').replace(/^\//,'');
+  const i=x.toLowerCase().indexOf('images/');if(i>=0)x=x.slice(i);
+  return /^images\//i.test(x)&&/\.(png|gif|webp|jpg|jpeg|bmp|zip)$/i.test(x)?x:''
+}
+function rawUrl(path){return CDN_BASE+String(path).split('/').map(encodeURIComponent).join('/')}
+function ext(u){return ((String(u).split('?')[0].match(/\.([a-z0-9]{2,6})$/i)||[])[1]||'bin').toLowerCase()}
+
+function explicitDownloads(rec){
+  const found=[];
+  function walk(v,path=[],inside=false,d=0){
+    if(d>7||v==null)return;
+    if(typeof v==='string'){
+      if(!inside)return;
+      let u=normalizeAssetUrl(v);
+      if(!u&&/^https?:\/\//i.test(v.trim()))u=v.trim();
+      if(u)found.push(u);return
+    }
+    if(Array.isArray(v)){v.forEach((x,i)=>walk(x,path.concat(i),inside,d+1));return}
+    if(typeof v==='object')for(const [k,x] of Object.entries(v)){
+      walk(x,path.concat(k),inside||/download|archive|bundle|pack|zip/i.test(k),d+1)
+    }
+  }
+  walk(rec.raw);
+  return [...new Set(found)]
+}
+
+function allRecordAssets(rec){
+  const found=[];
+  for(const v of strings(rec.raw,[],0)){
+    let u=normalizeAssetUrl(v);
+    if(!u&&/^https?:\/\//i.test(String(v).trim())&&/\.(png|gif|webp|jpg|jpeg|bmp|zip)(\?|$)/i.test(String(v).trim()))u=String(v).trim();
+    if(u&&/\.(png|gif|webp|jpg|jpeg|bmp|zip)(\?|$)/i.test(u))found.push(u)
+  }
+  if(rec.preview)found.push(rec.preview);
+  return [...new Set(found)]
+}
+function repoLoosePack(rec){
+  if(!treeReady)return null;
+  const c=rec.canon;
+  let hits=repoFiles.filter(p=>canon(p).includes(c));
+  if(isDmulSource(rec)){
+    const dm=hits.filter(p=>rawKey(p).includes('dmul'));
+    if(dm.length>=2||dm.some(p=>/\.zip$/i.test(p)))hits=dm
+  }
+  hits=[...new Set(hits)];
+  if(hits.length>=2||hits.some(p=>/\.zip$/i.test(p))){
+    return{
+      kind:'repo-loose',
+      items:hits.sort().map(p=>({url:rawUrl(p),name:p.split('/').pop(),path:p})),
+      dir:'(이름 기반 저장소 검색)',
+      why:'저장소 전체 이름 매칭'
+    }
+  }
+  return null
+}
+function anchorPaths(rec){
+  const a=[];
+  for(const x of strings(rec.raw,[],0)){let p=repoPath(x);if(p)a.push(p)}
+  let p=repoPath(rec.preview);if(p)a.push(p);
+  return [...new Set(a)]
+}
+function packFor(rec){
+  if(packCache.has(rec))return packCache.get(rec);
+
+  // 1) 실제 Download/archive/pack 계열 필드가 있으면 최우선.
+  const downloads=explicitDownloads(rec);
+  if(downloads.length){
+    const z={
+      kind:'urls',
+      items:downloads.map(u=>({url:u,name:decodeURIComponent(u.split('?')[0].split('/').pop()||('download.'+ext(u)))})),
+      why:'DB Download 계열'
+    };
+    packCache.set(rec,z);return z
+  }
+
+  // 2) 키 이름이 Download가 아니더라도 레코드 안에 여러 이미지/ZIP 경로가 들어 있으면
+  //    그것이 웹사이트 Download 버튼의 재료일 수 있으므로 전체를 사용한다.
+  const recordAssets=allRecordAssets(rec);
+  // r4: 대표 이미지가 실제 이미지셋의 첫 프레임인 DB가 많으므로 preview를 제거하지 않는다.
+  // 이전 버전은 이를 제외해 1..15 세트가 2..15(14장), DMUL 01..12 세트가 02..12(11장)가 되는 문제가 있었다.
+  const usableRecordAssets=recordAssets.length>=2 ? recordAssets :
+                           (recordAssets.some(u=>/\.zip(?:\?|$)/i.test(u)) ? recordAssets : []);
+  if(usableRecordAssets.length){
+    const z={
+      kind:'record-assets',
+      items:usableRecordAssets.map(u=>({url:u,name:decodeURIComponent(u.split('?')[0].split('/').pop()||('asset.'+ext(u)))})),
+      why:'DB 레코드 전체 이미지/ZIP 경로'
+    };
+    packCache.set(rec,z);return z
+  }
+
+  if(!treeReady){packCache.set(rec,null);return null}
+
+  // 3) DB 레코드에 연결된 저장소 경로의 같은 폴더 전체.
+  const c=rec.canon,anchors=anchorPaths(rec);
+  const candidates=[];
+  for(const a of anchors){
+    const dir=parent(a),files=repoByDir.get(dir)||[];
+    if(files.length>=2||files.some(p=>/\.zip$/i.test(p))){
+      let f=files;
+      if(f.length>60){
+        let n=f.filter(p=>canon(p).includes(c));
+        if(n.length>=2||n.some(p=>/\.zip$/i.test(p)))f=n
+      }
+      if(f.length>=2||f.some(p=>/\.zip$/i.test(p)))
+        candidates.push({dir,files:f,score:5000,why:'DB 연결 폴더'})
+    }
+  }
+
+  // 4) 폴더 이름 기반.
+  for(const d of repoDirs){
+    let score=0;
+    if(d.last===c)score=2200;
+    else if(d.last.includes(c)||c.includes(d.last))score=1500;
+    else if(d.all.includes(c))score=850;
+    if(!score)continue;
+    if(isDmulSource(rec)&&rawKey(d.dir).includes('dmul'))score+=1400;
+    const sk=rawKey(rec.source);
+    if(sk&&rawKey(d.dir).includes(sk))score+=600;
+    let f=d.files;
+    if(f.length>60){
+      let n=f.filter(p=>canon(p).includes(c));
+      if(n.length>=2||n.some(p=>/\.zip$/i.test(p)))f=n
+    }
+    if(f.length>=2&&f.length<=60)score+=450;
+    if(f.length>=2||f.some(p=>/\.zip$/i.test(p)))
+      candidates.push({dir:d.dir,files:f,score,why:'저장소 이미지셋'})
+  }
+
+  candidates.sort((a,b)=>b.score-a.score||b.files.length-a.files.length);
+  const best=candidates[0];
+  if(best){
+    const z={
+      kind:'repo',
+      items:[...new Set(best.files)].sort().map(p=>({url:rawUrl(p),name:p.split('/').pop(),path:p})),
+      dir:best.dir,why:best.why
+    };
+    packCache.set(rec,z);return z
+  }
+
+  // 5) 마지막 보강: 폴더 구조와 무관하게 저장소 전체에서 디지몬 이름이 들어간 파일을 모은다.
+  const loose=repoLoosePack(rec);
+  packCache.set(rec,loose);
+  return loose
+}
+
+function rosterKeys(d){return [d.name].map(canon)}
+function fallbackKeys(d){return (d.fallbacks||[]).map(canon)}
+function rowsForKeys(keys,byName){let out=[];for(const k of keys)for(const r of (byName.get(k)||[]))if(!out.includes(r))out.push(r);return out}
+function rowsForRoster(d,byName){return rowsForKeys(rosterKeys(d),byName)}
+function rowsForFallbacks(d,byName){return rowsForKeys(fallbackKeys(d),byName)}
+function analyze(){
+  const byName=new Map();
+  for(const r of records){
+    if(!byName.has(r.canon))byName.set(r.canon,[]);
+    byName.get(r.canon).push(r)
+  }
+
+  const found=[],unresolved=[],missing=[],notInDb=[];
+  for(const d of ROSTER){
+    const rows=rowsForRoster(d,byName);
+    const dmulRows=rows.filter(isDmulSource);
+
+    // 핵심 수정: DMUL DB 레코드 존재 여부를 packFor 성공 여부와 분리한다.
+    if(dmulRows.length){
+      const resolved=dmulRows.filter(r=>!!packFor(r));
+      const unresolvedRows=dmulRows.filter(r=>!packFor(r));
+      if(resolved.length)found.push({d,records:resolved,allDmul:dmulRows});
+      if(unresolvedRows.length)unresolved.push({d,records:unresolvedRows,allDmul:dmulRows});
+      continue
+    }
+
+    if(!rows.length){
+      // fallback은 실제 카탈로그 이름을 바꾸지 않으므로 자동 성공으로 취급하지 않는다.
+      // 필요할 때만 '대체 후보'로 보여 주어 잘못된 종의 그림이 조용히 같은 ID에 들어가는 것을 막는다.
+      const fb=rowsForFallbacks(d,byName).filter(r=>!!packFor(r));
+      notInDb.push({d});
+      missing.push({d,alts:fb,hadDmulRecord:false,notInDb:true,fallbackOnly:fb.length>0});
+      continue
+    }
+
+    // 이름은 DB에 있지만 Source=DMUL이 없는 경우에만 다른 Source 후보 제시.
+    const alts=rows.filter(r=>!isDmulSource(r)).filter(r=>!!packFor(r));
+    missing.push({d,alts,hadDmulRecord:false,notInDb:false,fallbackOnly:false})
+  }
+
+  analysis={found,unresolved,missing,notInDb};
+  selectedAlt.clear();
+  render()
+}
+
+function recId(r){return records.indexOf(r)}
+function meta(r){
+  return [r.source&&('Source: '+r.source),r.author&&('Author: '+r.author),r.stage&&('Stage: '+r.stage),r.style&&('Style: '+r.style),r.size&&('Size: '+r.size)].filter(Boolean).join(' · ')
+}
+function render(){
+  if(!analysis)return;
+
+  // mDmul = DB에서 Source:DMUL 레코드 자체가 확인된 종 수.
+  const dmulDbCount=new Set([
+    ...analysis.found.map(x=>x.d.id),
+    ...analysis.unresolved.map(x=>x.d.id)
+  ]).size;
+  $('mDmul').textContent=dmulDbCount;
+  $('mMissing').textContent=analysis.missing.filter(x=>!x.notInDb).length + analysis.notInDb.length;
+  $('mSelected').textContent=selectedAlt.size;
+
+  const ok=$('dmulList');ok.innerHTML='';
+  for(const x of analysis.found){
+    let n=x.records.reduce((sum,r)=>sum+(packFor(r)?.items.length||0),0);
+    let d=document.createElement('div');d.className='okitem';
+    d.innerHTML=`<b>#${x.d.id} ${esc(x.d.name)}</b><span>${family(x.d.v)} · ${stageName(x.d.s)} · DMUL DB 확인 / 다운로드 가능 ${x.records.length}리소스 · ${n}파일</span>`;
+    ok.append(d)
+  }
+  if(!analysis.found.length)ok.innerHTML='<div class="muted">자동으로 전체 이미지셋 경로까지 해석된 DMUL 리소스가 없습니다.</div>';
+
+  // DMUL 레코드는 실제로 있지만 pack resolver가 못 푼 경우. 절대 '완전 미발견'으로 부르지 않는다.
+  const unresolvedHost=$('unresolvedList');unresolvedHost.innerHTML='';
+  for(const x of analysis.unresolved){
+    const box=document.createElement('div');box.className='missing';
+    box.innerHTML=`<div class="misshead"><div><h3>#${x.d.id} ${esc(x.d.name)}
+      <span class="badge good">DMUL DB 레코드 확인</span>
+      <span class="badge warn">이미지셋 경로 해석 필요</span></h3>
+      <div class="meta">${family(x.d.v)} · ${stageName(x.d.s)} · DMUL 레코드 ${x.records.length}개</div></div>
+      <a href="${DB_PAGE}" target="_blank" rel="noreferrer">원본 DB 확인</a></div>
+      <div class="options"></div>`;
+    const opts=box.querySelector('.options');
+    for(const r of x.records){
+      const lab=document.createElement('div');lab.className='option';
+      lab.innerHTML=`<span class="badge good">DMUL</span>
+        <img src="${r.preview?attr(r.preview):''}" alt="" onerror="this.style.visibility='hidden'">
+        <div><div class="optname">${esc(r.name)} <span class="badge">${esc(r.source||'DMUL')}</span></div>
+        <div class="meta">${esc(meta(r)||'메타데이터 없음')} · DB에는 존재하지만 로컬 도구가 전체 Download 파일셋 경로를 확정하지 못했습니다.</div></div>`;
+      opts.append(lab)
+    }
+    unresolvedHost.append(box)
+  }
+  if(!analysis.unresolved.length)
+    unresolvedHost.innerHTML='<div class="okitem"><b>경로 해석 실패 없음</b><span>DB의 DMUL 리소스를 모두 다운로드 가능한 이미지셋으로 연결했습니다.</span></div>';
+
+  const host=$('missingList');host.innerHTML='';
+  for(const x of analysis.missing){
+    const box=document.createElement('div');box.className='missing '+(!x.alts.length?'noalt':'');
+    let titleBadge=x.notInDb
+      ? '<span class="badge bad">DB 이름 자체 미발견</span>'
+      : '<span class="badge warn">Source: DMUL 없음</span>';
+    const state=x.alts.length?`${x.alts.length}개 대체 후보`:(x.notInDb?'DB 전체 미발견':'다운로드 가능한 대체 후보 없음');
+    box.innerHTML=`<div class="misshead"><div><h3>#${x.d.id} ${esc(x.d.name)} ${titleBadge}</h3>
+      <div class="meta">${family(x.d.v)} · ${stageName(x.d.s)}</div></div>
+      <span class="badge ${x.alts.length?'good':'bad'}">${state}</span></div>
+      <div class="options"></div>`;
+    const opts=box.querySelector('.options');
+    if(!x.alts.length){
+      opts.innerHTML='<div class="muted">현재 DB에서 자동으로 연결할 수 있는 대체 이미지셋이 없습니다.</div>'
+    }else{
+      for(const r of x.alts){
+        const id=recId(r),p=packFor(r),lab=document.createElement('label');lab.className='option';
+        lab.innerHTML=`<input type="checkbox" data-rec="${id}" ${selectedAlt.has(id)?'checked':''}>
+          <img src="${r.preview?attr(r.preview):''}" alt="" onerror="this.style.visibility='hidden'">
+          <div><div class="optname">${esc(r.name)} <span class="badge">${esc(r.source||'Source 미상')}</span></div>
+          <div class="meta">${esc(meta(r)||'메타데이터 없음')} · 이미지셋 ${p?.items.length||0}파일</div></div>`;
+        lab.querySelector('input').onchange=e=>{
+          e.target.checked?selectedAlt.add(id):selectedAlt.delete(id);
+          updateReady()
+        };
+        opts.append(lab)
+      }
+    }
+    host.append(box)
+  }
+  if(!analysis.missing.length)
+    host.innerHTML='<div class="okitem"><b>모든 DMUL 슬롯에 Source: DMUL 레코드가 있습니다.</b><span>대체 Source를 직접 고를 항목이 없습니다.</span></div>';
+
+  $('selectFirst').disabled=!analysis.missing.some(x=>x.alts.length);
+  $('clearAlt').disabled=!analysis.missing.some(x=>x.alts.length);
+  updateReady()
+}
+function updateReady(){
+  $('mSelected').textContent=selectedAlt.size;
+  if(!analysis){$('download').disabled=true;return}
+  const autoRecords=analysis.found.reduce((n,x)=>n+x.records.length,0);
+  const unresolvedSpecies=analysis.unresolved.length;
+  const trueMissing=analysis.notInDb.map(x=>x.d.name);
+  $('readyText').textContent=
+    `DMUL 자동 다운로드 ${autoRecords}리소스 + 대체 선택 ${selectedAlt.size}리소스`+
+    (unresolvedSpecies?` · DMUL DB 있음/경로 미해결 ${unresolvedSpecies}종`:'')+
+    (trueMissing.length?` · DB 이름 자체 미발견 ${trueMissing.length}종`:'');
+  $('download').disabled=autoRecords+selectedAlt.size===0
+}
+$('selectFirst').onclick=()=>{
+  for(const x of analysis?.missing||[])if(x.alts.length)selectedAlt.add(recId(x.alts[0]));
+  render()
+};
+$('clearAlt').onclick=()=>{selectedAlt.clear();render()};
+
+async function loadAll(localData=null){
+  $('download').disabled=true;$('reload').disabled=true;$('bar').style.width='5%';
+  $('status').textContent='DMUL v3.95.1 확정 카탈로그 DB를 분석하는 중…';
+  try{
+    const [db,treeResult]=await Promise.all([
+      localData?Promise.resolve(localData):fetchDB(),
+      fetchTree().then(()=>true).catch(e=>{console.warn(e);return e})
+    ]);
+    $('bar').style.width='55%';
+    records=flatten(db);packCache=new WeakMap();
+    if(treeResult!==true)$('status').textContent='DB는 로드했지만 저장소 파일 목록을 읽지 못했습니다. DB 내부 Download URL이 있는 항목만 사용합니다.\n'+treeResult.message;
+    else $('status').textContent=`DB ${records.length}개 레코드 · 저장소 이미지 ${repoFiles.length}개 로드 완료. DMUL/특수 ID 283~457을 분석합니다…`;
+    await new Promise(r=>setTimeout(r,0));
+    analyze();$('bar').style.width='100%';
+    const trueMissing=analysis.notInDb.map(x=>x.d.name);
+    const noDmul=analysis.missing.filter(x=>!x.notInDb).map(x=>x.d.name);
+    const unresolved=analysis.unresolved.map(x=>x.d.name);
+    const dmulDbCount=new Set([...analysis.found.map(x=>x.d.id),...analysis.unresolved.map(x=>x.d.id)]).size;
+    $('status').textContent=
+      `분석 완료\n확정 DMUL/특수 슬롯: ${ROSTER.length}종\nSource: DMUL DB 확인: ${dmulDbCount}종\n`+
+      `DMUL 전체 이미지셋 자동 연결: ${analysis.found.length}종\n`+
+      `DMUL DB에는 있으나 경로 미해결: ${analysis.unresolved.length}종${unresolved.length?' → '+unresolved.join(', '):''}\n`+
+      `Source: DMUL 자체가 없는 종: ${noDmul.length}종${noDmul.length?' → '+noDmul.join(', '):''}\n`+
+      `DB 이름 자체 미발견: ${trueMissing.length}종${trueMissing.length?' → '+trueMissing.join(', '):''}`;
+  }catch(e){
+    $('status').textContent='로드 실패: '+e.message+'\n인터넷 DB가 차단되면 “sprites.json 직접 열기”를 사용하세요.';$('bar').style.width='0%'
+  }finally{$('reload').disabled=false}
+}
+$('reload').onclick=()=>loadAll();
+$('local').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{loadAll(JSON.parse(await f.text()))}catch(err){$('status').textContent='JSON 오류: '+err.message}};
+
+function crc32(a){if(!crc32.t)crc32.t=Array.from({length:256},(_,n)=>{for(let k=0;k<8;k++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0});let c=0xffffffff;for(const b of a)c=crc32.t[(c^b)&255]^(c>>>8);return(c^0xffffffff)>>>0}
+function cat(...a){let n=a.reduce((s,x)=>s+x.length,0),o=new Uint8Array(n),p=0;for(const x of a){o.set(x,p);p+=x.length}return o}
+function le16(v){return new Uint8Array([v&255,v>>8])}
+function le32(v){return new Uint8Array([v&255,v>>8,v>>16,v>>24])}
+function makeZip(files){
+  let loc=[],cen=[],off=0,enc=new TextEncoder();
+  for(const f of files){
+    let n=enc.encode(f.name),c=crc32(f.data),flag=0x0800;
+    let h=cat(le32(0x04034b50),le16(20),le16(flag),le16(0),le16(0),le16(0),le32(c),le32(f.data.length),le32(f.data.length),le16(n.length),le16(0),n,f.data);
+    loc.push(h);
+    let ch=cat(le32(0x02014b50),le16(20),le16(20),le16(flag),le16(0),le16(0),le16(0),le32(c),le32(f.data.length),le32(f.data.length),le16(n.length),le16(0),le16(0),le16(0),le16(0),le32(0),le32(off),n);
+    cen.push(ch);off+=h.length
+  }
+  let cb=cat(...cen),lb=cat(...loc);
+  return new Blob([lb,cb,cat(le32(0x06054b50),le16(0),le16(0),le16(files.length),le16(files.length),le32(cb.length),le32(lb.length),le16(0))],{type:'application/zip'})
+}
+function downloadBlob(blob,name){let u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000)}
+async function pool(arr,fn,n=4){
+  let next=0,out=new Array(arr.length);
+  async function w(){while(1){let i=next++;if(i>=arr.length)return;try{out[i]=await fn(arr[i],i)}catch(e){out[i]={error:e}}}}
+  await Promise.all(Array.from({length:Math.min(n,arr.length)},w));return out
+}
+
+$('download').onclick=async()=>{
+  if(!analysis)return;
+  const picks=[];
+  for(const x of analysis.found)for(const r of x.records)picks.push({d:x.d,r,mode:'DMUL'});
+  for(const id of selectedAlt){const r=records[id];if(!r)continue;const d=ROSTER.find(x=>rosterKeys(x).includes(r.canon));if(d)picks.push({d,r,mode:'ALT'})}
+  if(!picks.length)return;
+
+  $('download').disabled=true;$('reload').disabled=true;$('bar').style.width='2%';
+  const jobs=[];
+  for(const p of picks){
+    const pack=packFor(p.r);if(!pack)continue;
+    pack.items.forEach((it,j)=>jobs.push({...p,it,j,total:pack.items.length,pack}))
+  }
+  if(!jobs.length){$('status').textContent='다운로드할 실제 파일이 없습니다.';$('download').disabled=false;$('reload').disabled=false;return}
+
+  const got=await pool(jobs,async(job,i)=>{
+    $('bar').style.width=Math.max(3,Math.round(i/jobs.length*90))+'%';
+    $('status').textContent=`이미지셋 다운로드 중 ${i+1}/${jobs.length}\n#${job.d.id} ${job.d.name} · ${job.mode==='DMUL'?'Source DMUL':job.r.source||'대체 Source'}\n${job.it.url}`;
+    const resp=await fetch(job.it.url);if(!resp.ok)throw Error(`HTTP ${resp.status} · ${job.it.url}`);
+    return{job,data:new Uint8Array(await resp.arrayBuffer()),ct:resp.headers.get('content-type')||''}
+  },4);
+
+  const files=[],manifest=[],fails=[];
+  const grouped=new Map();
+  for(const x of got){
+    if(x?.error){fails.push(x.error.message);continue}
+    const {job,data,ct}=x,key=[job.d.id,job.mode,job.r.source,records.indexOf(job.r)].join('|');
+    if(!grouped.has(key))grouped.set(key,{job,items:[]});
+    grouped.get(key).items.push({job,data,ct})
+  }
+  for(const g of grouped.values()){
+    const {job}=g,source=safe(job.r.source||'unknown'),mode=job.mode;
+    const base=`DMUL/${String(job.d.id).padStart(3,'0')}_${safe(job.d.name)}/${mode}_${source}_${String(records.indexOf(job.r)).padStart(4,'0')}`;
+    const ment={id:job.d.id,name:job.d.name,version:job.d.v,stage:job.d.s,mode,source:job.r.source||'',author:job.r.author||'',pack_reason:job.pack.why,files:[]};
+    g.items.forEach((x,k)=>{
+      let name=safe(x.job.it.name||`file_${k+1}.${ext(x.job.it.url)}`);
+      if(!/\.[a-z0-9]{2,6}$/i.test(name))name+=('.'+ext(x.job.it.url));
+      files.push({name:`${base}/${name}`,data:x.data});
+      ment.files.push({name,url:x.job.it.url,bytes:x.data.length,content_type:x.ct})
+    });
+    manifest.push(ment)
+  }
+  const untouched=analysis.missing.filter(x=>!x.alts.length||!x.alts.some(r=>selectedAlt.has(recId(r)))).map(x=>x.d.name);
+  const unresolvedDmul=analysis.unresolved.map(x=>x.d.name);
+  files.push({name:'DMUL/manifest.json',data:new TextEncoder().encode(JSON.stringify({
+    created:new Date().toISOString(),
+    tamapoke_version:'3.94.0',tool_revision:'r11',
+    roster_slots:ROSTER.length,
+    rule:'Confirmed TamaPoke IDs 283..457. Prefer resolvable Source=DMUL resources; aliases/fallback names are used only for locating source art and never change the output TamaPoke ID.',
+    expansion_planned:false, expansion_base:'v3.95.1-catalog457',
+    source_database:DB_PAGE,source_repository:REPO,
+    selected_resource_records:picks.length,downloaded_groups:manifest.length,
+    download_failures:fails,dmul_db_present_but_path_unresolved:unresolvedDmul,not_selected_or_unavailable:untouched,entries:manifest
+  },null,2))});
+  files.push({name:'DMUL/MISSING_OR_NOT_SELECTED.txt',data:new TextEncoder().encode(
+    'Source: DMUL 자체가 없고 대체 리소스를 선택하지 않았거나 DB 이름 자체가 없는 종\n\n'+
+    (untouched.length?untouched.join('\n'):'없음')+
+    '\n\nDB에는 Source: DMUL 레코드가 있으나 전체 이미지셋 경로를 자동 해석하지 못한 종\n'+
+    (unresolvedDmul.length?unresolvedDmul.join('\n'):'없음')+
+    (fails.length?'\n\n다운로드 실패\n'+fails.join('\n'):'')+'\n'
+  )});
+  $('bar').style.width='98%';$('status').textContent='ZIP을 만드는 중…';
+  downloadBlob(makeZip(files),'TamaPoke-v3.95.1-DMUL-Expanded-Sprite-Sets.zip');
+  $('bar').style.width='100%';
+  $('status').textContent=`완료\n선택/자동 리소스 ${picks.length}개 · ZIP에 저장된 이미지셋 ${manifest.length}개 · 실패 ${fails.length}건\n`+`DMUL DB 있음/경로 미해결 ${unresolvedDmul.length}종 · 대체 미선택/DB 미발견 ${untouched.length}종`;
+  $('download').disabled=false;$('reload').disabled=false
+};
+
+loadAll();
+</script>
+</body>
+</html>

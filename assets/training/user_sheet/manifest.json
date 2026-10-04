@@ -1,0 +1,73 @@
+{
+  "source_size": [
+    1536,
+    1024
+  ],
+  "runtime": 48,
+  "bpp": 4,
+  "palette_count": 4,
+  "runtime_bytes": 7046,
+  "alpha_threshold": 96,
+  "frames": [
+    {
+      "name": "SACK_IDLE",
+      "box": [
+        4,
+        88,
+        452,
+        536
+      ],
+      "group": 0
+    },
+    {
+      "name": "SACK_HIT",
+      "box": [
+        326,
+        88,
+        774,
+        536
+      ],
+      "group": 0
+    },
+    {
+      "name": "SHIELD_IDLE",
+      "box": [
+        762,
+        152,
+        1146,
+        536
+      ],
+      "group": 1
+    },
+    {
+      "name": "SHIELD_SUCCESS",
+      "box": [
+        1134,
+        152,
+        1518,
+        536
+      ],
+      "group": 1
+    },
+    {
+      "name": "BOLT",
+      "box": [
+        356,
+        595,
+        740,
+        979
+      ],
+      "group": 2
+    },
+    {
+      "name": "HEART",
+      "box": [
+        796,
+        593,
+        1180,
+        977
+      ],
+      "group": 3
+    }
+  ]
+}

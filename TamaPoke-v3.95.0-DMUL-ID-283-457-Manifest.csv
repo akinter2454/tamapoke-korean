@@ -1,0 +1,176 @@
+﻿id,filename,name,version,family,stage_id,stage
+283,d283.dgi,Guilmon,16,Dragon,2,성장기
+284,d284.dgi,Growmon,16,Dragon,3,성숙기
+285,d285.dgi,MegaloGrowlmon,16,Dragon,4,완전체
+286,d286.dgi,Dukemon,16,Dragon,5,궁극체
+287,d287.dgi,Dukemon Crimson Mode,16,Dragon,5,궁극체
+288,d288.dgi,Keramon,17,Dark,2,성장기
+289,d289.dgi,Kurisarimon,17,Dark,3,성숙기
+290,d290.dgi,Infermon,17,Dark,4,완전체
+291,d291.dgi,Diablomon,17,Dark,5,궁극체
+292,d292.dgi,Lunamon,18,Deep,2,성장기
+293,d293.dgi,Lekismon,18,Deep,3,성숙기
+294,d294.dgi,Crescemon,18,Deep,4,완전체
+295,d295.dgi,Dianamon,18,Deep,5,궁극체
+296,d296.dgi,Gaomon,19,Nature,2,성장기
+297,d297.dgi,Gaogamon,19,Nature,3,성숙기
+298,d298.dgi,MachGaogamon,19,Nature,4,완전체
+299,d299.dgi,MirageGaogamon,19,Nature,5,궁극체
+300,d300.dgi,Renamon,20,Nightmare,2,성장기
+301,d301.dgi,Kyubimon,20,Nightmare,3,성숙기
+302,d302.dgi,Taomon,20,Nightmare,4,완전체
+303,d303.dgi,Sakuyamon,20,Nightmare,5,궁극체
+304,d304.dgi,Hackmon,21,Secret,2,성장기
+305,d305.dgi,BaoHackmon,21,Secret,3,성숙기
+306,d306.dgi,SaviorHackmon,21,Secret,4,완전체
+307,d307.dgi,Jesmon,21,Secret,5,궁극체
+308,d308.dgi,DORUmon,16,Dragon,2,성장기
+309,d309.dgi,DORUgamon,16,Dragon,3,성숙기
+310,d310.dgi,DORUguremon,16,Dragon,4,완전체
+311,d311.dgi,DORUgoramon,16,Dragon,5,궁극체
+312,d312.dgi,Raptordramon,16,Dragon,3,성숙기
+313,d313.dgi,Grademon,16,Dragon,4,완전체
+314,d314.dgi,Alphamon,16,Dragon,5,궁극체
+315,d315.dgi,Ryudamon,16,Dragon,2,성장기
+316,d316.dgi,Ginryumon,16,Dragon,3,성숙기
+317,d317.dgi,Hisyaryumon,16,Dragon,4,완전체
+318,d318.dgi,Ouryumon,16,Dragon,5,궁극체
+319,d319.dgi,Alphamon Ouryuken,16,Dragon,5,궁극체
+320,d320.dgi,Dodomon,16,Dragon,0,유년기 I
+321,d321.dgi,Dorimon,16,Dragon,1,유년기 II
+322,d322.dgi,Gigimon,16,Dragon,1,유년기 II
+323,d323.dgi,Kuramon,17,Dark,0,유년기 I
+324,d324.dgi,Tsumemon,17,Dark,1,유년기 II
+325,d325.dgi,Pitchmon,18,Deep,0,유년기 I
+326,d326.dgi,Moonmon,18,Deep,1,유년기 II
+327,d327.dgi,Bubbmon,19,Nature,0,유년기 I
+328,d328.dgi,Mochimon,19,Nature,1,유년기 II
+329,d329.dgi,Mokumon,20,Nightmare,0,유년기 I
+330,d330.dgi,Pokomon,20,Nightmare,1,유년기 II
+331,d331.dgi,Botamon,21,Secret,0,유년기 I
+332,d332.dgi,Koromon,21,Secret,1,유년기 II
+333,d333.dgi,Dracomon,16,Dragon,2,성장기
+334,d334.dgi,Coredramon Blue,16,Dragon,3,성숙기
+335,d335.dgi,Coredramon Green,16,Dragon,3,성숙기
+336,d336.dgi,GeoGreymon,16,Dragon,3,성숙기
+337,d337.dgi,Wingdramon,16,Dragon,4,완전체
+338,d338.dgi,Groundramon,16,Dragon,4,완전체
+339,d339.dgi,RizeGreymon,16,Dragon,4,완전체
+340,d340.dgi,Slayerdramon,16,Dragon,5,궁극체
+341,d341.dgi,Breakdramon,16,Dragon,5,궁극체
+342,d342.dgi,Examon,16,Dragon,5,궁극체
+343,d343.dgi,Dracmon,17,Dark,2,성장기
+344,d344.dgi,Ghostmon,17,Dark,2,성장기
+345,d345.dgi,Tsukaimon,17,Dark,2,성장기
+346,d346.dgi,Soulmon,17,Dark,3,성숙기
+347,d347.dgi,IceDevimon,17,Dark,3,성숙기
+348,d348.dgi,Sangloupmon,17,Dark,3,성숙기
+349,d349.dgi,Fangmon,17,Dark,3,성숙기
+350,d350.dgi,Witchmon,17,Dark,3,성숙기
+351,d351.dgi,Boogiemon,17,Dark,3,성숙기
+352,d352.dgi,Matadormon,17,Dark,4,완전체
+353,d353.dgi,Astamon,17,Dark,4,완전체
+354,d354.dgi,NeoDevimon,17,Dark,4,완전체
+355,d355.dgi,SkullBaluchimon,17,Dark,4,완전체
+356,d356.dgi,Wisemon,17,Dark,4,완전체
+357,d357.dgi,Cerberumon,17,Dark,4,완전체
+358,d358.dgi,GranDracmon,17,Dark,5,궁극체
+359,d359.dgi,Barbamon,17,Dark,5,궁극체
+360,d360.dgi,Belphemon: Sleep Mode,17,Dark,5,궁극체
+361,d361.dgi,BeelStarmon,17,Dark,5,궁극체
+362,d362.dgi,Murmukusmon,17,Dark,5,궁극체
+363,d363.dgi,Swimmon,18,Deep,2,성장기
+364,d364.dgi,Kamemon,18,Deep,2,성장기
+365,d365.dgi,Sangomon,18,Deep,2,성장기
+366,d366.dgi,Penmon,18,Deep,2,성장기
+367,d367.dgi,Dolphmon,18,Deep,3,성숙기
+368,d368.dgi,Tylomon,18,Deep,3,성숙기
+369,d369.dgi,Tobiumon,18,Deep,3,성숙기
+370,d370.dgi,Orcamon,18,Deep,3,성숙기
+371,d371.dgi,MarinChimairamon,18,Deep,4,완전체
+372,d372.dgi,Gusokumon,18,Deep,4,완전체
+373,d373.dgi,WaruSeadramon,18,Deep,4,완전체
+374,d374.dgi,Divemon,18,Deep,4,완전체
+375,d375.dgi,Regalecusmon,18,Deep,5,궁극체
+376,d376.dgi,Neptunemon,18,Deep,5,궁극체
+377,d377.dgi,Leviamon,18,Deep,5,궁극체
+378,d378.dgi,AncientMermaimon,18,Deep,5,궁극체
+379,d379.dgi,Pomumon,19,Nature,2,성장기
+380,d380.dgi,Funbeemon,19,Nature,2,성장기
+381,d381.dgi,Lalamon,19,Nature,2,성장기
+382,d382.dgi,Parasaurmon,19,Nature,3,성숙기
+383,d383.dgi,Sunflowmon,19,Nature,3,성숙기
+384,d384.dgi,Waspmon,19,Nature,3,성숙기
+385,d385.dgi,Ajatarmon,19,Nature,4,완전체
+386,d386.dgi,CannonBeemon,19,Nature,4,완전체
+387,d387.dgi,Lilamon,19,Nature,4,완전체
+388,d388.dgi,GrandisKuwagamon,19,Nature,5,궁극체
+389,d389.dgi,TigerVespamon,19,Nature,5,궁극체
+390,d390.dgi,Lotusmon,19,Nature,5,궁극체
+391,d391.dgi,Bancho Lilimon,19,Nature,5,궁극체
+392,d392.dgi,Impmon,20,Nightmare,2,성장기
+393,d393.dgi,Shamamon,20,Nightmare,2,성장기
+394,d394.dgi,Goblimon,20,Nightmare,2,성장기
+395,d395.dgi,Phascomon,20,Nightmare,2,성장기
+396,d396.dgi,Sorcermon,20,Nightmare,3,성숙기
+397,d397.dgi,BlackTailmon,20,Nightmare,3,성숙기
+398,d398.dgi,Musyamon,20,Nightmare,3,성숙기
+399,d399.dgi,Fugamon,20,Nightmare,3,성숙기
+400,d400.dgi,Baalmon,20,Nightmare,4,완전체
+401,d401.dgi,Bastemon,20,Nightmare,4,완전체
+402,d402.dgi,Archnemon,20,Nightmare,4,완전체
+403,d403.dgi,SkullSatamon,20,Nightmare,4,완전체
+404,d404.dgi,Beelzebumon,20,Nightmare,5,궁극체
+405,d405.dgi,Gulfmon,20,Nightmare,5,궁극체
+406,d406.dgi,Plutomon,20,Nightmare,5,궁극체
+407,d407.dgi,Kuzuhamon,20,Nightmare,5,궁극체
+408,d408.dgi,Kudamon,21,Secret,2,성장기
+409,d409.dgi,Lucemon,21,Secret,2,성장기
+410,d410.dgi,Luxmon,21,Secret,2,성장기
+411,d411.dgi,Morphomon,21,Secret,2,성장기
+412,d412.dgi,Gladimon,21,Secret,3,성숙기
+413,d413.dgi,Reppamon,21,Secret,3,성숙기
+414,d414.dgi,Pidmon,21,Secret,3,성숙기
+415,d415.dgi,Darcmon,21,Secret,3,성숙기
+416,d416.dgi,Chirinmon,21,Secret,4,완전체
+417,d417.dgi,Hippogriffomon,21,Secret,4,완전체
+418,d418.dgi,Mistymon,21,Secret,4,완전체
+419,d419.dgi,Seraphimon,21,Secret,5,궁극체
+420,d420.dgi,Ophanimon,21,Secret,5,궁극체
+421,d421.dgi,Duftmon,21,Secret,5,궁극체
+422,d422.dgi,Craniummon,21,Secret,5,궁극체
+423,d423.dgi,Sleipmon,21,Secret,5,궁극체
+424,d424.dgi,Armagemon,17,Dark,5,궁극체
+425,d425.dgi,GraceNovamon,0,Fusion,5,궁극체
+426,d426.dgi,Coronamon,21,Secret,2,성장기
+427,d427.dgi,Firamon,21,Secret,3,성숙기
+428,d428.dgi,Flaremon,21,Secret,4,완전체
+429,d429.dgi,Apollomon,21,Secret,5,궁극체
+430,d430.dgi,MirageGaogamon Burst Mode,19,Nature,5,궁극체
+431,d431.dgi,Beelzebumon Blast Mode,20,Nightmare,5,궁극체
+432,d432.dgi,JESmon GX,21,Secret,5,궁극체
+433,d433.dgi,Lucemon Falldown Mode,21,Secret,5,궁극체
+434,d434.dgi,Lucemon Satan Mode,21,Secret,5,궁극체
+435,d435.dgi,Chibomon,22,Imperial,0,유년기 I
+436,d436.dgi,DemiVeemon,22,Imperial,1,유년기 II
+437,d437.dgi,Veemon,22,Imperial,2,성장기
+438,d438.dgi,Wormmon,22,Imperial,2,성장기
+439,d439.dgi,Hawkmon,22,Imperial,2,성장기
+440,d440.dgi,Armadillomon,22,Imperial,2,성장기
+441,d441.dgi,ExVeemon,22,Imperial,3,성숙기
+442,d442.dgi,Snimon,22,Imperial,3,성숙기
+443,d443.dgi,Aquilamon,22,Imperial,3,성숙기
+444,d444.dgi,Ankylomon,22,Imperial,3,성숙기
+445,d445.dgi,JewelBeemon,22,Imperial,4,완전체
+446,d446.dgi,Yatagaramon,22,Imperial,4,완전체
+447,d447.dgi,Meteormon,22,Imperial,4,완전체
+448,d448.dgi,Paildramon,22,Imperial,4,완전체
+449,d449.dgi,Dinobeemon,22,Imperial,4,완전체
+450,d450.dgi,Silphymon,22,Imperial,4,완전체
+451,d451.dgi,Shakkoumon,22,Imperial,4,완전체
+452,d452.dgi,Valkyrimon,22,Imperial,5,궁극체
+453,d453.dgi,Ravmon,22,Imperial,5,궁극체
+454,d454.dgi,Imperialdramon Dragon Mode,22,Imperial,5,궁극체
+455,d455.dgi,Imperialdramon Fighter Mode,22,Imperial,5,궁극체
+456,d456.dgi,Imperialdramon Paladin Mode,22,Imperial,5,궁극체
+457,d457.dgi,Imperialdramon OmegaX,22,Imperial,5,궁극체

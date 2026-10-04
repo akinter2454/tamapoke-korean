@@ -1,0 +1,18 @@
+TamaPoke v3.109.4 — 디지몬 일반 진화 UI 복구 핫픽스
+
+1. 원인
+- v3.109.3 포켓몬 분기 진화 선택 UI 추가 시 openNormalEvolutionDialog()가 모든 종에 Pokemon용 eligibleEvolutionOptions()를 호출함.
+- eligibleEvolutionOptions()는 Digimon일 때 의도적으로 0을 반환하므로, 조건을 충족한 Digimon도 진화 버튼을 누르면 확인창이 열리지 않았음.
+
+2. 수정
+- Digimon은 기존의 결정형 digimonEvolutionTarget() + Pet::evolve() 경로로 직접 연결.
+- Pokemon만 기존 v3.109.3 분기 선택 UI를 사용.
+- Paildramon(ID 448, Ver.22, Perfect/stage 4) -> Imperialdramon Dragon Mode(ID 454, Ver.22, stage 5)는 Lv.45 이상 조건 그대로 유지.
+
+3. 영향 범위
+- Paildramon뿐 아니라 동일 UI 진입점을 사용하는 모든 Digimon 일반/특수 진화 경로를 복구.
+- Jogress 함수와 데이터는 변경하지 않음.
+- Pokemon 진화 선택 로직 변경 없음.
+- SAVE_VERSION 2 유지. 기존 세이브 호환.
+- 레벨 100 상한은 Paildramon의 lv>=45 판정을 막지 않음.
+- 진화 취소 이력(evoDeclinedLv)은 실제 Digimon 진화 조건 판정에 포함되지 않음.

@@ -1,0 +1,10 @@
+In file included from /workspace/scratch/78a1c4bb5330/compile-check/TamaPoke/rtcbat.cpp:5:
+/root/Arduino/libraries/SensorLib/src/SensorPCF85063.hpp:5:89: note: '#pragma message: WARNING: SensorPCF85063.hpp is deprecated. Include RtcDrv.hpp instead.'
+    5 | #pragma message("WARNING: SensorPCF85063.hpp is deprecated. Include RtcDrv.hpp instead.")
+      |                                                                                         ^
+In file included from /workspace/scratch/78a1c4bb5330/compile-check/TamaPoke/TamaPoke.ino:19:
+/root/Arduino/libraries/SensorLib/src/TouchDrvCSTXXX.hpp:5:110: note: '#pragma message: WARNING: TouchDrvCSTXXX.hpp is deprecated. Include TouchDrvCST.hpp or TouchDrv.hpp instead.'
+    5 | #pragma message("WARNING: TouchDrvCSTXXX.hpp is deprecated. Include TouchDrvCST.hpp or TouchDrv.hpp instead.")
+      |                                                                                                              ^
+Sketch uses 2768903 bytes (88%) of program storage space. Maximum is 3145728 bytes.
+Global variables use 122668 bytes (37%) of dynamic memory, leaving 205012 bytes for local variables. Maximum is 327680 bytes.

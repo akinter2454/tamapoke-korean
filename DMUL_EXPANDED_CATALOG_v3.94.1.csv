@@ -1,0 +1,125 @@
+﻿id,family,version,stage,name,korean_name,special,type1,type2,power,style
+333,Dragon,16,Child,Dracomon,드라코몬,0,DRAGON,NORMAL,32,0
+334,Dragon,16,Adult,Coredramon Blue,코어드라몬(청),0,DRAGON,WATER,52,0
+335,Dragon,16,Adult,Coredramon Green,코어드라몬(녹),0,DRAGON,GRASS,52,0
+336,Dragon,16,Adult,GeoGreymon,지오그레이몬,0,FIRE,DRAGON,52,0
+337,Dragon,16,Perfect,Wingdramon,윙드라몬,0,DRAGON,FLYING,100,0
+338,Dragon,16,Perfect,Groundramon,그라운드라몬,0,DRAGON,GROUND,100,0
+339,Dragon,16,Perfect,RizeGreymon,라이즈그레이몬,0,FIRE,STEEL,100,0
+340,Dragon,16,Ultimate,Slayerdramon,슬레이어드라몬,0,DRAGON,FIGHTING,180,0
+341,Dragon,16,Ultimate,Breakdramon,브레이크드라몬,0,DRAGON,STEEL,180,0
+342,Dragon,16,Ultimate,Examon,엑자몬,0,DRAGON,FLYING,180,0
+343,Dark,17,Child,Dracmon,드라크몬,0,DARK,NORMAL,32,0
+344,Dark,17,Child,Ghostmon,고스트몬,0,GHOST,NORMAL,32,0
+345,Dark,17,Child,Tsukaimon,츠카이몬,0,DARK,FLYING,32,2
+346,Dark,17,Adult,Soulmon,소울몬,0,GHOST,DARK,52,0
+347,Dark,17,Adult,IceDevimon,아이스데블몬,0,DARK,ICE,52,0
+348,Dark,17,Adult,Sangloupmon,상글루몬,0,DARK,NORMAL,52,0
+349,Dark,17,Adult,Fangmon,팡몬,0,DARK,NORMAL,52,0
+350,Dark,17,Adult,Witchmon,위치몬,0,PSYCHIC,DARK,52,2
+351,Dark,17,Adult,Boogiemon,부기몬,0,DARK,FIRE,52,0
+352,Dark,17,Perfect,Matadormon,마타돌몬,0,DARK,FIGHTING,100,0
+353,Dark,17,Perfect,Astamon,아스타몬,0,DARK,FIRE,100,0
+354,Dark,17,Perfect,NeoDevimon,네오데블몬,0,DARK,FLYING,100,2
+355,Dark,17,Perfect,SkullBaluchimon,스컬발루치몬,0,DARK,GROUND,100,0
+356,Dark,17,Perfect,Wisemon,와이즈몬,0,PSYCHIC,DARK,100,2
+357,Dark,17,Perfect,Cerberumon,케르베로스몬,0,DARK,FIRE,100,0
+358,Dark,17,Ultimate,GranDracmon,그란드라크몬,0,DARK,DRAGON,180,0
+359,Dark,17,Ultimate,Barbamon,발바몬,0,DARK,PSYCHIC,180,2
+360,Dark,17,Ultimate,Belphemon: Sleep Mode,벨페몬 슬립 모드,0,DARK,PSYCHIC,180,2
+361,Dark,17,Ultimate,BeelStarmon,베르스타몬,0,DARK,FIRE,180,0
+362,Dark,17,Ultimate,Murmukusmon,무르무쿠스몬,0,DARK,FLYING,180,2
+363,Deep,18,Child,Swimmon,스윔몬,0,WATER,NORMAL,32,2
+364,Deep,18,Child,Kamemon,카메몬,0,WATER,STEEL,32,2
+365,Deep,18,Child,Sangomon,산고몬,0,WATER,ROCK,32,2
+366,Deep,18,Child,Penmon,펜몬,0,WATER,ICE,32,2
+367,Deep,18,Adult,Dolphmon,돌프몬,0,WATER,PSYCHIC,52,2
+368,Deep,18,Adult,Tylomon,티로몬,0,WATER,DARK,52,2
+369,Deep,18,Adult,Tobiumon,토비우몬,0,WATER,FLYING,52,2
+370,Deep,18,Adult,Orcamon,오르카몬,0,WATER,ICE,52,2
+371,Deep,18,Perfect,MarinChimairamon,마린키메라몬,0,WATER,DARK,100,3
+372,Deep,18,Perfect,Gusokumon,구소쿠몬,0,WATER,BUG,100,3
+373,Deep,18,Perfect,WaruSeadramon,와루시드라몬,0,WATER,DARK,100,3
+374,Deep,18,Perfect,Divemon,다이브몬,0,WATER,FIGHTING,100,3
+375,Deep,18,Ultimate,Regalecusmon,리갈렉스몬,0,WATER,DARK,180,3
+376,Deep,18,Ultimate,Neptunemon,넵튠몬,0,WATER,FIGHTING,180,3
+377,Deep,18,Ultimate,Leviamon,리바이어몬,0,WATER,DARK,180,3
+378,Deep,18,Ultimate,AncientMermaimon,에이션트머메이몬,0,WATER,FAIRY,180,3
+379,Nature,19,Child,Pomumon,포무몬,0,GRASS,FLYING,32,2
+380,Nature,19,Child,Funbeemon,펀비몬,0,BUG,FLYING,32,2
+381,Nature,19,Child,Lalamon,라라몬,0,GRASS,FAIRY,32,2
+382,Nature,19,Adult,Parasaurmon,파라사우몬,0,GRASS,DRAGON,52,2
+383,Nature,19,Adult,Sunflowmon,선플라우몬,0,GRASS,FAIRY,52,2
+384,Nature,19,Adult,Waspmon,와스프몬,0,BUG,FLYING,52,2
+385,Nature,19,Perfect,Ajatarmon,아자타몬,0,GRASS,FIGHTING,100,2
+386,Nature,19,Perfect,CannonBeemon,캐논비몬,0,BUG,STEEL,100,2
+387,Nature,19,Perfect,Lilamon,라일라몬,0,GRASS,FAIRY,100,2
+388,Nature,19,Ultimate,GrandisKuwagamon,그랜디스쿠가몬,0,BUG,FIGHTING,180,2
+389,Nature,19,Ultimate,TigerVespamon,타이거베스파몬,0,BUG,STEEL,180,2
+390,Nature,19,Ultimate,Lotusmon,로터스몬,0,GRASS,FAIRY,180,2
+391,Nature,19,Ultimate,Bancho Lilimon,반쵸릴리몬,0,GRASS,FIGHTING,180,2
+392,Nightmare,20,Child,Impmon,임프몬,0,DARK,FIRE,32,0
+393,Nightmare,20,Child,Shamamon,샤마몬,0,DARK,FIGHTING,32,0
+394,Nightmare,20,Child,Goblimon,고블리몬,0,DARK,FIGHTING,32,0
+395,Nightmare,20,Child,Phascomon,파스코몬,0,DARK,PSYCHIC,32,2
+396,Nightmare,20,Adult,Sorcermon,소서리몬,0,PSYCHIC,ICE,52,2
+397,Nightmare,20,Adult,BlackTailmon,블랙테일몬,0,DARK,NORMAL,52,0
+398,Nightmare,20,Adult,Musyamon,무샤몬,0,FIGHTING,DARK,52,0
+399,Nightmare,20,Adult,Fugamon,푸가몬,0,FIGHTING,DARK,52,0
+400,Nightmare,20,Perfect,Baalmon,바알몬,0,DARK,PSYCHIC,100,2
+401,Nightmare,20,Perfect,Bastemon,바스테몬,0,DARK,FAIRY,100,0
+402,Nightmare,20,Perfect,Archnemon,아라크네몬,0,BUG,DARK,100,0
+403,Nightmare,20,Perfect,SkullSatamon,스컬사탄몬,0,DARK,FIGHTING,100,0
+404,Nightmare,20,Ultimate,Beelzebumon,베르제브몬,0,DARK,FIRE,180,0
+405,Nightmare,20,Ultimate,Gulfmon,걸프몬,0,DARK,DRAGON,180,0
+406,Nightmare,20,Ultimate,Plutomon,플루토몬,0,DARK,PSYCHIC,180,2
+407,Nightmare,20,Ultimate,Kuzuhamon,쿠즈하몬,0,PSYCHIC,DARK,180,2
+408,Secret,21,Child,Kudamon,쿠다몬,0,FAIRY,NORMAL,32,1
+409,Secret,21,Child,Lucemon,루체몬,0,FAIRY,PSYCHIC,32,1
+410,Secret,21,Child,Luxmon,룩스몬,0,FAIRY,FLYING,32,1
+411,Secret,21,Child,Morphomon,모르포몬,0,BUG,FAIRY,32,1
+412,Secret,21,Adult,Gladimon,글라디몬,0,STEEL,FIGHTING,52,1
+413,Secret,21,Adult,Reppamon,렙파몬,0,FAIRY,NORMAL,52,1
+414,Secret,21,Adult,Pidmon,피드몬,0,FAIRY,FLYING,52,1
+415,Secret,21,Adult,Darcmon,다르크몬,0,FAIRY,FIGHTING,52,1
+416,Secret,21,Perfect,Chirinmon,치린몬,0,FAIRY,ELECTRIC,100,1
+417,Secret,21,Perfect,Hippogriffomon,히포그리포몬,0,FLYING,FAIRY,100,1
+418,Secret,21,Perfect,Mistymon,미스티몬,0,PSYCHIC,STEEL,100,1
+419,Secret,21,Ultimate,Seraphimon,세라피몬,0,FAIRY,FLYING,180,1
+420,Secret,21,Ultimate,Ophanimon,오파니몬,0,FAIRY,FLYING,180,1
+421,Secret,21,Ultimate,Duftmon,듀프트몬,0,STEEL,FIGHTING,180,1
+422,Secret,21,Ultimate,Craniummon,크레니엄몬,0,STEEL,DARK,180,1
+423,Secret,21,Ultimate,Sleipmon,슬레이프몬,0,FAIRY,ICE,180,1
+424,Dark,17,Special,Armagemon,아마게몬,1,DARK,DRAGON,225,0
+425,Cross,0,Special,GraceNovamon,그레이스노바몬,1,FAIRY,PSYCHIC,225,1
+426,Secret,21,Child,Coronamon,코로나몬,1,FIRE,NORMAL,225,1
+427,Secret,21,Adult,Firamon,파이라몬,1,FIRE,FIGHTING,225,1
+428,Secret,21,Perfect,Flaremon,플레어몬,1,FIRE,FIGHTING,225,1
+429,Secret,21,Ultimate,Apollomon,아폴로몬,1,FIRE,FAIRY,225,1
+430,Nature,19,Special,MirageGaogamon Burst Mode,미라쥬가오가몬 버스트 모드,1,FIGHTING,NORMAL,225,2
+431,Nightmare,20,Special,Beelzebumon Blast Mode,베르제브몬 블래스트 모드,1,DARK,FIRE,225,0
+432,Secret,21,Special,JESmon GX,제스몬 GX,1,DRAGON,STEEL,225,1
+433,Secret,21,Special,Lucemon Falldown Mode,루체몬 폴다운 모드,1,DARK,FAIRY,225,1
+434,Secret,21,Special,Lucemon Satan Mode,루체몬 사탄 모드,1,DARK,DRAGON,225,1
+435,Imperial,22,Baby I,Chibomon,치보몬,0,DRAGON,NONE,8,0
+436,Imperial,22,Baby II,DemiVeemon,데미브이몬,0,DRAGON,NONE,14,0
+437,Imperial,22,Child,Veemon,브이몬,0,DRAGON,FIGHTING,32,0
+438,Imperial,22,Child,Wormmon,웜몬,0,BUG,NORMAL,32,0
+439,Imperial,22,Child,Hawkmon,호크몬,0,FLYING,FIRE,32,0
+440,Imperial,22,Child,Armadillomon,아르마몬,0,GROUND,ROCK,32,0
+441,Imperial,22,Adult,ExVeemon,엑스브이몬,0,DRAGON,FIGHTING,52,0
+442,Imperial,22,Adult,Snimon,스나이몬,0,BUG,FIGHTING,52,0
+443,Imperial,22,Adult,Aquilamon,아퀼라몬,0,FLYING,FIRE,52,0
+444,Imperial,22,Adult,Ankylomon,안킬로몬,0,GROUND,ROCK,52,0
+445,Imperial,22,Perfect,JewelBeemon,쥬얼비몬,0,BUG,STEEL,100,1
+446,Imperial,22,Perfect,Yatagaramon,야타가라몬,0,FLYING,DARK,100,1
+447,Imperial,22,Perfect,Meteormon,메테오몬,0,ROCK,STEEL,100,1
+448,Imperial,22,Perfect,Paildramon,파일드라몬,1,DRAGON,BUG,225,1
+449,Imperial,22,Perfect,Dinobeemon,디노비몬,1,BUG,DRAGON,225,1
+450,Imperial,22,Perfect,Silphymon,실피몬,1,FLYING,FAIRY,225,1
+451,Imperial,22,Perfect,Shakkoumon,샤코우몬,1,STEEL,FAIRY,225,1
+452,Imperial,22,Ultimate,Valkyrimon,발키리몬,0,FLYING,FIGHTING,180,0
+453,Imperial,22,Ultimate,Ravmon,레이브몬,0,FLYING,DARK,180,0
+454,Imperial,22,Special,Imperialdramon Dragon Mode,임페리얼드라몬 드래곤 모드,1,DRAGON,WATER,225,1
+455,Imperial,22,Special,Imperialdramon Fighter Mode,임페리얼드라몬 파이터 모드,1,DRAGON,FIGHTING,225,1
+456,Imperial,22,Special,Imperialdramon Paladin Mode,임페리얼드라몬 팔라딘 모드,1,DRAGON,FAIRY,225,1
