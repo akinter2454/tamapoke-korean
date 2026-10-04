@@ -100,6 +100,7 @@ jobs:
           python3 "$GITHUB_WORKSPACE/tools/verify_compact_items_v31000.py"
           python3 "$GITHUB_WORKSPACE/tools/verify_wild_encounter_v31010.py"
           python3 "$GITHUB_WORKSPACE/tools/verify_battle_ui_v31020.py"
+          python3 "$GITHUB_WORKSPACE/tools/test_info_sprites.py"
           python3 "$GITHUB_WORKSPACE/tools/verify_sprite_upgrade_v31040.py"
           python3 "$GITHUB_WORKSPACE/tools/verify_motion_fx_v31050.py"
           python3 "$GITHUB_WORKSPACE/tools/verify_battle_qol_v31060.py"

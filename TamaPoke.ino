@@ -56,7 +56,7 @@
 
 // Version del firmware. Subir este numero en cada release (y manifest.json para
 // el instalador web). Se muestra en la pantalla de ajustes y por serie al arrancar.
-#define FW_VERSION "3.110.3"
+#define FW_VERSION "3.110.4"
 // Round 466x466 panel center. These geometry constants must be declared before
 // the text fitting helpers below; GitHub Actions compiles in strict C++ order.
 #define CX 233
